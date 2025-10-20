@@ -1,0 +1,160 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('/Inter.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter-SemiBold';
+  src: url('/Inter-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('/Bebas Neue Pro Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('/Bebas Neue Pro Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('/Bebas Neue Pro Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Pro';
+  src: url('/Bebas Neue Pro Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PF Fuel Grime';
+  src: url('/PF_Fuel_Grime.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --primary-color: #F3BE00;
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  font-family: 'Bebas Neue Pro';
+  caret-color: transparent;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+.btn-primary:hover {
+  background-color: #e6c200;
+  border-color: #e6c200;
+  color: #000;
+}
+
+.btn-primary:disabled {
+  background-color: #998200;
+  border-color: #998200;
+}
+
+.timer-bar {
+  height: 0.5rem;
+  background-color: #28a745;
+  border-radius: 0.25rem;
+  transition: width 1s linear;
+}
+
+.question-option {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.question-option:hover {
+  background-color: #495057;
+}
+
+.question-option.selected {
+  border: 2px solid var(--primary-color);
+}
+
+.question-option.correct {
+  background-color: #28a745;
+}
+
+.question-option.incorrect {
+  background-color: #dc3545;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.arrow {
+  background: url('/arrow.png');
+  background-size: 100% 100%;
+  width: 116px;
+  height: 98px;
+}
