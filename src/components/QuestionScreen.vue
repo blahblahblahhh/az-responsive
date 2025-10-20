@@ -388,7 +388,7 @@ const valveShakeDuration = computed(() => {
     linear-gradient(90deg, rgba(15, 45, 66, 0.85) 0%, rgba(15, 45, 66, 0.6) 40%, transparent 70%);
   height: 100%;
   width: 100%;
-  padding: clamp(1rem, 3vw, 4rem);
+  padding: 2rem clamp(2rem, 6vw, 4rem);
   color: white;
 }
 
@@ -437,8 +437,10 @@ h2 {
 }
 
 .question-content {
-  max-width: min(61%, 1200px);
-  padding-top: clamp(30px, 5vh, 50px);
+  max-width: min(55%, 900px);
+  padding-top: clamp(20px, 3vh, 30px);
+  transform: scale(clamp(0.7, 1vw, 0.9));
+  transform-origin: top left;
 }
 
 .timer-dial {
@@ -840,12 +842,14 @@ h2 {
 }
 
 .explanation-card {
-  padding: 30px;
-  margin-left: 30px;
+  padding: clamp(20px, 2vw, 30px);
+  margin-left: clamp(20px, 2vw, 30px);
   transition: all 0.3s ease;
-  width: 421px;
-  min-height: 466px;
-  margin-top: -50px;
+  width: clamp(300px, 30vw, 421px);
+  min-height: clamp(350px, 35vh, 466px);
+  margin-top: clamp(-40px, -4vh, -50px);
+  transform: scale(clamp(0.75, 1.2vw, 1));
+  transform-origin: top left;
 }
 
 .explanation-card.correct-answer {
@@ -1085,11 +1089,11 @@ h2 {
 
 .addl-info-container {
   position: fixed;
-  left: 4rem;
+  left: clamp(2rem, 5vw, 4rem);
   bottom: 0px;
   z-index: 100;
   transition: transform 0.4s ease;
-  max-width: 853px;
+  max-width: clamp(300px, 60vw, 853px);
   text-align: left;
 }
 
@@ -1099,16 +1103,16 @@ h2 {
   text-transform: uppercase;
   border: none;
   border-radius: 8px 8px 0 0;
-  padding: 10px 20px;
+  padding: clamp(6px, 1vh, 10px) clamp(12px, 1.5vw, 20px);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 382px;
+  width: clamp(220px, 28vw, 320px);
   cursor: pointer;
   transition: background-color 0.2s ease;
   color: var(--Text-primary, #000);
   font-family: 'PF Fuel Grime';
-  font-size: 32.583px;
+  font-size: clamp(14px, 1.8vw, 24px);
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
@@ -1133,15 +1137,16 @@ h2 {
 
 .explanation-desc {
   background-color: #f1f1f1;
-  padding: 20px;
+  padding: clamp(12px, 1.5vh, 20px);
   overflow-y: auto;
   width: 100%;
   color: #000;
   font-family: 'Inter';
-  font-size: 12px;
+  font-size: clamp(10px, 1vw, 12px);
   font-style: normal;
   font-weight: 700;
-  line-height: 17px;
+  line-height: clamp(14px, 1.2vw, 17px);
+  max-height: clamp(200px, 25vh, 300px);
 }
 
 .explanation-desc img {
@@ -1151,17 +1156,20 @@ h2 {
 .fine-print {
   margin-top: 20px;
   position: absolute;
-  bottom: 100px;
-  left: 64px;
+  bottom: clamp(80px, 10vh, 100px);
+  left: clamp(40px, 5vw, 64px);
+  max-width: clamp(400px, 70vw, 852px);
 }
 
 .fine-print-content {
   color: #fff;
   font-family: 'Inter';
-  font-size: 11px;
+  font-size: clamp(9px, 0.8vw, 11px);
   font-style: normal;
   font-weight: 400;
-  line-height: 13px;
+  line-height: clamp(11px, 1vw, 13px);
+  transform: scale(clamp(0.8, 1vw, 1));
+  transform-origin: left bottom;
 }
 
 @media (max-width: 768px) {
@@ -1184,8 +1192,8 @@ h2 {
 
 .button-container {
     position: absolute;
-    right: 100px;
-    bottom: 175px;
+    right: clamp(60px, 8vw, 100px);
+    bottom: clamp(120px, 15vh, 175px);
 }
 
 .button-container button.btn.btn-primary.btn-lg {
@@ -1226,8 +1234,10 @@ h2 {
 
 /* General question styles */
 .question-text {
-  width: clamp(300px, 60vw, 826px);
-  max-width: 90vw;
+  width: clamp(250px, 45vw, 650px);
+  max-width: 80vw;
+  transform: scale(clamp(0.8, 1.1vw, 1));
+  transform-origin: center;
 }
 
 .question-option {
@@ -1467,8 +1477,8 @@ h2 {
 
 .corner-home-button {
   position: absolute;
-  right: 104px;
-  top: 104px;
+  right: clamp(60px, 8vw, 104px);
+  top: clamp(60px, 8vh, 104px);
 }
 
 .question-3 h2.question-proper,
