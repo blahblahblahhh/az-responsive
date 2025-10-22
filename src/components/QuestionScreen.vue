@@ -395,8 +395,10 @@ const getQuestionImage = (imageType) => {
     linear-gradient(90deg, rgba(15, 45, 66, 0.85) 0%, rgba(15, 45, 66, 0.6) 40%, transparent 70%);
   height: 100%;
   width: 100%;
-  padding: 2rem clamp(2rem, 6vw, 4rem);
+  padding: clamp(50px, 8vh, 80px) 220px 2rem 2rem;
   color: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .question-header {
@@ -436,7 +438,7 @@ h2 {
   color: var(--Color-Brand-white, #FFF);
   text-align: center;
   font-family: "Bebas Neue Pro";
-  font-size: clamp(19px, 3.2vw, 40px);
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 700;
   line-height: 108%;
@@ -444,10 +446,9 @@ h2 {
 }
 
 .question-content {
-  max-width: min(55%, 900px);
-  padding-top: clamp(20px, 3vh, 30px);
-  transform: scale(0.8);
-  transform-origin: top left;
+  max-width: clamp(700px, 55vw, 1054px);
+  padding-left: 3rem;
+  flex: 1;
 }
 
 .timer-dial {
@@ -1002,6 +1003,18 @@ h2 {
   }
 }
 
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 900px) {
+  .question-overlay {
+    padding: clamp(40px, 6vh, 60px) clamp(150px, 15vw, 200px) 2rem 2rem;
+  }
+  
+  .question-content {
+    max-width: clamp(350px, 56vw, 450px);
+    padding-left: 2rem;
+  }
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
   .quiz-screen {
@@ -1009,7 +1022,9 @@ h2 {
   }
   
   .question-overlay {
-    padding: clamp(1rem, 4vw, 2rem);
+    padding: 2rem 1rem !important;
+    align-items: center;
+    justify-content: center;
   }
   
   .question-header {
@@ -1038,8 +1053,9 @@ h2 {
   }
   
   .question-content {
-    max-width: 100%;
-    padding-top: 1rem;
+    max-width: 90% !important;
+    padding-left: unset !important;
+    align-items: center;
   }
   
   .question-text {
@@ -1530,5 +1546,16 @@ h2 {
 .question-14 .option-content img,
 .question-19 .option-content img {
     width: 151px;
+}
+
+/* Large desktop styles */
+@media (min-width: 1440px) {
+  .question-content {
+    width: 1054px;
+  }
+  
+  .question-proper {
+    font-size: 2.125rem;
+  }
 }
 </style>
