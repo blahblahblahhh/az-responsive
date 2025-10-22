@@ -402,16 +402,16 @@ const valveShakeDuration = computed(() => {
   background: #F3BE00;
   text-transform: uppercase;
   margin: 0 auto;
-  padding: clamp(8px, 1.5vh, 15px) clamp(10px, 2vw, 15px);
+  padding: clamp(6px, 1.2vh, 12px) clamp(8px, 1.6vw, 12px);
   position: absolute;
   left: 0;
   right: 0;
-  top: clamp(-20px, -3vh, -25px);
-  width: clamp(140px, 20vw, 161px);
+  top: clamp(-16px, -2.4vh, -20px);
+  width: clamp(112px, 16vw, 129px);
   color: var(--Background-color-alternate, #0D161F);
   text-align: center;
   font-family: 'PF Fuel Grime';
-  font-size: clamp(18px, 3vw, 35px);
+  font-size: clamp(14px, 2.4vw, 28px);
   font-style: normal;
   font-weight: 400;
   line-height: 92%;
@@ -429,7 +429,7 @@ h2 {
   color: var(--Color-Brand-white, #FFF);
   text-align: center;
   font-family: "Bebas Neue Pro";
-  font-size: clamp(24px, 4vw, 50px);
+  font-size: clamp(19px, 3.2vw, 40px);
   font-style: normal;
   font-weight: 700;
   line-height: 108%;
@@ -439,7 +439,7 @@ h2 {
 .question-content {
   max-width: min(55%, 900px);
   padding-top: clamp(20px, 3vh, 30px);
-  transform: scale(clamp(0.7, 1vw, 0.9));
+  transform: scale(0.8);
   transform-origin: top left;
 }
 
@@ -517,13 +517,13 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 85px;
+  width: clamp(50px, 5.6vw, 68px);
 }
 
 .light-indicator {
   position: absolute;
-  width: 102.298px;
-  height: 102.298px;
+  width: clamp(60px, 6.8vw, 82px);
+  height: clamp(60px, 6.8vw, 82px);
   z-index: 2;
   border-radius: 50%;
   left: 50%;
@@ -576,16 +576,16 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: clamp(60px, 8vh, 82px);
-  max-height: clamp(60px, 8vh, 82px);
+  height: clamp(48px, 6.4vh, 66px);
+  max-height: clamp(48px, 6.4vh, 66px);
   color: white;
-  padding: 0 clamp(15px, 3vw, 30px);
+  padding: 0 clamp(12px, 2.4vw, 24px);
   border: 2.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  margin-left: clamp(-10px, -2vw, -15px);
+  margin-left: clamp(-8px, -1.6vw, -12px);
   box-sizing: border-box !important;
-  width: clamp(280px, 50vw, 677px);
-  min-width: clamp(280px, 50vw, 677px);
+  width: clamp(224px, 40vw, 542px);
+  min-width: clamp(224px, 40vw, 542px);
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
@@ -648,11 +648,11 @@ h2 {
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.76px;
-  margin-left: clamp(10px, 2vw, 15px);
+  margin-left: clamp(8px, 1.6vw, 12px);
   display: block;
   white-space: normal;
   overflow-wrap: break-word;
-  font-size: clamp(14px, 2.5vw, 38px);
+  font-size: clamp(11px, 2vw, 30px);
 }
 
 .question-option:hover:not(.selected):not(.correct-orange):not(.correct-teal):not(.correct-purple):not(.correct-blue):not(.incorrect) {
@@ -787,13 +787,14 @@ h2 {
 }
 
 .question-wrapper.show-explanation {
-  gap: 30px;
+  gap: 20px;
   justify-content: flex-start;
+  max-width: 95%;
 }
 
 .question-wrapper.show-explanation .question-with-answers {
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 55%;
+  max-width: 55%;
   transition: all 0.5s ease;
 }
 
@@ -805,12 +806,12 @@ h2 {
 
 /* EXPLANATION CONTAINER STYLING */
 .explanation-container {
-  flex: 0 0 45%;
-  max-width: 45%;
+  flex: 0 0 40%;
+  max-width: 40%;
   margin-top: 0;
   z-index: 10;
   position: absolute;
-  right: 0px;
+  right: -50px;
   top: 0;
   transform: translateX(0);
   transition: all 0.5s ease;
@@ -842,13 +843,13 @@ h2 {
 }
 
 .explanation-card {
-  padding: clamp(20px, 2vw, 30px);
-  margin-left: clamp(20px, 2vw, 30px);
+  padding: clamp(16px, 1.6vw, 24px);
+  margin-left: clamp(16px, 1.6vw, 24px);
   transition: all 0.3s ease;
-  width: clamp(300px, 30vw, 421px);
-  min-height: clamp(350px, 35vh, 466px);
-  margin-top: clamp(-40px, -4vh, -50px);
-  transform: scale(clamp(0.75, 1.2vw, 1));
+  width: clamp(240px, 24vw, 337px);
+  min-height: clamp(280px, 28vh, 373px);
+  margin-top: clamp(-32px, -3.2vh, -40px);
+  transform: scale(0.8);
   transform-origin: top left;
 }
 
@@ -1093,7 +1094,7 @@ h2 {
   bottom: 0px;
   z-index: 100;
   transition: transform 0.4s ease;
-  max-width: clamp(300px, 60vw, 853px);
+  max-width: clamp(280px, 35vw, 400px);
   text-align: left;
 }
 
@@ -1107,12 +1108,12 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: clamp(220px, 28vw, 320px);
+  width: clamp(250px, 32vw, 350px);
   cursor: pointer;
   transition: background-color 0.2s ease;
   color: var(--Text-primary, #000);
   font-family: 'PF Fuel Grime';
-  font-size: clamp(14px, 1.8vw, 24px);
+  font-size: clamp(16px, 2.2vw, 28px);
   font-style: normal;
   font-weight: 400;
   line-height: 150%;
@@ -1236,7 +1237,7 @@ h2 {
 .question-text {
   width: clamp(250px, 45vw, 650px);
   max-width: 80vw;
-  transform: scale(clamp(0.8, 1.1vw, 1));
+  transform: scale(0.8);
   transform-origin: center;
 }
 

@@ -4,14 +4,26 @@
       <source src="/aldo_start.mp4" type="video/mp4">
     </video>
     <div class="content-overlay">
+      <!-- Top Right Timer and Home -->
+      <div class="header-section">
+        <div class="timer-section">
+          <img src="/instructions-timer.png" alt="Timer" class="instructions-timer">
+        </div>
+        <button @click="$emit('back')" class="home-button">
+          <img src="/home.png" alt="Home">
+        </button>
+      </div>
+      
       <div class="instructions-content">
         <div class="instructions-box">
           <div class="how-to-play-banner">
             <img src="/how-to-play.png" alt="How to Play" class="how-to-play-title">
           </div>
-          <button @click="$emit('back')" class="back-button">
-            <span class="back-arrow">←</span> GO BACK
-          </button>
+          <div class="back-button-container">
+            <button @click="$emit('back')" class="back-button">
+              <img src="/go-back.png" alt="Go Back">
+            </button>
+          </div>
           
           <div class="instructions-list">
             <div class="instruction-item">
@@ -40,8 +52,7 @@
           </div>
           
           <button @click="$emit('startGame')" class="start-game-button">
-            <span class="play-icon"></span>
-            START THE GAME!
+            <img src="/start-the-game.png" alt="Start The Game">
           </button>
         </div>
       </div>
@@ -61,6 +72,57 @@ defineEmits(['back', 'startGame']);
   overflow: hidden;
 }
 
+.header-section {
+  position: absolute;
+  top: 50px;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 3;
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 900px) {
+  .header-section {
+    top: 40px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .header-section {
+    top: 17px;
+  }
+}
+
+.timer-section {
+  display: flex;
+  align-items: center;
+}
+
+.instructions-timer {
+  height: clamp(40px, 5vw, 60px);
+  width: auto;
+}
+
+.home-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease;
+}
+
+.home-button:hover {
+  transform: scale(1.05);
+}
+
+.home-button img {
+  height: clamp(40px, 5vw, 60px);
+  width: auto;
+}
+
 .background-video {
   position: absolute;
   top: 0;
@@ -76,29 +138,82 @@ defineEmits(['back', 'startGame']);
   z-index: 2;
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: rgba(0, 0, 0, 0.3);
+  padding: clamp(50px, 8vh, 80px) 220px 2rem 2rem;
+  display: flex;
+  align-items: flex-start;
 }
 
 .instructions-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 2rem;
-  max-width: 600px;
-  width: 90%;
+  max-width: clamp(700px, 55vw, 1054px);
+  padding-left: 3rem;
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 900px) {
+  .content-overlay {
+    padding: clamp(40px, 6vh, 60px) clamp(150px, 15vw, 200px) 2rem 2rem;
+  }
+  
+  .instructions-content {
+    max-width: clamp(350px, 56vw, 450px);
+    padding-left: 2rem;
+  }
+  
+  .instructions-box {
+    padding: 2.5rem 2rem 2rem 2rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .content-overlay {
+    padding: 2rem 1rem;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .instructions-content {
+    max-width: 90%;
+    align-items: center;
+    padding-left: unset;
+  }
+  
+  .instructions-box {
+    padding: 1.25rem;
+  }
+  
+  .instruction-text {
+    font-size: 1rem;
+  }
+  
+  .how-to-play-title {
+    max-width: 120px;
+  }
+  
+  .how-to-play-banner {
+    left: -1.5rem;
+  }
 }
 
 .instructions-box {
   background: rgba(255, 255, 255, 0.95);
   border-radius: 12px;
-  padding: 3rem 2rem 2rem 2rem;
+  padding: 3.688rem;
   width: 100%;
+  min-height: clamp(500px, 41vh, 789px);
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   margin-top: 2rem;
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
 }
 
 .how-to-play-banner {
@@ -110,45 +225,39 @@ defineEmits(['back', 'startGame']);
 .how-to-play-title {
   height: auto;
   max-width: 150px;
+  filter: drop-shadow(-2px 2px 0px rgba(128, 128, 128, 0.6));
 }
 
 .back-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   background: transparent;
   border: none;
-  color: #666;
-  font-size: 0.9rem;
-  font-weight: 600;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  transition: color 0.2s ease;
+  padding: 0;
+  transition: transform 0.2s ease;
+  align-self: flex-start;
 }
 
 .back-button:hover {
-  color: #333;
+  transform: scale(1.05);
 }
 
-.back-arrow {
-  font-size: 1.2rem;
+.back-button img {
+  height: clamp(25px, 3vw, 32px);
+  width: auto;
 }
 
 .instructions-list {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.8rem;
 }
 
 .instruction-item {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  line-height: 1.4;
+  gap: 0.8rem;
+  line-height: 1.36;
 }
 
 .bullet {
@@ -161,8 +270,10 @@ defineEmits(['back', 'startGame']);
 
 .instruction-text {
   color: #333;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 500;
+  font-family: 'Inter';
+  line-height: 136%;
 }
 
 .highlight {
@@ -173,63 +284,39 @@ defineEmits(['back', 'startGame']);
 .start-game-button {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background: #F3BE00;
+  justify-content: flex-start;
+  background: transparent;
   border: none;
-  border-radius: 8px;
-  color: #000;
-  font-size: 1.25rem;
-  font-weight: 700;
   cursor: pointer;
-  padding: 1rem 2rem;
+  padding: 0;
   width: 100%;
   margin-top: 1rem;
   transition: all 0.2s ease;
-  text-transform: uppercase;
 }
 
 .start-game-button:hover {
-  background: #e6ab00;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(243, 190, 0, 0.3);
+  transform: scale(1.02);
 }
 
-.play-icon {
-  background: url('/play-start.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
+.start-game-button img {
+  width: 100%;
+  max-width: clamp(200px, 50vw, 300px);
+  height: auto;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+
+/* Large desktop styles */
+@media (min-width: 1440px) {
   .instructions-content {
-    max-width: 90%;
+    width: 1054px;
   }
   
   .instructions-box {
-    padding: 1.5rem;
+    width: 1054px;
   }
   
   .instruction-text {
-    font-size: 1rem;
-  }
-  
-  .start-game-button {
-    font-size: 1.1rem;
-    padding: 0.875rem 1.5rem;
-  }
-  
-  .how-to-play-title {
-    max-width: 120px;
-  }
-  
-  .how-to-play-banner {
-    left: 1rem;
+    font-size: 2.125rem;
   }
 }
 </style>
