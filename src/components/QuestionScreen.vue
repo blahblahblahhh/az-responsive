@@ -18,16 +18,13 @@
                     ></div>
                     <div class="timer-circle" 
                          :class="timerColorClass"
-                         :style="{ left: `${(timeRemaining / 30) * 100}%` }">
+                         :style="{ left: '0%' }">
                       <svg class="clock-svg" viewBox="0 0 24 24" width="18" height="18">
                         <circle cx="12" cy="12" r="10" stroke="white" stroke-width="2" fill="none" />
                         <line x1="12" y1="12" x2="12" y2="6" stroke="white" stroke-width="2" stroke-linecap="round" />
                         <line x1="12" y1="12" x2="16" y2="12" stroke="white" stroke-width="2" stroke-linecap="round" />
                       </svg>
                       <div class="timer-text">{{ timeRemaining }}</div>
-                    </div>
-                    <div class="segment-overlay">
-                      <div class="segment" v-for="n in 6" :key="n"></div>
                     </div>
                   </div>
                 </div>
@@ -112,7 +109,7 @@
                       'incorrect-answer': selectedAnswer !== question.correctAnswer
                     }">
                       <span class="explanation-text">
-                        <img :src="['/question-' + question.id + '-box.png']">
+                        <img :src="getQuestionImage('box')">
                       </span>
                     </div>
                   </div>
@@ -127,7 +124,7 @@
                     Abbreviations & References
                   </button>
                   <div v-if="showAdditionalInfo" class="explanation-desc">
-                    <img :src="['/question-' + question.id + '-notes.png']">
+                    <img :src="getQuestionImage('notes')">
                   </div>
                 </div>
               </transition>
@@ -147,7 +144,7 @@
         <transition name="fade">
           <div v-if="showExplanation && question.finePrint && question.finePrint.trim().length > 0" :class="['question-' + question.id + ' fine-print']">
             <div class="fine-print-content">
-              <img :src="['/question-' + question.id + '-fineprint.png']">
+              <img :src="getQuestionImage('fineprint')">
             </div>
           </div>
         </transition>
@@ -346,6 +343,16 @@ const valveShakeDuration = computed(() => {
     return 3;
   }
 });
+
+const isMobile = computed(() => {
+  return window.innerWidth <= 768;
+});
+
+const getQuestionImage = (imageType) => {
+  const questionId = props.question.id;
+  const mobileSuffix = isMobile.value ? '-mobile' : '';
+  return `/question-${questionId}-${imageType}${mobileSuffix}.png`;
+};
 </script>
 
 <style scoped>
@@ -691,13 +698,28 @@ h2 {
   border-radius: 10px;
   position: relative;
   overflow: visible;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/timer-bar.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .progress-bar {
   border-radius: 10px;
   position: relative;
   transition: all 1s linear;
+  z-index: 1;
+  height: 100%;
 }
 
 .timer-green {
@@ -716,23 +738,6 @@ h2 {
   content: none;
 }
 
-.segment-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 1px;
-  pointer-events: none;
-}
-
-.segment {
-  width: 2px;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.4);
-}
 
 .timer-circle {
   position: absolute;

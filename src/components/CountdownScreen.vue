@@ -171,23 +171,24 @@ defineEmits(['back', 'startGame']);
 /* Mobile styles */
 @media (max-width: 768px) {
   .content-overlay {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem !important;
     align-items: center;
     justify-content: center;
   }
   
   .instructions-content {
-    max-width: 90%;
+    max-width: 90% !important;
     align-items: center;
-    padding-left: unset;
+    padding-left: unset !important;
   }
   
   .instructions-box {
-    padding: 1.25rem;
+    padding: 1.5rem !important;
+    min-height: auto !important;
   }
   
   .instruction-text {
-    font-size: 1rem;
+    font-size: 1rem !important;
   }
   
   .how-to-play-title {
@@ -196,6 +197,11 @@ defineEmits(['back', 'startGame']);
   
   .how-to-play-banner {
     left: -1.5rem;
+  }
+  
+  .start-game-button {
+    font-size: 1.1rem;
+    padding: 0.875rem 1.5rem;
   }
 }
 

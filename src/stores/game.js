@@ -6,10 +6,10 @@ import { initDB, saveScore, getTopScores } from './db'; // Import DB functions
 const questions = [
   {
     id: 1,
-    text: "Among most patients with hypertension, what is the<br>recommended blood pressure target according to<br>the 2017 ACC/AHA Hypertension Guideline?",
+    text: "What % of adults in the US with high blood pressure may have hard-to-control hypertension?",
     type: "multiple",
-    options: ["<120/80 mm Hg", "<130/80 mm Hg<sup>1,2*†</sup>", "<140/90 mm Hg", "<160/100 mm Hg"],
-    correctAnswer: "<130/80 mm Hg<sup>1,2*†</sup>",
+    options: ["~15%","~30%","~50%","~90%"],
+    correctAnswer: "~50%",
     explanation: "According to the 2017 ACC/AHA Hypertension Guideline, the recommended blood pressure target for most patients with hypertension is <130/80 mm Hg<sup>1,2*†</sup>.",
     additionalInfo: "<b>Abbreviations:</b> ACC=American College of Cardiology; AHA=American Heart Association; ASCVD=atherosclerotic cardiovascular disease; BP=blood pressure; COR=class of recommendation; CV=cardiovascular; DBP=diastolic blood pressure; HTN=hypertension; LOE=level of evidence; RCTs=randomized controlled trials; SBP=systolic blood pressure.<br><br><b>References:</b> 1. Whelton PK, Carey RM, Aronow WS, et al. 2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA guideline for the prevention, detection, evaluation, and management of high blood pressure in adults: executive summary: a report of the American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines. Hypertension. 2018;71(6):1269-1324. 2. Vemu PL, Yang E, Ebinger J. 2023 ESH hypertension guideline update: bringing us closer together across the pond. Am Coll Cardiol. Published February 5, 2024. Accessed February 13, 2025. https://www.acc.org/Latest-in-Cardiology/Articles/2024/02/05/11/43/2023-ESH-Hypertension-Guideline-Update",
     finePrint: "*For adults with confirmed HTN and known CV disease or 10-year ASCVD event risk of 10% or higher, a BP target of <130/80 mm Hg is recommended (COR I, LOE SBP: B-R, LOE DBP: C-EO). For adults with confirmed HTN, without additional markers of increased CV disease risk, a BP target of <130/80 mm Hg may be reasonable (COR IIb, LOE SBP: B-NR, LOE DBP: C-EO).<br>1 COR I is a strong recommendation, while COR IIb is a weak recommendation. A LOE of B-R indicates a moderate-quality of evidence from RCTs or meta-analyses; B-NR indicates a moderate-quality of evidence from nonrandomized studies; and C-EO indicates consensus of expert opinion based on clinical experience.1"
