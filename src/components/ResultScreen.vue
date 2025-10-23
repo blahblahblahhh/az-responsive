@@ -1,73 +1,80 @@
 <template>
-  <div class="game-container">
-    <div class="background-image-gradient"></div>
-    <div class="content-wrapper">
-      <!-- Corner icons -->
-      <div class="content-header">
-        <img src="/leaderboard-trophy.png" alt="Trophy" class="corner-trophy" @click="$emit('viewLeaderboard')">
-        <img src="/home.png" alt="Home" class="corner-home" @click="$emit('playAgain')">
-      </div>
-  
+  <div class="results-container">
+    <!-- Background -->
+    <div class="background-layer"></div>
+    
+    <!-- Header Icons -->
+    <div class="header-icons">
+      <img src="/leaderboard-trophy.png" alt="Leaderboard" class="header-icon" @click="$emit('viewLeaderboard')">
+      <img src="/home.png" alt="Home" class="header-icon" @click="$emit('playAgain')">
+    </div>
 
-      <div class="score-section">
-        <div class="left-side">
-          <!-- Level complete header -->
-          <div :class="['level-complete-header', playerType]">
-            <img :src="[playerType + '-level-complete.png']">
-          </div>
-          <div class="score-content">
-            <!-- Trophy image based on player type -->
-            <img :src="`/${playerType}.png`" alt="Achievement" class="trophy-image">
+    <!-- Game Complete Header - Fixed Position -->
+    <div class="game-complete-header">
+      <img src="/level-complete-header.png" alt="Game Complete">
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main-panel">
+      
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Left Side - Trophy Section -->
+        <div class="trophy-section">
+          <!-- Trophy Background with Score Overlay -->
+          <div class="trophy-container">
+            <img :src="getTrophyImage()" alt="Trophy" class="trophy-background">
             
-            <div class="score-stack">
-              <!-- Score display -->
-              <div :class="['player-score ' + playerType]">
-                <img :src="`/${playerType}-star-icon.png`" alt="Star" class="score-star">
-                <span class="score-initials">{{ playerInitials }}:</span>
-                <div class="total-score-item">
-                  <span class="total-score-text">TOTAL SCORE</span>
-                  <span class="score-value">{{ score }}</span>
-                </div>
-              </div>
-              
-              <div class="player-details">
-                <!-- Player type badge -->
-                <div class="player-type-badge">
-                  You're an<br>aldosterone<br>{{ playerType }}!
-                </div>
-                <!-- Description -->
-                <p class="type-description" v-html="typeDescription"></p>
+            <!-- Score Overlay -->
+            <div class="score-overlay">
+              <div class="total-score-label">TOTAL SCORE</div>
+              <div class="score-number" :class="playerType">{{ score }}</div>
+              <div class="player-type-message">
+                You're a hypertension {{ playerType }}!
               </div>
             </div>
           </div>
 
-          <!-- Buttons -->
-          <div class="button-section d-flex justify-content-center gap-3">
-            <button class="game-button" @click="$emit('viewLeaderboard')">
-              <img src="/button-trophy.png" alt="Play" class="button-icon">
-              View Leaderboard
-            </button>
-            <button class="game-button" @click="$emit('playAgain')">
-              <img src="/play-again.png" alt="Play" class="button-icon">
-              Play Again
-            </button>
-          </div>
+          <!-- Play Again Button -->
+          <button class="play-again-btn" @click="$emit('playAgain')">
+            <img src="/play-again.png" alt="Play Again" class="btn-icon">
+            PLAY AGAIN
+          </button>
         </div>
-        <div class="right-side">
-          <!-- Stats section -->
-          <div class="stats-section">
-            <h1 class="keep-fighting">KEEP FIGHTING FOR CONTROL!</h1>
-            <p class="stats-text">
-              You answered {{ correctAnswers }} out of <strong>7</strong><br>
-              questions correctly! Plus, you<br>
-              earned a bonus time of {{ calculateBonusTimeScore().toFixed(2) }}
-              <br>seconds to help fight Aldo<br>
-              Sterone's hold on hypertension,
-              <br>which adds to your total score.
-            </p>
+
+        <!-- Vertical Divider Line -->
+        <div class="divider-line"></div>
+
+        <!-- Right Side - Description -->
+        <div class="description-section">
+          <div class="description-text" v-html="getDescription()"></div>
+          
+          <!-- QR Code Section -->
+          <div class="qr-section">
+            <div class="qr-code">
+              <img src="/qr-code.png" alt="QR Code">
+            </div>
+            <div class="website-text">
+              Visit<br>
+              <strong>aldosteronehypertension.com</strong><br>
+              to learn more
+            </div>
           </div>
         </div>
       </div>
+
+          <!-- Character Image -->
+      <div class="character-image">
+        <img src="/aldo-hammer-score.png" alt="Character" class="character-desktop">
+        <img src="/aldo-hammer-score-mobile.png" alt="Character" class="character-mobile">
+      </div>
+    </div>
+
+    <div class="gradient-overlay"></div>
+
+    <!-- AstraZeneca Logo -->
+    <div class="logo-section">
+      <img src="/AZLOGO.png" alt="AstraZeneca" class="az-logo">
     </div>
   </div>
 </template>
@@ -99,327 +106,595 @@ const props = defineProps({
   }
 });
 
+const getTrophyImage = () => {
+  switch (props.playerType) {
+    case 'expert':
+      return '/expert-trophy.png';
+    case 'scholar':
+      return '/trophy-scholar.png';
+    case 'explorer':
+      return '/trophy-explorer.png';
+    default:
+      return '/trophy-explorer.png';
+  }
+};
+
+const getDescription = () => {
+  const baseText = `Your knowledge of hypertension and its link to aldosterone is masterful. You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${calculateBonusTimeScore().toFixed(2)} seconds to help fight Aldo Sterone's hold on hypertension, which adds to your total score.`;
+  
+  switch (props.playerType) {
+    case 'expert':
+      return baseText.replace('is masterful', 'is masterful');
+    case 'scholar':
+      return baseText.replace('is masterful', 'is solid');
+    case 'explorer':
+      return baseText.replace('is masterful', 'has begun');
+    default:
+      return baseText;
+  }
+};
+
 function calculateBonusTimeScore() {
-  // If bonus time is explicitly provided, use it
   if (props.bonusTimeScore > 0) {
     return props.bonusTimeScore;
   }
-  
-  // Otherwise calculate it based on total score and correct answers
-  // Each correct answer gives 150 base points
   const baseScore = props.correctAnswers * 150;
   return props.score - baseScore;
 }
-
-const typeDescription = computed(() => {
-  switch (props.playerType) {
-    case 'expert':
-      return 'Your knowledge of<br>aldosterone and its<br>link to hypertension<br>is masterful.';
-    case 'scholar':
-      return 'You have a solid<br>understanding of<br>aldosterone and its<br>link to hypertension.';
-    default:
-      return 'Your journey into the<br>world of aldosterone and<br>its link to hypertension<br>has begun!';
-  }
-});
 
 defineEmits(['viewLeaderboard', 'playAgain']);
 </script>
 
 <style scoped>
-.game-container {
-  min-height: 100vh;
-  background: #000000;
-  color: white;
+.results-container {
   position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: #000;
+  color: white;
   overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.background-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('/leaderboard-bg.png');
-  background-size: 100% 100%;
-}
-
-.content-wrapper {
-  position: relative;
-  min-height: 100vh;
-  background: linear-gradient(90deg, #1a2632 0%, transparent 80%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 1;
-  padding: 2rem;
 }
 
-.left-side {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.level-complete-header {
-  text-align: center;
-  margin-top: -150px;
-  width: 779px;
-  margin-left: 85px;
-}
-
-.level-complete-header img {
-    width: 100%;
-}
-
-/* Score section */
-.score-section {
-  position: relative;
-  text-align: center;
-  margin-top: 125px;
-  margin-bottom: 2rem;
-  background-color: #0F2D42;
-  padding: 2rem;
-  border-radius: 8px;
+.header-icons {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-}
-
-.right-side {
-  margin-right: auto;
-  width: 350px;
-  text-align: left;
-}
-
-.trophy-image {
-  width: 200px;
-  margin-bottom: 2rem;
-}
-
-.player-score {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 32px;
-  font-family: 'PF Fuel Grime';
-  /* scale: 1.4; */
-}
-
-.score-value {
-  color: #CF9669;
-  font-family: 'PF Fuel Grime';
-  font-size: 104.699px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 82%;
-  letter-spacing: -2.094px;
-  position: relative;
-}
-
-.score-initials {
-  margin-left: 10px;
-  rotate: -2deg;
-  margin-right: 5px;
-  color: #FFF;
-  font-family: 'PF Fuel Grime';
-  font-size: 115.323px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 82%; /* 94.565px */
-  letter-spacing: -2.306px;
-}
-
-.player-type-badge {
-  font-size: 3.2rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
-  border-right: 1px solid #fff;
-  padding-right: 30px;
-  margin-right: 30px;
-  line-height: 1;
-}
-
-.type-description {
-  color: #FFF;
-  font-family: Inter;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  min-width: 255.347px;
-}
-
-/* Stats section */
-.stats-text {
-  font-size: 2rem;
-  color: #FFF;
-  font-family: 'Inter';
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 136%; /* 32.64px */
-}
-
-.stats-text strong {
-  color: #FFF;
-  font-family: Inter;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 136%;
-}
-
-/* Buttons */
-.game-button {
-  gap: 0.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  height: 68px;
-  padding: 11.333px 28.333px;
-  justify-content: center;
-  align-items: center;
-  gap: 8.5px;
-  flex-shrink: 0;
-  border-radius: 14.167px;
-  border: 1.417px solid var(--Color-Brand-Amber, #FFC130);
-  background: var(--Color-Brand-Amber, #FFC130);
-  font-family: 'PF Fuel Grime';
-}
-
-.game-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
-}
-
-.game-button.secondary {
-  background-color: #444444;
-  color: white;
-}
-
-.button-icon {
-  height: 24px;
-}
-
-/* Remove Bootstrap classes but keep functionality */
-.d-flex {
-  display: flex;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.gap-3 {
   gap: 1rem;
+  z-index: 10;
 }
 
-@media (max-width: 768px) {
-  .content-wrapper {
-    padding: 1rem;
-  }
-
-  .background-image {
-    opacity: 0.3;
-  }
+.header-icon {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-.score-content {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+.header-icon:hover {
+  transform: scale(1.1);
 }
 
-.player-details {
-    display: flex;
-    max-width: 450px;
-    align-items: stretch;
-    text-align: left;
+.game-complete-header {
+  position: absolute;
+  top: 1rem;
+  left: 2rem;
+  z-index: 10;
 }
 
-.score-section::before {
-    content: "";
-    background: url("/aldo-hammer-score.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    width: 924px;
-    height: 1666px;
-    display: flex;
-    position: absolute;
-    right: -375px;
-    top: -100px;
+.game-complete-header img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
 }
 
-.background-image-gradient {
-    background: linear-gradient(0deg, rgba(0,0,0,1) 37%, transparent);
-    height: 200px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    z-index: 10;
-}
-
-.score-section {
-  padding: 2.5rem;
-}
-
-.trophy-image {
-  width: 250px;
-  margin-bottom: 2.5rem;
-  margin-right: 25px;
-}
-
-.score-star {
-  width: 98.338px;
-height: 98.338px;
-}
-
-.player-type-badge {
-  padding-right: 37px;
-  margin-right: 37px;
-}
-
-.game-button {
-  padding: 1.25rem 2.5rem;
-  border-radius: 10px;
-  font-size: 2rem;
-  gap: 0.625rem;
-}
-
-.right-side {
-  width: 438px;
-}
-
-.keep-fighting {
-  font-family: 'PF Fuel Grime';
-  color: #FFF;
-  font-size: 39.898px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%; /* 59.847px */
-}
-
-.content-header {
+.main-panel {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  right: 2rem;
+  transform: translateY(-50%);
+  background: #0F2D42;
+  border-radius: 8px;
+  padding: 2rem;
+  z-index: 5;
+  max-height: 682px;
   display: flex;
-  justify-content: right;
-  gap: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
-.total-score-text {
-    content: "TOTAL SCORE";
-    color: #FFF;
-    text-align: center;
-    font-family: "Bebas Neue Pro";
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 92%; /* 13.8px */
-    letter-spacing: 4.95px;
-    /* position: absolute; */
+.gradient-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 37%, transparent);
+  z-index: 15;
+  pointer-events: none;
 }
 
-.expert span.score-value {
-    color: #F3BE00;
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  padding-right: 300px; /* Space for character image on the right */
 }
 
-.scholar span.score-value {
+.trophy-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.divider-line {
+  width: 1px;
+  background-color: #FFF;
+  height: 100%;
+  min-height: 400px;
+  opacity: 0.3;
+}
+
+.trophy-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.trophy-background {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.score-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 7;
+}
+
+.total-score-label {
+  font-family: 'Bebas Neue Pro', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4.95px;
+  color: #FFF;
+  margin-bottom: 0.5rem;
+}
+
+.score-number {
+  font-family: 'PF Fuel Grime', sans-serif;
+  font-size: 104px;
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -2px;
+  margin: 0.5rem 0;
+}
+
+.score-number.expert {
+  color: #F3BE00;
+}
+
+.score-number.scholar {
   color: #A3A3A3;
 }
 
-.total-score-item {
+.score-number.explorer {
+  color: #CF9669;
+}
+
+.player-type-message {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFF;
+  margin-top: 1rem;
+}
+
+.qr-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.qr-code img {
+  width: 80px;
+  height: 80px;
+}
+
+.website-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #FFF;
+}
+
+.website-text strong {
+  font-weight: 700;
+}
+
+.play-again-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: #FFC130;
+  border: 2px solid #FFC130;
+  border-radius: 14px;
+  color: #000;
+  font-family: 'PF Fuel Grime', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.play-again-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 48, 0.3);
+}
+
+.btn-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.description-section {
+  padding: 2rem;
+  color: #FFF;
+}
+
+.description-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #FFF;
+}
+
+.character-image {
+  position: absolute;
+  right: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 6;
+  pointer-events: none;
+}
+
+.character-desktop {
+  width: 600px;
+  height: auto;
+}
+
+.character-mobile {
+  display: none;
+}
+
+.logo-section {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.az-logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+    padding-right: 0;
+  }
+  
+  .character-image {
+    right: -150px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .character-desktop {
+    width: 400px;
+    height: auto;
+  }
+  
+  .character-mobile {
+    display: none;
+  }
+  
+  .description-section {
+    order: -1;
+    margin-bottom: 2rem;
+  }
+  
+  .score-number {
+    font-size: 80px;
+  }
+  
+  .description-text {
+    font-size: 20px;
+  }
+  
+  .game-complete-header {
+    position: relative;
+    left: 0;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .main-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    margin: 2rem;
+    display: block;
+    max-height: none;
+  }
+  
+  .divider-line {
+    display: none;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .results-container {
+    overflow-x: hidden;
+  }
+  
+  .main-panel {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    padding: 1rem;
+    margin: 1rem;
+    margin-top: 2rem;
+    display: block;
+    max-height: none;
+    overflow: visible;
+  }
+  
+  .gradient-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+  }
+  
+  .header-icons {
+    top: 1rem;
+    right: 1rem;
+  }
+  
+  .header-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .game-complete-header {
+    position: relative;
+    top: 0;
+    left: 0;
+    text-align: center;
+    margin: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .game-complete-header img {
+    max-width: 350px;
+    width: 100%;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding-right: 0;
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  .trophy-section {
+    gap: 1.5rem;
+    order: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .trophy-container {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  .trophy-background {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .score-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 7;
+    width: 90%;
+  }
+  
+  .description-section {
+    order: 2;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .divider-line {
+    display: none;
+  }
+  
+  .score-number {
+    font-size: 48px;
+    line-height: 1;
+  }
+  
+  .total-score-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+  
+  .player-type-message {
+    font-size: 14px;
+    margin-top: 0.5rem;
+  }
+  
+  .qr-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+  }
+  
+  .qr-code img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .website-text {
+    font-size: 12px;
+    text-align: left;
+  }
+  
+  .play-again-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 16px;
+    margin-top: 1rem;
+  }
+  
+  .description-text {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  
+  .character-image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    transform: unset;
+    z-index: 7;
+    pointer-events: none;
+    text-align: right;
+  }
+  
+  .character-desktop {
+    display: none;
+  }
+  
+  .character-mobile {
+    display: block;
+    width: 160px;
+    height: 363px;
+    flex-shrink: 0;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .logo-section {
+    position: relative;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .az-logo {
+    width: 80px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .game-complete-header img {
+    max-width: 250px;
+  }
+  
+  .score-number {
+    font-size: 36px;
+  }
+  
+  .description-text {
+    font-size: 14px;
+  }
+  
+  .character-image {
+    right: 0;
+    bottom: 0;
+    top: unset;
+    transform: unset;
+  }
+  
+  .character-mobile {
+    width: 100px;
+    height: auto;
+    max-height: 220px;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
+  .trophy-container {
+    max-width: 250px;
+  }
+  
+  .main-panel {
+    margin: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .total-score-label {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  
+  .player-type-message {
+    font-size: 12px;
+  }
 }
 </style>
