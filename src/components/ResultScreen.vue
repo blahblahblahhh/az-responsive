@@ -331,7 +331,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 
 .score-section::before {
     content: "";
-    background: url("/aldo-full.png");
+    background: url("/aldo-hammer-score.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     width: 924px;
