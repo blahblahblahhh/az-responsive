@@ -90,11 +90,7 @@
                         }"
                         @click="!showExplanation && handleAnswer(option)"
                       >
-                        <template v-if="(showExplanation || selectedAnswer) && option === question.correctAnswer && hasCorrectAnswerImage(question.id)">
-                          <img :src="'/question-' + question.id + '-correct.png'" alt="Correct answer image" @error="onImageError(question.id)" />
-                        </template>
                         <span 
-                          v-else
                           class="option-text"
                           v-html="(showExplanation || selectedAnswer) ? option : option.replace(/<sup>.*?<\/sup>/g, '')"
                         ></span>
@@ -191,7 +187,6 @@ import GaugeTimer from './GaugeTimerComponent.vue';
 
 const gameStore = useGameStore();
 const showNotes = ref(false);
-const imageAvailability = ref(new Set([1, 2, 3, 5, 7, 8, 14, 19])); // Initially assume these have images
 
 const props = defineProps({
   question: {
@@ -358,14 +353,6 @@ const getBoxImage = () => {
   return `/question-${questionId}-box-${answerStatus}${mobileSuffix}.png`;
 };
 
-function hasCorrectAnswerImage(questionId) {
-  return imageAvailability.value.has(questionId);
-}
-
-function onImageError(questionId) {
-  // Remove from available images set when image fails to load
-  imageAvailability.value.delete(questionId);
-}
 
 function hideImage(event) {
   // Hide the image when it fails to load
