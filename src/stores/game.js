@@ -22,7 +22,7 @@ const questions = [
     correctAnswer: "<130/80 mm Hg",
     explanation: "According to the 2023 AHA/ACC High Blood Pressure Guideline, the recommended BP target for most adults is <130/80 mm Hg.",
     additionalInfo: "",
-    finePrint: ""
+    finePrint: "* An SBP goal of <130 mm Hg is a COR 1 recommendation, with LOE A, for adults with confirmed hypertension who are at increased risk for CVD. An SBP goal of <130 mm Hg is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. An SBP goal of <120 mm Hg is encouraged for both groups of patients. A DBP goal of <80 mm Hg is a COR 1 recommendation, with LOE B-NR, for adults with confirmed hypertension who are at increased risk for CVD. A DBP goal of <80 mm Hg is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. Increased risk is defined as a 10-year predicted risk for CVD events of ≥7.5% using PREVENT. COR 1 is a strong recommendation, while 2b is a weak recommendation. LOE A is derived from high-quality evidence from >1 RCT or meta-analysis; LOE B-NR is derived from moderate quality of evidence from multiple NR studies or meta-analysis of such studies; LOE B-R is derived from moderate quality of evidence from ≥1 RCT or meta-analysis."
   },
   {
     id: 3,

@@ -1262,7 +1262,7 @@ h2 {
   margin-top: 20px;
   position: absolute;
   bottom: clamp(80px, 10vh, 100px);
-  left: clamp(40px, 5vw, 64px);
+  left: 4rem;
   max-width: clamp(400px, 70vw, 800px);
 }
 
@@ -1273,8 +1273,6 @@ h2 {
   font-style: normal;
   font-weight: 400;
   line-height: clamp(11px, 1vw, 13px);
-  transform: scale(clamp(0.8, 1vw, 1));
-  transform-origin: left bottom;
 }
 
 @media (max-width: 768px) {
@@ -1341,8 +1339,6 @@ h2 {
 .question-text {
   width: 100%;
   max-width: 100%;
-  transform: scale(0.8);
-  transform-origin: center;
 }
 
 .question-option {
@@ -1419,7 +1415,7 @@ h2 {
 
   .question-proper {
     padding-top: clamp(1.125rem, 3vh, 1.8rem); /* 60% of 3rem */
-    font-size: 47px; /* Responsive equivalent of 47px */
+    font-size: 58.75px; /* Responsive equivalent of 47px */
   }
 
   .question-content {
@@ -1521,7 +1517,7 @@ h2 {
   }
 
   .additional-info {
-    left: 2.4rem; /* 60% of 4rem */
+    left: 2.4rem; /* 60% of 4rem - matches additional-info */
     max-width: 511.8px; /* 60% of 853px */
   }
 
@@ -1564,14 +1560,12 @@ h2 {
   .fine-print {
     margin-top: 12px; /* 60% of 20px */
     bottom: clamp(48px, 6vh, 60px); /* 60% of 80px-100px */
-    left: clamp(24px, 3vw, 38.4px); /* 60% of 40px-64px */
     max-width: clamp(240px, 42vw, 511.2px); /* 60% of 400px-852px */
   }
 
   .fine-print-content {
     font-size: clamp(5.4px, 0.48vw, 6.6px); /* 60% of 9px-11px */
     line-height: clamp(6.6px, 0.6vw, 7.8px); /* 60% of 11px-13px */
-    transform: scale(clamp(0.48, 0.6vw, 0.6)); /* 60% of 0.8-1 */
   }
 
   .option-text {
@@ -1706,7 +1700,7 @@ h2 {
   }
 
   .additional-info {
-    left: 3.2rem; /* 80% of 4rem */
+    left: 3.2rem; /* 80% of 4rem - matches additional-info */
     max-width: 682.4px; /* 80% of 853px */
   }
 
@@ -1749,14 +1743,13 @@ h2 {
   .fine-print {
     margin-top: 16px; /* 80% of 20px */
     bottom: clamp(64px, 8vh, 80px); /* 80% of 80px-100px */
-    left: clamp(32px, 4vw, 51.2px); /* 80% of 40px-64px */
+    left: 3.2rem; /* 80% of 4rem - matches additional-info */
     max-width: clamp(320px, 56vw, 681.6px); /* 80% of 400px-852px */
   }
 
   .fine-print-content {
     font-size: clamp(7.2px, 0.64vw, 8.8px); /* 80% of 9px-11px */
     line-height: clamp(8.8px, 0.8vw, 10.4px); /* 80% of 11px-13px */
-    transform: scale(clamp(0.64, 0.8vw, 0.8)); /* 80% of 0.8-1 */
   }
 
   .option-text {
@@ -2170,13 +2163,17 @@ h2 {
 
 }
 
-@media (min-width: 1025px) and (max-width: 1680px)  {
+@media (min-width: 769px) and (max-width: 1680px)  {
 
   .fine-print {
     max-width: clamp(400px, 70vw, 800px);
     bottom: clamp(100px, 6vh, 60px)
   }
 
+  .info-toggle-btn {
+    font-size: 18px;
+    width: unset;
+  }
 }
 
 /* Hide mobile-only content on desktop/tablet */
@@ -2218,11 +2215,15 @@ h2 {
   }
 
   .additional-info {
-    left: 13px !important;
+    left: 13px !important; /* Mobile - matches additional-info */
   }
 
   .fine-print-content * {
     font-size: 7px;
+  }
+  
+  .mobile-fine-print {
+    left: 13px !important; /* Mobile - matches additional-info */
   }
 
 }
