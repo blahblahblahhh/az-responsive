@@ -1444,7 +1444,7 @@ h2 {
 
   .question-content {
     max-width: clamp(420px, 45vw, 632px); /* 60% of 700px and 1054px */
-    padding-left: 1.8rem; /* 60% of 3rem */
+    padding: 20px 0px 0px 50px;
   }
 
   .timer-dial {
@@ -2246,7 +2246,7 @@ h2 {
     max-width: 95% !important;
     padding-left: unset !important;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     box-sizing: border-box;
     display: flex;
