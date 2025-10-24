@@ -106,6 +106,7 @@
                     'incorrect-answer': selectedAnswer !== question.correctAnswer
                   }">
                     <img :src="getBoxImage()" class="explanation-image" @error="hideImage" style="display: block">
+                    <div v-if="question.explanation && question.explanation.trim().length > 0" v-html="question.explanation"></div>
                   </div>
                   
                   <div class="additional-info">
@@ -116,8 +117,8 @@
                       Abbreviations & References
                     </button>
                     <div v-if="showAdditionalInfo" class="additional-content">
+                      <img :src="getNotesImage()" @error="hideImage" style="display: block">
                       <div v-if="question.additionalInfo && question.additionalInfo.trim().length > 0" v-html="question.additionalInfo"></div>
-                      <img v-else :src="getNotesImage()" @error="hideImage" style="display: block">
                     </div>
                   </div>
                 </div>
@@ -135,11 +136,8 @@
                 </div>
 
                 <transition name="fade">
-                  <div v-if="showExplanation" :class="['question-' + question.id + ' mobile-fine-print']">
-                    <div class="fine-print-content">
-                      <div v-if="question.finePrint && question.finePrint.trim().length > 0" v-html="question.finePrint"></div>
-                      <img v-else :src="getQuestionImage('fineprint')" @error="hideImage" style="display: block">
-                    </div>
+                  <div v-if="showExplanation && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
+                    <div class="fine-print-content" v-html="question.finePrint"></div>
                   </div>
                 </transition>
               </div>
@@ -153,11 +151,8 @@
           </div>
         </div>
         <transition name="fade">
-          <div v-if="showExplanation" :class="['question-' + question.id + ' fine-print']">
-            <div class="fine-print-content">
-              <div v-if="question.finePrint && question.finePrint.trim().length > 0" v-html="question.finePrint"></div>
-              <img v-else :src="getQuestionImage('fineprint')" @error="hideImage" style="display: block">
-            </div>
+          <div v-if="showExplanation && hasFinePrint" :class="['question-' + question.id + ' fine-print']">
+            <div class="fine-print-content" v-html="question.finePrint"></div>
           </div>
         </transition>
         <div class="button-container text-center mt-4">
@@ -220,10 +215,6 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  showFinePrint: {
-    type: Boolean,
-    default: false
-  }
 });
 
 const emit = defineEmits(['answer', 'next']);
@@ -279,6 +270,21 @@ function reloadQuestion() {
 const isLastQuestion = computed(() => 
   props.currentQuestionIndex === gameStore.questionsList.length - 1
 );
+
+const hasFinePrint = computed(() => {
+  const result = props.question?.finePrint && props.question.finePrint.trim().length > 0;
+  if (props.question?.id === 4) {
+    console.log(`Q4 Debug: hasFinePrint=${result}, finePrint exists=${!!props.question?.finePrint}, length=${props.question?.finePrint?.length}, trimmed length=${props.question?.finePrint?.trim()?.length}`);
+  }
+  return result;
+});
+
+// Watch for showExplanation changes specifically for question 4
+watch([() => props.showExplanation, () => props.question?.id], ([showExpl, questionId]) => {
+  if (questionId === 4) {
+    console.log(`Q4 Watch: showExplanation=${showExpl}, hasFinePrint=${hasFinePrint.value}`);
+  }
+});
 
 const timerColorClass = computed(() => {
   if (props.timeRemaining <= 18) {
@@ -336,21 +342,50 @@ const isMobile = computed(() => {
 
 const getQuestionImage = (imageType) => {
   const questionId = props.question.id;
-  const mobileSuffix = isMobile.value ? '-mobile' : '';
-  return `/question-${questionId}-${imageType}${mobileSuffix}.png`;
+  let deviceSuffix = '';
+  
+  if (window.innerWidth <= 768) {
+    deviceSuffix = '-mobile';
+  } else if (window.innerWidth <= 1024) {
+    deviceSuffix = '-tablet';
+  } else {
+    deviceSuffix = '-desktop';
+  }
+  
+  const imagePath = `/question-${questionId}-${imageType}${deviceSuffix}.png`;
+  console.log('Fine print image path:', imagePath);
+  return imagePath;
 };
 
 const getNotesImage = () => {
   const questionId = props.question.id;
-  const mobileSuffix = isMobile.value ? '-mobile' : '';
-  return `/question-${questionId}-notes${mobileSuffix}.png`;
+  let deviceSuffix = '';
+  
+  if (window.innerWidth <= 768) {
+    deviceSuffix = '-mobile';
+  } else if (window.innerWidth <= 1024) {
+    deviceSuffix = '-tablet';
+  } else {
+    deviceSuffix = '-desktop';
+  }
+  
+  return `/question-${questionId}-notes${deviceSuffix}.png`;
 };
 
 const getBoxImage = () => {
   const questionId = props.question.id;
-  const mobileSuffix = isMobile.value ? '-mobile' : '';
+  let deviceSuffix = '';
+  
+  if (window.innerWidth <= 768) {
+    deviceSuffix = '-mobile';
+  } else if (window.innerWidth <= 1024) {
+    deviceSuffix = '-tablet';
+  } else {
+    deviceSuffix = '-desktop';
+  }
+  
   const answerStatus = props.selectedAnswer === props.question.correctAnswer ? 'correct' : 'incorrect';
-  return `/question-${questionId}-box-${answerStatus}${mobileSuffix}.png`;
+  return `/question-${questionId}-box-${answerStatus}${deviceSuffix}.png`;
 };
 
 
@@ -358,6 +393,7 @@ function hideImage(event) {
   // Hide the image when it fails to load
   event.target.style.display = 'none';
 }
+
 </script>
 
 <style scoped>
@@ -1967,7 +2003,7 @@ h2 {
   letter-spacing: -0.76px;
   margin-left: 15px;
   display: block;
-  white-space: normal;
+  white-space: nowrap;
   overflow-wrap: break-word;
 }
 
@@ -1990,6 +2026,14 @@ h2 {
 
 .explanation-content {
   padding: 0;
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0 3.655px 3.655px rgba(0, 0, 0, 0.25);
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 136%; /* 24.48px */
 }
 
 .explanation-image {
@@ -2107,6 +2151,10 @@ h2 {
     padding: 0.5rem 0.75rem !important;
     margin-left: 0 !important;
     font-size: 14px !important;
+  }
+  
+  .option-text {
+    white-space: normal !important;
   }
   
   .option-row {
@@ -2269,6 +2317,13 @@ h2 {
 
   .fine-print-content * {
     font-size: 7px;
+  }
+  
+  .fine-print-content img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
   }
   
   .mobile-fine-print {
