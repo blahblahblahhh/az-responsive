@@ -311,8 +311,42 @@ defineEmits(['back', 'startGame']);
 }
 
 
+/* Small/Medium Desktop (13" MacBook) - 60% scaling */
+@media (min-width: 1025px) and (max-width: 1680px) {
+  .home-button img {
+    height: clamp(24px, 3vw, 36px); /* 60% of 40px-60px */
+  }
+
+  .instructions-timer {
+    height: clamp(24px, 3vw, 36px); /* 60% of 40px-60px */
+  }
+
+  .header-section {
+    top: 30px; /* 60% of 50px */
+    right: 0.6rem;
+    gap: 0.6rem;
+  }
+}
+
+/* Larger Desktop - 80% scaling */
+@media (min-width: 1681px) and (max-width: 1919px) {
+  .home-button img {
+    height: clamp(32px, 4vw, 48px); /* 80% of 40px-60px */
+  }
+
+  .instructions-timer {
+    height: clamp(32px, 4vw, 48px); /* 80% of 40px-60px */
+  }
+
+  .header-section {
+    top: 40px; /* 80% of 50px */
+    right: 0.8rem;
+    gap: 0.8rem;
+  }
+}
+
 /* Large desktop styles */
-@media (min-width: 1440px) {
+@media (min-width: 1920px) {
   .instructions-content {
     width: 1054px;
   }

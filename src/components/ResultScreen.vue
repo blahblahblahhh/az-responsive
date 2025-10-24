@@ -697,4 +697,208 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     font-size: 12px;
   }
 }
+
+/* Small/Medium Desktop (13" MacBook) - 60% scaling */
+@media (min-width: 1025px) and (max-width: 1680px) {
+  .main-panel {
+    padding: 1.2rem; /* 60% of 2rem */
+    margin: 1.2rem; /* 60% of 2rem */
+    max-height: 409.2px; /* 60% of 682px */
+  }
+
+  .content-grid {
+    gap: 2.4rem; /* 60% of 4rem */
+    padding-right: 180px; /* 60% of 300px */
+  }
+
+  .game-complete-header img {
+    max-width: 360px; /* 60% of 600px */
+  }
+
+  .trophy-container {
+    max-width: 240px; /* 60% of 400px */
+  }
+
+  .score-number {
+    font-size: 62.4px; /* 60% of 104px */
+  }
+
+  .total-score-label {
+    font-size: 8.4px; /* 60% of 14px */
+    letter-spacing: 2.97px; /* 60% of 4.95px */
+    margin-bottom: 0.3rem; /* 60% of 0.5rem */
+  }
+
+  .player-type-message {
+    font-size: 10.8px; /* 60% of 18px */
+    margin-top: 0.6rem; /* 60% of 1rem */
+  }
+
+  .description-section {
+    padding: 1.2rem; /* 60% of 2rem */
+  }
+
+  .description-text {
+    font-size: 14.4px; /* 60% of 24px */
+  }
+
+  .qr-section {
+    margin: 1.2rem 0; /* 60% of 2rem */
+    gap: 0.6rem; /* 60% of 1rem */
+  }
+
+  .qr-code img {
+    width: 48px; /* 60% of 80px */
+    height: 48px;
+  }
+
+  .website-text {
+    font-size: 8.4px; /* 60% of 14px */
+  }
+
+  .play-again-btn {
+    padding: 0.6rem 1.2rem; /* 60% of 1rem 2rem */
+    font-size: 10.8px; /* 60% of 18px */
+    border-radius: 8.4px; /* 60% of 14px */
+  }
+
+  .btn-icon {
+    width: 14.4px; /* 60% of 24px */
+    height: 14.4px;
+  }
+
+  .character-image {
+    right: -120px; /* 60% of -200px */
+  }
+
+  .character-desktop {
+    width: 360px; /* 60% of 600px */
+  }
+
+  .header-icons {
+    top: 1.2rem; /* 60% of 2rem */
+    right: 1.2rem;
+    gap: 0.6rem; /* 60% of 1rem */
+  }
+
+  .header-icon {
+    width: 36px; /* 60% of 60px */
+    height: 36px;
+  }
+
+  .logo-section {
+    bottom: 1.2rem; /* 60% of 2rem */
+    right: 1.2rem;
+  }
+
+  .az-logo {
+    width: 72px; /* 60% of 120px */
+  }
+
+  .divider-line {
+    min-height: 240px; /* 60% of 400px */
+  }
+}
+
+/* Larger Desktop - 80% scaling */
+@media (min-width: 1681px) and (max-width: 1919px) {
+  .main-panel {
+    padding: 1.6rem; /* 80% of 2rem */
+    margin: 1.6rem; /* 80% of 2rem */
+    max-height: 545.6px; /* 80% of 682px */
+  }
+
+  .content-grid {
+    gap: 3.2rem; /* 80% of 4rem */
+    padding-right: 240px; /* 80% of 300px */
+  }
+
+  .game-complete-header img {
+    max-width: 480px; /* 80% of 600px */
+  }
+
+  .trophy-container {
+    max-width: 320px; /* 80% of 400px */
+  }
+
+  .score-number {
+    font-size: 83.2px; /* 80% of 104px */
+  }
+
+  .total-score-label {
+    font-size: 11.2px; /* 80% of 14px */
+    letter-spacing: 3.96px; /* 80% of 4.95px */
+    margin-bottom: 0.4rem; /* 80% of 0.5rem */
+  }
+
+  .player-type-message {
+    font-size: 14.4px; /* 80% of 18px */
+    margin-top: 0.8rem; /* 80% of 1rem */
+  }
+
+  .description-section {
+    padding: 1.6rem; /* 80% of 2rem */
+  }
+
+  .description-text {
+    font-size: 19.2px; /* 80% of 24px */
+  }
+
+  .qr-section {
+    margin: 1.6rem 0; /* 80% of 2rem */
+    gap: 0.8rem; /* 80% of 1rem */
+  }
+
+  .qr-code img {
+    width: 64px; /* 80% of 80px */
+    height: 64px;
+  }
+
+  .website-text {
+    font-size: 11.2px; /* 80% of 14px */
+  }
+
+  .play-again-btn {
+    padding: 0.8rem 1.6rem; /* 80% of 1rem 2rem */
+    font-size: 14.4px; /* 80% of 18px */
+    border-radius: 11.2px; /* 80% of 14px */
+  }
+
+  .btn-icon {
+    width: 19.2px; /* 80% of 24px */
+    height: 19.2px;
+  }
+
+  .character-image {
+    right: -160px; /* 80% of -200px */
+  }
+
+  .character-desktop {
+    width: 480px; /* 80% of 600px */
+  }
+
+  .header-icons {
+    top: 1.6rem; /* 80% of 2rem */
+    right: 1.6rem;
+    gap: 0.8rem; /* 80% of 1rem */
+  }
+
+  .header-icon {
+    width: 48px; /* 80% of 60px */
+    height: 48px;
+  }
+
+  .logo-section {
+    bottom: 1.6rem; /* 80% of 2rem */
+    right: 1.6rem;
+  }
+
+  .az-logo {
+    width: 96px; /* 80% of 120px */
+  }
+
+  .divider-line {
+    min-height: 320px; /* 80% of 400px */
+  }
+}
 </style>
