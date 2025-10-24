@@ -6,31 +6,31 @@ import { initDB, saveScore, getTopScores } from './db'; // Import DB functions
 const questions = [
   {
     id: 1,
-    text: "What % of adults in the US with high blood pressure may have hard-to-control hypertension?",
+    text: "What % of adults in the US with high blood pressure may have hard-to-control* hypertension?",
     type: "multiple",
-    options: ["~15%", "~30%", "~40%", "~50%"],
-    correctAnswer: "~30%",
-    explanation: "~30% of adults in the US with high blood pressure may have hard-to-control hypertension.",
+    options: ["~15%", "~30%", "~50%", "~90%"],
+    correctAnswer: "~50%",
+    explanation: "~50% of adults with high blood pressure may not be at goal (<130/80 mm Hg) despite taking 2+ antihypertensives of different classes<sup>1†</sup>",
     additionalInfo: "<b>Abbreviations:</b> aTRH=apparent treatment-resistant hypertension; AHA=American Heart Association; BP=blood pressure; HTN=hypertension; US=United States.<br><br><b>Reference:</b>  1. Carey RM, Sakhuja S, Calhoun DA, Whelton PK, Muntner P. Prevalence of apparent treatment-resistant hypertension in the United States [including online supplement]. Hypertension. 2019;73(2):424-431.",
     finePrint: "Hard-to-control hypertension is defined as a patient with hypertension, not at goal (<130/80 mm Hg), and taking 2+ antihypertensives.<br><br>Based on an analysis of data from the 2009-2014 US National Health and Nutrition Examination Survey (NHANES). Analysis was restricted to participants aged ≥20 years who self-reported taking antihypertensive medication, had ≥1 class of antihypertensive medication identified during a pill bottle review conducted as part of the NHANES examination, and had ≥3 BP measurements obtained during their study exam (N=4158). The primary purpose of the study was to compare the prevalence and characteristics of adults with aTRH using the definitions in the 2018 versus the 2008 AHA Scientific Statement. The data used above are based on the definition of uncontrolled HTN (defined as BP ≥130/80 mm Hg) from the 2018 AHA Scientific Statement."
   },
   {
     id: 2,
-    text: "According to the 2023 AHA/ACC High Blood Pressure Guideline, what is the recommended BP target for most adults?",
-    type: "multiple",
+    text: "According to the 2025 AHA/ACC High Blood Pressure Guideline, what is the recommended BP target for most adults?",
+    type: "multiple", 
     options: ["<120/80 mm Hg", "<130/80 mm Hg", "<140/80 mm Hg", "<160/100 mm Hg"],
     correctAnswer: "<130/80 mm Hg",
-    explanation: "According to the 2023 AHA/ACC High Blood Pressure Guideline, the recommended BP target for most adults is <130/80 mm Hg.",
+    explanation: "According to the 2025 AHA/ACC High Blood Pressure Guideline, a BP of <130/80 mm Hg is recommended for most patients<sup>1*</sup>",
     additionalInfo: "",
     finePrint: "* An SBP goal of <130 mm Hg is a COR 1 recommendation, with LOE A, for adults with confirmed hypertension who are at increased risk for CVD. An SBP goal of <130 mm Hg is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. An SBP goal of <120 mm Hg is encouraged for both groups of patients. A DBP goal of <80 mm Hg is a COR 1 recommendation, with LOE B-NR, for adults with confirmed hypertension who are at increased risk for CVD. A DBP goal of <80 mm Hg is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. Increased risk is defined as a 10-year predicted risk for CVD events of ≥7.5% using PREVENT. COR 1 is a strong recommendation, while 2b is a weak recommendation. LOE A is derived from high-quality evidence from >1 RCT or meta-analysis; LOE B-NR is derived from moderate quality of evidence from multiple NR studies or meta-analysis of such studies; LOE B-R is derived from moderate quality of evidence from ≥1 RCT or meta-analysis."
   },
   {
     id: 3,
-    text: "Having hard-to-control hypertension* and not at blood pressure goal more than doubles the risk of stroke.",
+    text: "Having hard-to-control hypertension* and not at blood pressure goal more than doubles the risk of stroke",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Having hard-to-control hypertension and not at blood pressure goal more than doubles the risk of stroke.",
+    explanation: "Based on a recent real-world evidence study, US adults with hypertension not at goal (<130/80 mm Hg) despite treatment with 2+ antihypertensives had a 2.17x increased risk of stroke compared to those at goal<sup>1†</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -38,9 +38,9 @@ const questions = [
     id: 4,
     text: "Having hard-to-control hypertension* and not at blood pressure goal nearly doubles the risk of MI.",
     type: "boolean",
-    options: ["True", "False"],
+    options: ["True", "False"], 
     correctAnswer: "True",
-    explanation: "Having hard-to-control hypertension and not at blood pressure goal nearly doubles the risk of MI.",
+    explanation: "Based on a recent real-world evidence study, US adults with hypertension not a goal (<130/80 mm Hg) despite treatment with 2+ antihypertensives had a 1.78x increased risk of MI compared to those not at goal<sup>1†</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -49,8 +49,8 @@ const questions = [
     text: "In the US, hypertension was a primary or contributing cause of death in _____ people in 2023.",
     type: "multiple",
     options: ["~ 100,000", "~ 250,000", "~ 400,000", "~ 600,000"],
-    correctAnswer: "~ 600,000",
-    explanation: "In the US, hypertension was a primary or contributing cause of death in ~ 600,000 people in 2023.",
+    correctAnswer: "~ 600,000", 
+    explanation: "According to the CDC, in 2023, high blood pressure was a primary or contributing cause of 664,470 deaths in the US<sup>1</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -60,7 +60,7 @@ const questions = [
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Every 10 mm Hg reduction in SBP significantly reduces the risk of major CV events, CHD, stroke, HF, and all-cause mortality.",
+    explanation: "Every 10 mm Hg reduction in SBP significantly reduces the risk of major CV events, CHD, stroke, HF, and all-cause mortality<sup>1*</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -70,27 +70,27 @@ const questions = [
     type: "multiple",
     options: ["5%", "10%", "20%", "100%"],
     correctAnswer: "20%",
-    explanation: "Every 10 mm Hg reduction in systolic blood pressure significantly reduces the risk of major CV events by 20%.",
+    explanation: "Every 10 mm Hg reduction in SBP reduces the risk of major CV events by 20%<sup>1*</sup>", 
     additionalInfo: "",
     finePrint: ""
   },
-  {
+  {  
     id: 8,
     text: "Every 10 mm Hg reduction in SBP reduces the risk of stroke by _____.",
     type: "multiple",
     options: ["7%", "17%", "27%", "37%"],
     correctAnswer: "27%",
-    explanation: "Every 10 mm Hg reduction in SBP reduces the risk of stroke by 27%.",
+    explanation: "Every 10 mm Hg reduction in SBP reduces the risk of stroke by 27%<sup>1*</sup>",
     additionalInfo: "",
     finePrint: ""
   },
   {
     id: 9,
     text: "Every 10 mm Hg reduction in SBP reduces the risk of heart failure by _____.",
-    type: "multiple",
+    type: "multiple", 
     options: ["8%", "18%", "28%", "38%"],
     correctAnswer: "28%",
-    explanation: "Every 10 mm Hg reduction in SBP reduces the risk of heart failure by 28%.",
+    explanation: "Every 10 mm Hg reduction in SBP reduces the risk of heart failure by 28%<sup>1*</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -100,7 +100,7 @@ const questions = [
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Aldosterone plays an important role in regulating BP by regulating balance of sodium, potassium, and water.",
+    explanation: "Under normal physiology, aldosterone plays an important role in controlling BP by regulating balance of sodium, potassium, and water<sup>1-3</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -110,7 +110,7 @@ const questions = [
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Excess circulating aldosterone contributes to inflammation and fibrosis of the heart, vasculature, and kidneys, leading to end-organ damage.",
+    explanation: "Excess circulating aldosterone contributes to inflammation and fibrosis of the heart, vasculature, and kidneys, leading to end-organ damage<sup>1,2</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -120,7 +120,7 @@ const questions = [
     type: "multiple",
     options: ["Adrenal glands", "Liver", "Small intestines", "Kidneys"],
     correctAnswer: "Adrenal glands",
-    explanation: "Aldosterone production occurs in the adrenal glands.",
+    explanation: "Aldosterone production occurs in the adrenal glands<sup>1</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -129,8 +129,8 @@ const questions = [
     text: "Current treatment options can directly address aldosterone production.",
     type: "boolean",
     options: ["True", "False"],
-    correctAnswer: "True",
-    explanation: "Current treatment options can directly address aldosterone production.",
+    correctAnswer: "False",
+    explanation: "Existing therapies do not directly target aldosterone synthesis and do not fully address the effects of excess aldosterone<sup>1</sup>",
     additionalInfo: "",
     finePrint: ""
   },
@@ -140,18 +140,18 @@ const questions = [
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Existing therapies may cause a counterregulatory increase in aldosterone over time.",
+    explanation: "MRAs have been associated with increased levels of aldosterone and may also induce a renin-dependent, counterregulatory increase in aldosterone levels<sup>1-3</sup> <br>\nACEi/ARBs may not uniformly suppress RAAS, with some patients (10%-53%) experiencing increases in serum aldosterone over time, a phenomenon known as aldosterone breakthrough<sup>4</sup>",
     additionalInfo: "",
     finePrint: ""
   },
   {
     id: 15,
-    text: "Aldosterone can be a driving force behind hypertension.",
+    text: "Aldosterone can be a driving force behind hypertension",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Aldosterone can be a driving force behind hypertension.",
-    additionalInfo: "",
+    explanation: "While it does play an important role in controlling BP, aldosterone can also lead to elevated BP<sup>1</sup>",
+    additionalInfo: "", 
     finePrint: ""
   }
 ];

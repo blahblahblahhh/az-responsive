@@ -128,7 +128,7 @@
                 
               </div>
               <div class="mobile-only">
-                <div class="mobile-button-container text-center mt-4">
+                <div class="mobile-button-container text-center">
                   <button 
                     class="btn btn-primary btn-lg"
                     @click="$emit('next')"
@@ -1106,9 +1106,10 @@ h2 {
   }
   
   .question-overlay {
-    padding: 2rem 1rem !important;
-    align-items: center;
-    justify-content: center;
+    padding: 1rem 1rem !important;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 100px !important;
   }
   
   .question-header {
@@ -1139,6 +1140,26 @@ h2 {
   .question-text {
     width: 100%;
     max-width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .question-proper {
+    font-size: 20px !important;
+    padding-top: 0.5rem !important;
+    line-height: 1.2 !important;
+  }
+  
+  .question-number {
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+    top: -8px !important;
+    width: 80px !important;
   }
   
   .question-option {
@@ -1149,7 +1170,7 @@ h2 {
   }
   
   .question-wrapper {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   .question-wrapper.show-explanation {
@@ -1176,8 +1197,11 @@ h2 {
   }
   
   .explanation-content {
-    max-width: 300.049px;
+    max-width: 250px;
     margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
   }
   
   .button-container {
@@ -1415,7 +1439,7 @@ h2 {
 
   .question-proper {
     padding-top: clamp(1.125rem, 3vh, 1.8rem); /* 60% of 3rem */
-    font-size: 58.75px; /* Responsive equivalent of 47px */
+    font-size: clamp(20px, 3vw, 36px); /* Much smaller responsive sizing */
   }
 
   .question-content {
@@ -2055,24 +2079,58 @@ h2 {
 @media (max-width: 768px) {
   .question-layout {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .explanation-column {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
   }
   
   .options-container {
-    padding: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   .light-indicator {
     height: 50px;
   }
   
+  .light-container {
+    margin-right: -10px;
+    z-index: 2;
+    position: relative;
+  }
+  
   .option-content {
     min-height: 40px !important;
-    max-width: 290px !important;
+    max-width: 280px !important;
+    width: 100% !important;
     height: auto !important;
     max-height: none !important;
-    padding: 0.75rem 1rem !important;
+    padding: 0.5rem 0.75rem !important;
     margin-left: 0 !important;
+    font-size: 14px !important;
+  }
+  
+  .option-row {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-left: calc(50% - 160px + 12.5px); /* Account for -25px total offset */
+    margin-right: calc(50% - 160px - 12.5px);
   }
   
   /* Timer positioning - top center */
@@ -2185,10 +2243,14 @@ h2 {
 
 @media (max-width: 768px){
   .question-content {
-    max-width: 90% !important;
+    max-width: 95% !important;
     padding-left: unset !important;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
   }
   
   /* Hide default fine print and button on mobile */
