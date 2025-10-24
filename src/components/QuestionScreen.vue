@@ -90,8 +90,8 @@
                         }"
                         @click="!showExplanation && handleAnswer(option)"
                       >
-                        <template v-if="(showExplanation || selectedAnswer) && option === question.correctAnswer && [1, 2, 3, 5, 7, 8, 14, 19].includes(question.id)">
-                          <img :src="'/question-' + question.id + '-correct.png'" alt="Correct answer image" />
+                        <template v-if="(showExplanation || selectedAnswer) && option === question.correctAnswer && hasCorrectAnswerImage(question.id)">
+                          <img :src="'/question-' + question.id + '-correct.png'" alt="Correct answer image" @error="onImageError(question.id)" />
                         </template>
                         <span 
                           v-else
@@ -109,7 +109,7 @@
                     'correct-answer': selectedAnswer === question.correctAnswer,
                     'incorrect-answer': selectedAnswer !== question.correctAnswer
                   }">
-                    <img :src="getQuestionImage('box')" class="explanation-image">
+                    <img :src="getBoxImage()" class="explanation-image" @error="hideImage" style="display: block">
                   </div>
                   
                   <div class="additional-info">
@@ -120,11 +120,32 @@
                       Abbreviations & References
                     </button>
                     <div v-if="showAdditionalInfo" class="additional-content">
-                      <img :src="getQuestionImage('notes')">
+                      <div v-if="question.additionalInfo && question.additionalInfo.trim().length > 0" v-html="question.additionalInfo"></div>
+                      <img v-else :src="getNotesImage()" @error="hideImage" style="display: block">
                     </div>
                   </div>
                 </div>
                 
+              </div>
+              <div class="mobile-only">
+                <div class="mobile-button-container text-center mt-4">
+                  <button 
+                    class="btn btn-primary btn-lg"
+                    @click="$emit('next')"
+                    :disabled="!selectedAnswer && timeRemaining > 0"
+                  >
+                    {{ isLastQuestion ? 'Finish' : 'Next Question' }} <img src="/next-q.png">
+                  </button>
+                </div>
+
+                <transition name="fade">
+                  <div v-if="showExplanation" :class="['question-' + question.id + ' mobile-fine-print']">
+                    <div class="fine-print-content">
+                      <div v-if="question.finePrint && question.finePrint.trim().length > 0" v-html="question.finePrint"></div>
+                      <img v-else :src="getQuestionImage('fineprint')" @error="hideImage" style="display: block">
+                    </div>
+                  </div>
+                </transition>
               </div>
             </div>
             <div class="timer-dial">
@@ -136,9 +157,10 @@
           </div>
         </div>
         <transition name="fade">
-          <div v-if="showExplanation && question.finePrint && question.finePrint.trim().length > 0" :class="['question-' + question.id + ' fine-print']">
+          <div v-if="showExplanation" :class="['question-' + question.id + ' fine-print']">
             <div class="fine-print-content">
-              <img :src="getQuestionImage('fineprint')">
+              <div v-if="question.finePrint && question.finePrint.trim().length > 0" v-html="question.finePrint"></div>
+              <img v-else :src="getQuestionImage('fineprint')" @error="hideImage" style="display: block">
             </div>
           </div>
         </transition>
@@ -169,6 +191,7 @@ import GaugeTimer from './GaugeTimerComponent.vue';
 
 const gameStore = useGameStore();
 const showNotes = ref(false);
+const imageAvailability = ref(new Set([1, 2, 3, 5, 7, 8, 14, 19])); // Initially assume these have images
 
 const props = defineProps({
   question: {
@@ -273,9 +296,7 @@ const timerColorClass = computed(() => {
 });
 
 const timerBackgroundClass = computed(() => {
-  if (props.timeRemaining <= 6) {
-    return 'bg-red-xtra';
-  } else if (props.timeRemaining <= 18) {
+  if (props.timeRemaining <= 18) {
     return 'bg-red';
   } else if (props.timeRemaining <= 24) {
     return 'bg-yellow';
@@ -323,6 +344,33 @@ const getQuestionImage = (imageType) => {
   const mobileSuffix = isMobile.value ? '-mobile' : '';
   return `/question-${questionId}-${imageType}${mobileSuffix}.png`;
 };
+
+const getNotesImage = () => {
+  const questionId = props.question.id;
+  const mobileSuffix = isMobile.value ? '-mobile' : '';
+  return `/question-${questionId}-notes${mobileSuffix}.png`;
+};
+
+const getBoxImage = () => {
+  const questionId = props.question.id;
+  const mobileSuffix = isMobile.value ? '-mobile' : '';
+  const answerStatus = props.selectedAnswer === props.question.correctAnswer ? 'correct' : 'incorrect';
+  return `/question-${questionId}-box-${answerStatus}${mobileSuffix}.png`;
+};
+
+function hasCorrectAnswerImage(questionId) {
+  return imageAvailability.value.has(questionId);
+}
+
+function onImageError(questionId) {
+  // Remove from available images set when image fails to load
+  imageAvailability.value.delete(questionId);
+}
+
+function hideImage(event) {
+  // Hide the image when it fails to load
+  event.target.style.display = 'none';
+}
 </script>
 
 <style scoped>
@@ -336,28 +384,65 @@ const getQuestionImage = (imageType) => {
   transition: background 0.5s ease;
 }
 
+/* Desktop/XL backgrounds (default) */
 .quiz-screen.bg-green {
-  background: url('/GREEN.png');
+  background: url('/green-desktop.png');
   background-size: cover;
   background-position: center left 200px;
 }
 
 .quiz-screen.bg-yellow {
-  background: url('/YELLOW.png');
+  background: url('/yellow-desktop.png');
   background-size: cover;
   background-position: center left 200px;
 }
 
 .quiz-screen.bg-red {
-  background: url('/RED.png');
+  background: url('/red-desktop.png');
   background-size: cover;
   background-position: center left 200px;
 }
 
-.quiz-screen.bg-red-xtra {
-  background: url('/RED-XTRA.png');
-  background-size: cover;
-  background-position: center left 200px;
+/* Tablet backgrounds */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .quiz-screen.bg-green {
+    background: url('/green-tablet.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .quiz-screen.bg-yellow {
+    background: url('/yellow-tablet.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .quiz-screen.bg-red {
+    background: url('/red-tablet.png');
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* Mobile backgrounds */
+@media (max-width: 768px) {
+  .quiz-screen.bg-green {
+    background: url('/green-mobile.png');
+    background-size: contain;
+    background-position: center bottom;
+  }
+
+  .quiz-screen.bg-yellow {
+    background: url('/yellow-mobile.png');
+    background-size: contain;
+    background-position: center bottom;
+  }
+
+  .quiz-screen.bg-red {
+    background: url('/red-mobile.png');
+    background-size: contain;
+    background-position: center bottom;
+  }
 }
 
 .question-overlay {
@@ -1051,12 +1136,6 @@ h2 {
     display: none;
   }
   
-  .question-content {
-    max-width: 90% !important;
-    padding-left: unset !important;
-    align-items: center;
-  }
-  
   .question-text {
     width: 100%;
     max-width: 100%;
@@ -1094,6 +1173,11 @@ h2 {
     margin-left: 0;
     padding: 20px;
     min-height: auto;
+  }
+  
+  .explanation-content {
+    max-width: 300.049px;
+    margin: 0 auto;
   }
   
   .button-container {
@@ -1179,7 +1263,7 @@ h2 {
   position: absolute;
   bottom: clamp(80px, 10vh, 100px);
   left: clamp(40px, 5vw, 64px);
-  max-width: clamp(400px, 70vw, 852px);
+  max-width: clamp(400px, 70vw, 800px);
 }
 
 .fine-print-content {
@@ -1249,14 +1333,14 @@ h2 {
 .question-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
 /* General question styles */
 .question-text {
-  width: clamp(250px, 45vw, 650px);
-  max-width: 80vw;
+  width: 100%;
+  max-width: 100%;
   transform: scale(0.8);
   transform-origin: center;
 }
@@ -1433,7 +1517,7 @@ h2 {
 
   .explanation-content {
     border-radius: 6.369px; /* 60% of 10.615px */
-    padding: 0.9rem; /* 60% of 1.5rem */
+    padding: 0;
   }
 
   .additional-info {
@@ -1513,6 +1597,7 @@ h2 {
 
 /* Larger desktop styles - 80% scaling for bigger desktop screens */
 @media (min-width: 1681px) and (max-width: 1919px) {
+  
   h2 {
     font-size: 2rem; /* 80% of 2.5rem */
   }
@@ -1617,7 +1702,7 @@ h2 {
 
   .explanation-content {
     border-radius: 8.492px; /* 80% of 10.615px */
-    padding: 1.2rem; /* 80% of 1.5rem */
+    padding: 0;
   }
 
   .additional-info {
@@ -1900,24 +1985,7 @@ h2 {
 }
 
 .explanation-content {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(2.123px);
-  border-radius: 10.615px;
-  padding: 1.5rem;
-}
-
-.explanation-content.correct-answer {
-  background-image: url('/correct-bg.png');
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.explanation-content.incorrect-answer {
-  background-image: url('/incorrect-bg.png');
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  padding: 0;
 }
 
 .explanation-image {
@@ -1982,7 +2050,7 @@ h2 {
   font-family: 'Inter';
   font-size: 12px;
   font-style: normal;
-  font-weight: 700;
+  /* font-weight: 700; */
   line-height: 17px;
 }
 
@@ -2091,5 +2159,71 @@ h2 {
     width: 100px;
     height: 100px;
   }
+}
+
+/* Larger desktop question specific styles */
+@media (min-width: 1681px) and (max-width: 1919px) {
+
+  .question-1 .options-container {
+    max-width: 416.461px;
+  }
+
+}
+
+@media (min-width: 1025px) and (max-width: 1680px)  {
+
+  .fine-print {
+    max-width: clamp(400px, 70vw, 800px);
+    bottom: clamp(100px, 6vh, 60px)
+  }
+
+}
+
+/* Hide mobile-only content on desktop/tablet */
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px){
+  .question-content {
+    max-width: 90% !important;
+    padding-left: unset !important;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  /* Hide default fine print and button on mobile */
+  .fine-print:not(.mobile-fine-print) {
+    display: none !important;
+  }
+  
+  .button-container:not(.mobile-button-container) {
+    display: none !important;
+  }
+  
+  .fine-print {
+    max-width: 80%;
+    width: 100%;
+  }
+
+  .fine-print-content {
+    padding: unset;
+  }
+
+  .info-toggle-btn {
+    font-size: 18px;
+    width: unset;
+  }
+
+  .additional-info {
+    left: 13px !important;
+  }
+
+  .fine-print-content * {
+    font-size: 7px;
+  }
+
 }
 </style>

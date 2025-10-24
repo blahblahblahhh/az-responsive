@@ -11,8 +11,8 @@ const questions = [
     options: ["~15%", "~30%", "~40%", "~50%"],
     correctAnswer: "~30%",
     explanation: "~30% of adults in the US with high blood pressure may have hard-to-control hypertension.",
-    additionalInfo: "",
-    finePrint: ""
+    additionalInfo: "<b>Abbreviations:</b> aTRH=apparent treatment-resistant hypertension; AHA=American Heart Association; BP=blood pressure; HTN=hypertension; US=United States.<br><br><b>Reference:</b>  1. Carey RM, Sakhuja S, Calhoun DA, Whelton PK, Muntner P. Prevalence of apparent treatment-resistant hypertension in the United States [including online supplement]. Hypertension. 2019;73(2):424-431.",
+    finePrint: "Hard-to-control hypertension is defined as a patient with hypertension, not at goal (<130/80 mm Hg), and taking 2+ antihypertensives.<br><br>Based on an analysis of data from the 2009-2014 US National Health and Nutrition Examination Survey (NHANES). Analysis was restricted to participants aged ≥20 years who self-reported taking antihypertensive medication, had ≥1 class of antihypertensive medication identified during a pill bottle review conducted as part of the NHANES examination, and had ≥3 BP measurements obtained during their study exam (N=4158). The primary purpose of the study was to compare the prevalence and characteristics of adults with aTRH using the definitions in the 2018 versus the 2008 AHA Scientific Statement. The data used above are based on the definition of uncontrolled HTN (defined as BP ≥130/80 mm Hg) from the 2018 AHA Scientific Statement."
   },
   {
     id: 2,
