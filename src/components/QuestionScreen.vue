@@ -109,7 +109,7 @@
                     <div v-if="question.explanation && question.explanation.trim().length > 0" v-html="question.explanation"></div>
                   </div>
                   
-                  <div class="additional-info">
+                  <div class="additional-info desktop-only">
                     <button 
                       class="info-toggle-btn"
                       @click="toggleAdditionalInfo"
@@ -140,6 +140,19 @@
                     <div class="fine-print-content" v-html="question.finePrint"></div>
                   </div>
                 </transition>
+
+                <div class="additional-info mobile-only">
+                  <button 
+                    class="info-toggle-btn"
+                    @click="toggleAdditionalInfo"
+                  >
+                    Abbreviations & References
+                  </button>
+                  <div v-if="showAdditionalInfo" class="additional-content">
+                    <img :src="getNotesImage()" @error="hideImage" style="display: block">
+                    <div v-if="question.additionalInfo && question.additionalInfo.trim().length > 0" v-html="question.additionalInfo"></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="timer-dial">
@@ -1149,7 +1162,7 @@ h2 {
   }
   
   .timer-dial {
-    position: static;
+    position: absolute;
     zoom: 1;
     margin: 1rem auto;
     display: flex;
@@ -1236,6 +1249,15 @@ h2 {
   .corner-home-button {
     right: clamp(20px, 5vw, 50px);
     top: clamp(20px, 5vh, 50px);
+  }
+  
+  .question-layout {
+    transform: scale(0.8);
+    transform-origin: center top;
+  }
+  
+  .desktop-only {
+    display: none !important;
   }
 }
 
@@ -2326,9 +2348,46 @@ h2 {
     object-fit: contain;
   }
   
-  .mobile-fine-print {
-    left: 13px !important; /* Mobile - matches additional-info */
+  .mobile-fine-print  {
+    margin-top: 20px;
   }
 
+  .mobile-fine-print .fine-print-content {
+    left: 13px !important; /* Mobile - matches additional-info */
+    color: #FFF;
+    font-family: Inter;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 9px; /* 128.571% */
+  }
+
+  .explanation-content {
+    font-size: 13px;
+  }
+
+  .additional-content {
+    color: #000;
+    font-family: Inter;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 14px;
+  }
+
+  .x-icon img {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+/* Utility classes for responsive display */
+.mobile-only {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block !important;
+  }
 }
 </style>
