@@ -1016,6 +1016,16 @@ function hideImage(event) {
     width: 36px; /* 60% of 60px */
     height: 36px;
   }
+
+  .info-toggle-btn {
+    transform: scale(0.8);
+    transform-origin: left bottom;
+  }
+
+  .button-container button.btn.btn-primary.btn-lg {
+    transform: scale(0.8);
+    transform-origin: center bottom;
+  }
 }
 
 /* Large Desktop styles */
