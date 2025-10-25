@@ -27,11 +27,11 @@
             
             <!-- Score Overlay -->
             <div class="score-overlay">
-              <div class="total-score-label">TOTAL SCORE</div>
+              <!-- <div class="total-score-label">TOTAL SCORE</div> -->
               <div class="score-number" :class="playerType">{{ score }}</div>
-              <div class="player-type-message">
+              <!-- <div class="player-type-message">
                 You're a hypertension {{ playerType }}!
-              </div>
+              </div> -->
             </div>
           </div>
 

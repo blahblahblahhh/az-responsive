@@ -429,6 +429,22 @@ function hideImage(event) {
     background-size: cover;
     background-position: center;
   }
+
+  /* Apply 60% scaling for tablet to prevent overflow */
+  .question-content {
+    max-width: clamp(420px, 45vw, 632px); /* 60% of 700px and 1054px */
+    padding: 20px 0px 0px 50px;
+  }
+
+  .options-container {
+    padding: 1.2rem; /* 60% of 2rem */
+    gap: 0.6rem; /* 60% of 1rem */
+  }
+
+  .option-content {
+    padding: 0 18px; /* 60% of 30px */
+    font-size: 0.9rem; /* Smaller for tablet */
+  }
 }
 
 /* Mobile backgrounds */
@@ -895,8 +911,8 @@ function hideImage(event) {
   }
 
   .option-content {
-    height: 49.3px; /* 60% of 82.131px */
-    max-height: 49.3px;
+    min-height: 49.3px; /* 60% of 82.131px */
+    height: auto;
     padding: 0 18px; /* 60% of 30px */
     border: 1.5px solid rgba(255, 255, 255, 0.2); /* 60% of 2.5px */
     border-radius: 6px; /* 60% of 10px */
@@ -1088,8 +1104,8 @@ function hideImage(event) {
   }
 
   .option-content {
-    height: 65.7px; /* 80% of 82.131px */
-    max-height: 65.7px;
+    min-height: 65.7px; /* 80% of 82.131px */
+    height: auto;
     padding: 0 24px; /* 80% of 30px */
     border: 2px solid rgba(255, 255, 255, 0.2); /* 80% of 2.5px */
     border-radius: 8px; /* 80% of 10px */
@@ -1242,6 +1258,8 @@ function hideImage(event) {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
+  max-width: 100%;
 }
 
 .option-row {
@@ -1294,12 +1312,12 @@ function hideImage(event) {
 .option-content {
   position: relative;
   cursor: pointer;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 50.131px;
-  max-height: 82.131px;
+  min-height: 50.131px;
+  height: auto;
   color: white;
   padding: 0 30px;
   border: 2.5px solid rgba(255, 255, 255, 0.2);
@@ -1307,6 +1325,7 @@ function hideImage(event) {
   margin-left: 0;
   box-sizing: border-box !important;
   flex: 1;
+  min-width: 0;
   transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
 }
 
@@ -1597,6 +1616,12 @@ function hideImage(event) {
 @media (min-width: 769px) {
   .mobile-only {
     display: none !important;
+  }
+
+  .option-text {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 }
 
