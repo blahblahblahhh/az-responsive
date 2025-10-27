@@ -864,6 +864,7 @@ function hideImage(event) {
   }
 
   .question-content {
+    max-width: 70%;
     padding: 20px 0px 0px 50px;
   }
 
