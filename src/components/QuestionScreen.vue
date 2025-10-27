@@ -125,15 +125,17 @@
                 
               </div>
               <div class="mobile-only">
-                <div class="mobile-button-container text-center">
-                  <button 
-                    class="btn btn-primary btn-lg"
-                    @click="$emit('next')"
-                    :disabled="!selectedAnswer && timeRemaining > 0"
-                  >
-                    {{ isLastQuestion ? 'Finish' : 'Next Question' }} <img src="/next-q.png">
-                  </button>
-                </div>
+                <transition name="fade">
+                  <div v-if="showExplanation" class="mobile-button-container text-center">
+                    <button 
+                      class="btn btn-primary btn-lg"
+                      @click="$emit('next')"
+                      :disabled="!selectedAnswer && timeRemaining > 0"
+                    >
+                      {{ isLastQuestion ? 'Finish' : 'Next Question' }} <img src="/next-q.png">
+                    </button>
+                  </div>
+                </transition>
 
                 <transition name="fade">
                   <div v-if="showExplanation && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
@@ -141,18 +143,20 @@
                   </div>
                 </transition>
 
-                <div class="additional-info mobile-only">
-                  <button 
-                    class="info-toggle-btn"
-                    @click="toggleAdditionalInfo"
-                  >
-                    Abbreviations & References
-                  </button>
-                  <div v-if="showAdditionalInfo" class="additional-content">
-                    <img :src="getNotesImage()" @error="hideImage" style="display: block">
-                    <div v-if="question.additionalInfo && question.additionalInfo.trim().length > 0" v-html="question.additionalInfo"></div>
+                <transition name="fade">
+                  <div v-if="showExplanation" class="additional-info mobile-only">
+                    <button 
+                      class="info-toggle-btn"
+                      @click="toggleAdditionalInfo"
+                    >
+                      Abbreviations & References
+                    </button>
+                    <div v-if="showAdditionalInfo" class="additional-content">
+                      <img :src="getNotesImage()" @error="hideImage" style="display: block">
+                      <div v-if="question.additionalInfo && question.additionalInfo.trim().length > 0" v-html="question.additionalInfo"></div>
+                    </div>
                   </div>
-                </div>
+                </transition>
               </div>
             </div>
             <div class="timer-dial">
@@ -673,6 +677,7 @@ function hideImage(event) {
   opacity: 0;
 }
 
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -794,7 +799,7 @@ function hideImage(event) {
 .fine-print {
   margin-top: 20px;
   position: absolute;
-  bottom: clamp(80px, 10vh, 100px);
+  bottom: clamp(120px, 12vh, 150px);
   left: 4rem;
   max-width: clamp(400px, 70vw, 800px);
 }
@@ -1004,7 +1009,7 @@ function hideImage(event) {
 
   .fine-print {
     margin-top: 12px; /* 60% of 20px */
-    bottom: clamp(48px, 6vh, 60px); /* 60% of 80px-100px */
+    bottom: clamp(72px, 7.2vh, 90px); /* 60% of 120px-150px */
     max-width: clamp(240px, 42vw, 511.2px); /* 60% of 400px-852px */
   }
 
@@ -1197,7 +1202,7 @@ function hideImage(event) {
 
   .fine-print {
     margin-top: 16px; /* 80% of 20px */
-    bottom: clamp(64px, 8vh, 80px); /* 80% of 80px-100px */
+    bottom: clamp(96px, 9.6vh, 120px); /* 80% of 120px-150px */
     left: 3.2rem; /* 80% of 4rem - matches additional-info */
     max-width: clamp(320px, 56vw, 681.6px); /* 80% of 400px-852px */
   }
@@ -1248,6 +1253,9 @@ function hideImage(event) {
 .question-column {
   flex: 1;
   min-width: 0;
+  justify-content: center;
+  align-content: center;
+  display: flex;
 }
 
 .options-container {
@@ -1259,7 +1267,7 @@ function hideImage(event) {
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 100%;
+  max-width: 566px;
 }
 
 .option-row {
@@ -1421,6 +1429,7 @@ function hideImage(event) {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  padding-top: 60px;
 }
 
 .explanation-content {
