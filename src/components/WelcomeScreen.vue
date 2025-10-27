@@ -1,7 +1,7 @@
 <template>
   <div class="game-container">
     <video class="background-video" autoplay loop muted playsinline>
-      <source src="/aldo_start.mp4" type="video/mp4">
+      <source src="/NudgeGauge_1.mp4" type="video/mp4">
     </video>
     <div class="content-overlay">
       <div class="header-section">

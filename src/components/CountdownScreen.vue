@@ -1,8 +1,6 @@
 <template>
   <div class="instructions-container">
-    <video class="background-video" autoplay loop muted playsinline>
-      <source src="/aldo_start.mp4" type="video/mp4">
-    </video>
+    <div class="background-image"></div>
     <div class="content-overlay">
       <!-- Top Right Timer and Home -->
       <div class="header-section">
@@ -123,14 +121,37 @@ defineEmits(['back', 'startGame']);
   width: auto;
 }
 
-.background-video {
+.background-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   z-index: 1;
+}
+
+/* Mobile background */
+@media (max-width: 768px) {
+  .background-image {
+    background-image: url('/green-mobile.png');
+  }
+}
+
+/* Tablet background */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .background-image {
+    background-image: url('/green-tablet.png');
+  }
+}
+
+/* Desktop background */
+@media (min-width: 1025px) {
+  .background-image {
+    background-image: url('/green-desktop.png');
+  }
 }
 
 .content-overlay {
