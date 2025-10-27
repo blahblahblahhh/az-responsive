@@ -1259,10 +1259,10 @@ function hideImage(event) {
 }
 
 .options-container {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(2.123px);
+  /* background: rgba(0, 0, 0, 0.2); */
+  /* backdrop-filter: blur(2.123px); */
   border-radius: 10.615px;
-  padding: 2rem;
+  padding: 2rem 2rem 2rem 0;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1603,6 +1603,7 @@ function hideImage(event) {
     max-width: 100%;
     padding: 0 1rem;
     box-sizing: border-box;
+    padding-top: 30px;
   }
   
   .options-container {
