@@ -449,6 +449,19 @@ function hideImage(event) {
     padding: 0 18px; /* 60% of 30px */
     font-size: 0.9rem; /* Smaller for tablet */
   }
+
+  .fine-print {
+    max-width: clamp(200px, 70vw, 425px) !important;
+    bottom: clamp(92px, 12vh, 150px) !important;
+  }
+
+  .fine-print-content {
+    font-size: clamp(10px, 0.48vw, 5px) !important;
+  }
+
+  .explanation-content {
+    font-size: 11px !important;
+  }
 }
 
 /* Mobile backgrounds */
@@ -1689,6 +1702,10 @@ function hideImage(event) {
   .option-text {
     font-size: 18px;
     margin-left: 8px !important;
+  }
+
+  .quiz-screen {
+    overflow: scroll !important;
   }
 }
 
