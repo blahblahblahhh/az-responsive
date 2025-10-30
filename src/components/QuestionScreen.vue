@@ -137,8 +137,27 @@
                   </div>
                 </transition>
 
+                <!-- Mobile Pre Fine Print - shown when question loads -->
                 <transition name="fade">
-                  <div v-if="showExplanation && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
+                  <div v-if="!showExplanation && hasPreFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
+                    <div class="fine-print-content" v-html="question.preFinePrint"></div>
+                  </div>
+                </transition>
+                
+                <!-- Mobile Combined Fine Print - when both exist and answer is shown -->
+                <transition name="fade">
+                  <div v-if="showExplanation && hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
+                    <div class="fine-print-content">
+                      <div v-html="question.preFinePrint"></div>
+                      <br><br>
+                      <div v-html="question.finePrint"></div>
+                    </div>
+                  </div>
+                </transition>
+                
+                <!-- Mobile Regular Fine Print only - when no preFinePrint exists -->
+                <transition name="fade">
+                  <div v-if="showExplanation && !hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
                     <div class="fine-print-content" v-html="question.finePrint"></div>
                   </div>
                 </transition>
@@ -167,8 +186,27 @@
             </transition>
           </div>
         </div>
+        <!-- Pre Fine Print - shown when question loads -->
         <transition name="fade">
-          <div v-if="showExplanation && hasFinePrint" :class="['question-' + question.id + ' fine-print']">
+          <div v-if="!showExplanation && hasPreFinePrint" :class="['question-' + question.id + ' fine-print']">
+            <div class="fine-print-content" v-html="question.preFinePrint"></div>
+          </div>
+        </transition>
+        
+        <!-- Combined Fine Print - when both exist and answer is shown -->
+        <transition name="fade">
+          <div v-if="showExplanation && hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' fine-print']">
+            <div class="fine-print-content">
+              <div v-html="question.preFinePrint"></div>
+              <br><br>
+              <div v-html="question.finePrint"></div>
+            </div>
+          </div>
+        </transition>
+        
+        <!-- Regular Fine Print only - when no preFinePrint exists -->
+        <transition name="fade">
+          <div v-if="showExplanation && !hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' fine-print']">
             <div class="fine-print-content" v-html="question.finePrint"></div>
           </div>
         </transition>
@@ -294,6 +332,10 @@ const hasFinePrint = computed(() => {
     console.log(`Q4 Debug: hasFinePrint=${result}, finePrint exists=${!!props.question?.finePrint}, length=${props.question?.finePrint?.length}, trimmed length=${props.question?.finePrint?.trim()?.length}`);
   }
   return result;
+});
+
+const hasPreFinePrint = computed(() => {
+  return props.question?.preFinePrint && props.question.preFinePrint.trim().length > 0;
 });
 
 // Watch for showExplanation changes specifically for question 4
@@ -826,6 +868,7 @@ function hideImage(event) {
   line-height: clamp(11px, 1vw, 13px);
 }
 
+
 @media (max-width: 768px) {
   
   .fine-print-content {
@@ -1034,6 +1077,7 @@ function hideImage(event) {
   .option-text {
     letter-spacing: -0.46px; /* 60% of -0.76px */
     margin-left: 9px; /* 60% of 15px */
+    font-size: 20px;
   }
 
   .check-icon, .x-icon {
@@ -1228,6 +1272,7 @@ function hideImage(event) {
   .option-text {
     letter-spacing: -0.61px; /* 80% of -0.76px */
     margin-left: 12px; /* 80% of 15px */
+    font-size: 22px;
   }
 
   .check-icon, .x-icon {
@@ -1340,7 +1385,7 @@ function hideImage(event) {
   min-height: 50.131px;
   height: auto;
   color: white;
-  padding: 0 30px;
+  padding: 0 30px 0px 10px;
   border: 2.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   margin-left: 0;
@@ -1784,6 +1829,7 @@ function hideImage(event) {
     font-weight: 400;
     line-height: 9px; /* 128.571% */
   }
+  
 
   .explanation-content {
     font-size: 13px;
@@ -1821,4 +1867,33 @@ function hideImage(event) {
   }
 }
 
+</style>
+
+<style>
+/* Global styles for superscript symbols in fine print - works with v-html content */
+.sup-asterisk {
+  position: relative;
+}
+
+.sup-asterisk::before {
+  content: "*";
+  position: absolute;
+  left: -5px;
+  top: 0;
+  font-size: 1em;
+  color: #fff;
+}
+
+.sup-cross {
+  position: relative;
+}
+
+.sup-cross::before {
+  content: "†";
+  position: absolute;
+  left: -5px;
+  top: 0;
+  font-size: 1em;
+  color: #fff;
+}
 </style>
