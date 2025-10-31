@@ -74,7 +74,7 @@ const questions = [
     correctAnswer: "20%",
     explanation: "Every 10 mm Hg reduction in SBP reduces the risk of major CV events by 20%<sup>1*</sup>", 
     additionalInfo: "<b>Abbreviations:</b> Cl=confidence interval; CV=cardiovascular; RR=relative risk; SBP=systolic blood pressure.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet</i>. 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-cross'>Meta-analysis of 123 studies with 613,815 participants. Major CV events are defined as fatal and non-fatal myocardial infarction, sudden cardiac death, revascularization, fatal and non-fatal stroke, and fatal and non-fatal heart failure. Every 10 mm Hg reduction in SBP significantly reduced the risk of major CV events (RR 0.80, 95% CI: 0.77-0.83).</span>"
+    finePrint: "<span class='sup-asterisk'>Meta-analysis of 123 studies with 613,815 participants. Major CV events are defined as fatal and non-fatal myocardial infarction, sudden cardiac death, revascularization, fatal and non-fatal stroke, and fatal and non-fatal heart failure. Every 10 mm Hg reduction in SBP significantly reduced the risk of major CV events (RR 0.80, 95% CI: 0.77-0.83).</span>"
   },
   {  
     id: 8,
@@ -84,7 +84,7 @@ const questions = [
     correctAnswer: "27%",
     explanation: "Every 10 mm Hg reduction in SBP reduces the risk of stroke by 27%<sup>1*</sup>",
     additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; Cl=confidence interval; CV=cardiovascular; RR=relative risk; SBP=systolic blood pressure; TIA=transient ischemic attack.<br><Br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet</i>. 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-cross'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were extracted for stroke (fatal and nonfatal, excluding TIA) 27% (RR=0.73; 95% CI: 0.68-0.77).<span>"
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were extracted for stroke (fatal and nonfatal, excluding TIA) 27% (RR=0.73; 95% CI: 0.68-0.77).<span>"
   },
   {
     id: 9,
@@ -94,7 +94,7 @@ const questions = [
     correctAnswer: "28%",
     explanation: "Every 10 mm Hg reduction in SBP reduces the risk of heart failure by 28%<sup>1*</sup>",
     additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; Cl=confidence interval; CV=cardiovascular; RR=relative risk; SBP=systolic blood pressure.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet</i>. 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-cross'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were extracted for HF (new diagnosis of HF, hospital admission, or death) 28% (RR=0.72; 95% CI: 0.67-0.78)</span>"
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were extracted for HF (new diagnosis of HF, hospital admission, or death) 28% (RR=0.72; 95% CI: 0.67-0.78)</span>"
   },
   {
     id: 10,
