@@ -35,15 +35,15 @@
             <div class="instruction-item">
               <span class="bullet">•</span>
               <span class="instruction-text">
-                The <span class="highlight">faster</span> you correctly answer, the more 
-                points you earn to drive up your score!
+                The <span class="highlight">faster</span> you correctly answer, the <span class="highlight">more 
+                points</span> you earn to <span class="highlight">drive up your score!</span>
               </span>
             </div>
             
             <div class="instruction-item">
               <span class="bullet">•</span>
               <span class="instruction-text">
-                Ready to test your knowledge of hypertension 
+                Ready to test <span class="highlight">your knowledge</span> of hypertension 
                 and its link to aldosterone?
               </span>
             </div>
@@ -304,8 +304,8 @@ defineEmits(['back', 'startGame']);
 }
 
 .highlight {
-  color: #F3BE00;
   font-weight: 700;
+  font-weight: bold;
 }
 
 .start-game-button {
