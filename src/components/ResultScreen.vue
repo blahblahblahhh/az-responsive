@@ -120,17 +120,17 @@ const getTrophyImage = () => {
 };
 
 const getDescription = () => {
-  const baseText = `Your knowledge of hypertension and its link to aldosterone is masterful. You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${calculateBonusTimeScore().toFixed(2)} seconds to help fight Aldo Sterone's hold on hypertension, which adds to your total score.`;
+  const bonusTime = calculateBonusTimeScore().toFixed(2);
   
   switch (props.playerType) {
     case 'expert':
-      return baseText.replace('is masterful', 'is masterful');
+      return `Your knowledge of hypertension and its link to aldosterone is masterful. You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${bonusTime}, driving up your total score.`;
     case 'scholar':
-      return baseText.replace('is masterful', 'is solid');
+      return `Keep fighting for control! You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${bonusTime}, driving up your total score.`;
     case 'explorer':
-      return baseText.replace('is masterful', 'has begun');
+      return `Your journey into the world of hypertension and its link to aldosterone has begun! You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${bonusTime}, driving up your total score.`;
     default:
-      return baseText;
+      return `Your journey into the world of hypertension and its link to aldosterone has begun! You correctly answered ${props.correctAnswers} out of 7 questions—plus earned a bonus time of ${bonusTime}, driving up your total score.`;
   }
 };
 
