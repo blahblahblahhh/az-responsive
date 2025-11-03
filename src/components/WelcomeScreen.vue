@@ -85,6 +85,31 @@ defineEmits(['startQuiz']);
   }
 }
 
+/* Height-based mobile layout for overflow prevention */
+@media (max-height: 612px) {
+  .header-section {
+    margin-top: 40px;
+    margin-left: 0;
+    padding: 0 20px;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+  
+  .question-text {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  
+  .play-button {
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+  }
+  
+  .play-icon {
+    width: 60px;
+    height: 60px;
+  }
+}
+
 
 .question-text {
   color: #FFF;
@@ -163,6 +188,27 @@ defineEmits(['startQuiz']);
   .play-icon {
     width: 160px;
     height: 158px;
+  }
+}
+
+/* XL Desktop styles */
+@media (min-width: 1681px) {
+  .question-text {
+    font-size: clamp(64px, 4.2vw, 80px); /* Responsive equivalent to 80px */
+  }
+  
+  .play-button {
+    font-size: clamp(70px, 4.6vw, 88.781px); /* Responsive equivalent to 88.781px */
+    max-width: calc(100vw - 150px); /* Prevent overflow with margin consideration */
+  }
+  
+  .play-icon {
+    width: clamp(180px, 12vw, 231.085px); /* Responsive equivalent to 231.085px */
+    height: clamp(178px, 12vw, 228.474px); /* Responsive equivalent to 228.474px */
+  }
+  
+  .header-section {
+    max-width: calc(100vw - 150px); /* Ensure container doesn't overflow */
   }
 }
 

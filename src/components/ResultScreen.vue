@@ -528,7 +528,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 } */
 
 /* Mobile Styles */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .results-container {
     overflow-x: hidden;
   }
@@ -795,7 +795,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 }
 
 /* Small/Medium Desktop (13" MacBook) - 60% scaling */
-@media (min-width: 768px) and (max-width: 1680px) {
+@media (min-width: 768px) and (max-width: 1680px) and (min-height: 613px) {
   .main-panel {
     padding: 1.2rem; /* 60% of 2rem */
     margin: 1.2rem; /* 60% of 2rem */

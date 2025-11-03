@@ -516,7 +516,7 @@ function hideImage(event) {
 }
 
 /* Mobile backgrounds */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .quiz-screen.bg-green {
     background: url('/green-mobile.png');
     background-size: contain;
@@ -775,7 +775,7 @@ function hideImage(event) {
 /* Tablet styles */
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .header-section {
     top: 17px;
   }
@@ -878,7 +878,7 @@ function hideImage(event) {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   
   .fine-print-content {
     padding: 15px;
@@ -1220,7 +1220,10 @@ function hideImage(event) {
 
   .explanation-content {
     border-radius: 8.492px; /* 80% of 10.615px */
-    padding: 0;
+    padding: clamp(40px, 5vh, 50px) clamp(40px, 4vw, 50px); /* 80% responsive equivalent of 50px */
+    width: 389.908px;
+    min-height: 426.805px;
+    font-size: clamp(16px, 1.2vw, 20px); /* 80% responsive equivalent of 20px */
   }
 
   .additional-info {
@@ -1581,6 +1584,17 @@ function hideImage(event) {
   }
 }
 
+/* XL specific explanation content - placed after 769px rule to override */
+@media (min-width: 1681px) {
+  .explanation-content {
+    padding-left: clamp(40px, 4vw, 50px) !important;
+    padding-right: clamp(40px, 4vw, 50px) !important;
+    font-size: clamp(16px, 1.2vw, 20px) !important;
+    width: 389.908px !important;
+    min-height: 426.805px !important;
+  }
+}
+
 .explanation-image {
   width: 100%;
   height: auto;
@@ -1654,7 +1668,7 @@ function hideImage(event) {
 }
 
 /* Mobile Layout - Stack Vertically */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .question-wrapper {
     gap: 0; /* Remove gap between question-layout and mobile-only container */
   }
@@ -1753,7 +1767,7 @@ function hideImage(event) {
 }
 
   /* Mobile Layout - Stack Vertically */
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .option-text {
     font-size: 18px;
     margin-left: 8px !important;
@@ -1776,7 +1790,7 @@ function hideImage(event) {
 
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px), (max-height: 612px) {
   .question-content {
     max-width: 95% !important;
     padding-left: unset !important;
@@ -1864,7 +1878,7 @@ function hideImage(event) {
   display: none !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (max-height: 612px) {
   .mobile-only {
     display: block !important;
     margin: 0;
