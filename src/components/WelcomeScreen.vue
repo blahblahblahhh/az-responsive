@@ -161,6 +161,7 @@ defineEmits(['startQuiz']);
   padding: 0;
   transition: all 0.2s ease;
   white-space: nowrap;
+  max-width: 469.839px;
 }
 
 .play-button:hover {
@@ -189,6 +190,10 @@ defineEmits(['startQuiz']);
     width: 160px;
     height: 158px;
   }
+  
+  .play-button {
+    max-width: 672.001px;
+  }
 }
 
 /* XL Desktop styles */
@@ -199,7 +204,7 @@ defineEmits(['startQuiz']);
   
   .play-button {
     font-size: clamp(70px, 4.6vw, 88.781px); /* Responsive equivalent to 88.781px */
-    max-width: calc(100vw - 150px); /* Prevent overflow with margin consideration */
+    max-width: 672.001px;
   }
   
   .play-icon {

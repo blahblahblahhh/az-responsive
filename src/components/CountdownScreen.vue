@@ -145,6 +145,20 @@ defineEmits(['back', 'startGame']);
   .background-image {
     background-image: url('/green-tablet.png');
   }
+  
+  .how-to-play-title {
+    width: clamp(200px, 25vw, 410.183px) !important; /* Responsive equivalent for tablet range */
+    max-width: 410.183px !important;
+  }
+  
+  .how-to-play-banner {
+    left: clamp(-1.2rem, -2vw, -2.5rem); /* Adjust negative margin to maintain overlay */
+    top: clamp(-0.8rem, -1vw, -1.5rem);
+  }
+  
+  .instructions-box {
+    padding: clamp(2rem, 3vw, 3.5rem); /* Scale padding proportionally */
+  }
 }
 
 /* Desktop background */
@@ -347,6 +361,24 @@ defineEmits(['back', 'startGame']);
     right: 0.6rem;
     gap: 0.6rem;
   }
+  
+  .how-to-play-title {
+    width: clamp(246px, 15.4vw, 410.183px) !important; /* Responsive equivalent scaled for desktop range */
+    max-width: 410.183px !important;
+  }
+  
+  .how-to-play-banner {
+    left: clamp(-1.5rem, -2.2vw, -3.5rem); /* Adjust negative margin to maintain overlay */
+    top: clamp(-1rem, -1.2vw, -2rem);
+  }
+  
+  .instructions-box {
+    padding: clamp(2.2rem, 3.4vw, 5.688rem); /* Scale padding proportionally */
+  }
+  
+  .instructions-list {
+    margin-top: clamp(2rem, 3vw, 5rem);
+  }
 }
 
 /* Larger Desktop - 80% scaling */
@@ -364,6 +396,19 @@ defineEmits(['back', 'startGame']);
     right: 0.8rem;
     gap: 0.8rem;
   }
+  
+  .how-to-play-title {
+    width: clamp(328px, 21.4vw, 410.183px) !important; /* Responsive equivalent to 410.183px */
+    max-width: 410.183px !important;
+  }
+  
+  .how-to-play-banner {
+    left: clamp(-2rem, -2.5vw, -2.5rem); /* Adjust negative margin to maintain overlay */
+  }
+  
+  .instructions-box {
+    padding: clamp(2.5rem, 4vw, 3.688rem); /* Scale padding proportionally */
+  }
 }
 
 /* Large desktop styles */
@@ -374,10 +419,25 @@ defineEmits(['back', 'startGame']);
   
   .instructions-box {
     width: 1054px;
+    padding: 5.688rem;
   }
   
+  .instructions-list {
+    margin-top: 5rem;
+  }
+
   .instruction-text {
     font-size: 2.125rem;
+  }
+  
+  .how-to-play-title {
+    width: 410.183px !important;
+    max-width: 410.183px !important;
+  }
+  
+  .how-to-play-banner {
+    left: -3.5rem;
+    top: -2rem;
   }
 }
 </style>

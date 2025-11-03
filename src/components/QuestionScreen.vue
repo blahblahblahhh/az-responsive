@@ -1216,6 +1216,7 @@ function hideImage(event) {
 
   .explanation-column {
     gap: 1.2rem; /* 80% of 1.5rem */
+    padding-top: 30px !important;
   }
 
   .explanation-content {
