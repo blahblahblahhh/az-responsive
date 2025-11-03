@@ -441,39 +441,51 @@ function hideImage(event) {
 .quiz-screen.bg-green {
   background: url('/green-desktop.png');
   background-size: cover;
-  background-position: center left 200px;
+  background-position: right -150px center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .quiz-screen.bg-yellow {
   background: url('/yellow-desktop.png');
   background-size: cover;
-  background-position: center left 200px;
+  background-position: right -150px center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 .quiz-screen.bg-red {
   background: url('/red-desktop.png');
   background-size: cover;
-  background-position: center left 200px;
+  background-position: right -150px center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
 }
 
 /* Tablet styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .quiz-screen.bg-green {
-    background: url('/green-tablet.png');
+    background: url('/green-desktop.png');
     background-size: cover;
-    background-position: center;
+    background-position: right -150px center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   .quiz-screen.bg-yellow {
-    background: url('/yellow-tablet.png');
+    background: url('/yellow-desktop.png');
     background-size: cover;
-    background-position: center;
+    background-position: right -150px center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   .quiz-screen.bg-red {
-    background: url('/red-tablet.png');
+    background: url('/red-desktop.png');
     background-size: cover;
-    background-position: center;
+    background-position: right -150px center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 
   /* Apply 60% scaling for tablet to prevent overflow */
@@ -498,7 +510,8 @@ function hideImage(event) {
   }
 
   .fine-print-content {
-    font-size: clamp(10px, 0.48vw, 5px) !important;
+    font-size: clamp(5.4px, 0.48vw, 6.6px) !important;
+    line-height: clamp(6.6px, 0.6vw, 7.8px) !important;
   }
 
   .explanation-content {
@@ -751,9 +764,9 @@ function hideImage(event) {
 /* Tablet styles */
 @media (max-width: 1024px) {
   .timer-dial {
-    zoom: clamp(1.2, 1.8vw, 1.8);
-    right: clamp(20px, 3vw, 40px);
-    top: clamp(140px, 15vh, 180px);
+    /* zoom: clamp(1.2, 1.8vw, 1.8); */
+    right: 2%;
+    top: 43.5%;
   }
   
   
@@ -930,8 +943,8 @@ function hideImage(event) {
   }
 
   .timer-dial {
-    right: clamp(24px, 3vw, 37px); /* 60% of 40px and 62px */
-    top: clamp(108px, 15vh, 146px); /* 60% of 180px and 243px */
+    right: 2.5%; /* 60% of 40px and 62px */
+    top: 43.5%; /* 60% of 180px and 243px */
     zoom: clamp(0.9, 1.5vw, 1.26); /* 60% of 1.5 and 2.1 */
   }
 
@@ -1124,9 +1137,9 @@ function hideImage(event) {
   }
 
   .timer-dial {
-    right: clamp(32px, 4vw, 50px); /* 80% of 40px and 62px */
-    top: clamp(144px, 20vh, 194px); /* 80% of 180px and 243px */
-    zoom: clamp(1.2, 2vw, 1.68); /* 80% of 1.5 and 2.1 */
+    right: 6.7%;
+    top: 46%;
+    transform: scale(1.6);
   }
 
   .question-overlay {
