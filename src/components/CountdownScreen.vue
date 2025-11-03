@@ -304,7 +304,8 @@ defineEmits(['back', 'startGame']);
 .bullet {
   color: #000;
   font-size: 1.5rem;
-  font-weight: bold;
+  font-family: 'Inter-SemiBold', 'Inter', sans-serif;
+  font-weight: 600;
   margin-top: -0.2rem;
   flex-shrink: 0;
 }
@@ -318,8 +319,8 @@ defineEmits(['back', 'startGame']);
 }
 
 .highlight {
-  font-weight: 700;
-  font-weight: bold;
+  font-family: 'Inter-SemiBold', 'Inter', sans-serif;
+  font-weight: 600;
 }
 
 .start-game-button {
