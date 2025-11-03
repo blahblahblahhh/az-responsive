@@ -2,7 +2,7 @@
   <!-- Wrapper div with v-if/v-else -->
   <div v-if="question">
     <transition name="fade-in" appear>
-      <div class="quiz-screen" :class="timerBackgroundClass">
+      <div class="quiz-screen" :class="[timerBackgroundClass, { 'showExplanation': showExplanation }]">
         <div class="question-overlay">
           <!-- Top Right Timer and Home -->
           <div class="header-section">
@@ -146,7 +146,6 @@
                       
                       <!-- Separator when both exist -->
                       <template v-if="showExplanation && hasPreFinePrint && hasFinePrint">
-                        <br><br>
                       </template>
                       
                       <!-- Regular fine print (only when explanation is shown) -->
@@ -194,7 +193,6 @@
           <div v-if="showExplanation && hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' fine-print']">
             <div class="fine-print-content">
               <div v-html="question.preFinePrint"></div>
-              <br><br>
               <div v-html="question.finePrint"></div>
             </div>
           </div>
@@ -1029,6 +1027,8 @@ function hideImage(event) {
   .explanation-content {
     border-radius: 6.369px; /* 60% of 10.615px */
     padding: 0;
+    max-width: 275px;
+    font-size: 14px !important;
   }
 
   .additional-info {
@@ -1924,6 +1924,7 @@ function hideImage(event) {
   }
 }
 
+
 /* Utility classes for responsive display */
 .mobile-only {
   display: none !important;
@@ -1981,5 +1982,19 @@ function hideImage(event) {
   top: 0;
   font-size: 1em;
   color: #fff;
+}
+
+/* Asterisk visibility control - must be unscoped for v-html content */
+.after-asterisk {
+  display: none;
+}
+
+.showExplanation .after-asterisk {
+  display: inline;
+}
+
+/* No-wrap class for preventing line breaks in v-html content */
+.no-wrap {
+  white-space: nowrap;
 }
 </style>
