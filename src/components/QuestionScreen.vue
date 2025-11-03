@@ -1876,6 +1876,12 @@ function hideImage(event) {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
+
+  .mobile-button-container button {
+    text-transform: uppercase;
+    font-family: 'PF Fuel Grime';
+    color: #000;
+  }
   
   .mobile-fine-print {
     margin-bottom: 0 !important;
