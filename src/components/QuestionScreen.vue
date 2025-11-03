@@ -122,10 +122,8 @@
                     </div>
                   </div>
                 </div>
-                
-              </div>
-              <div class="mobile-only">
-                <transition name="fade">
+                <div class="mobile-only">
+                    <transition name="fade">
                   <div v-if="showExplanation" class="mobile-button-container text-center">
                     <button 
                       class="btn btn-primary btn-lg"
@@ -137,31 +135,27 @@
                   </div>
                 </transition>
 
-                <!-- Mobile Pre Fine Print - shown when question loads -->
+                <!-- Mobile Fine Print - unified logic -->
                 <transition name="fade">
-                  <div v-if="!showExplanation && hasPreFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
-                    <div class="fine-print-content" v-html="question.preFinePrint"></div>
-                  </div>
-                </transition>
-                
-                <!-- Mobile Combined Fine Print - when both exist and answer is shown -->
-                <transition name="fade">
-                  <div v-if="showExplanation && hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
+                  <div v-if="(hasPreFinePrint && !showExplanation) || (showExplanation && (hasPreFinePrint || hasFinePrint))" 
+                       :class="['question-' + question.id + ' mobile-fine-print']">
                     <div class="fine-print-content">
-                      <div v-html="question.preFinePrint"></div>
-                      <br><br>
-                      <div v-html="question.finePrint"></div>
+                      <!-- Pre fine print (shown before answer or combined with regular) -->
+                      <div v-if="hasPreFinePrint && (!showExplanation || hasFinePrint)" v-html="question.preFinePrint"></div>
+                      
+                      <!-- Separator when both exist -->
+                      <template v-if="showExplanation && hasPreFinePrint && hasFinePrint">
+                        <br><br>
+                      </template>
+                      
+                      <!-- Regular fine print (only when explanation is shown) -->
+                      <div v-if="showExplanation && hasFinePrint" v-html="question.finePrint"></div>
                     </div>
                   </div>
                 </transition>
-                
-                <!-- Mobile Regular Fine Print only - when no preFinePrint exists -->
-                <transition name="fade">
-                  <div v-if="showExplanation && !hasPreFinePrint && hasFinePrint" :class="['question-' + question.id + ' mobile-fine-print']">
-                    <div class="fine-print-content" v-html="question.finePrint"></div>
-                  </div>
-                </transition>
-
+                </div>
+              </div>
+              <div class="mobile-only">
                 <transition name="fade">
                   <div v-if="showExplanation" class="additional-info mobile-only">
                     <button 
@@ -1870,12 +1864,17 @@ function hideImage(event) {
 @media (max-width: 768px) {
   .mobile-only {
     display: block !important;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
+    padding: 0;
   }
 
   .mobile-button-container {
-    margin-top: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  .mobile-fine-print {
     margin-bottom: 0 !important;
   }
 }
