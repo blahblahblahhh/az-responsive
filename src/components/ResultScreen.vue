@@ -408,7 +408,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 
 .character-image {
   position: absolute;
-  right: -200px;
+  right: -55px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 6;
@@ -864,7 +864,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   }
 
   .character-image {
-    right: -120px; /* 60% of -200px */
+    right: -55px;
   }
 
   .character-desktop {
@@ -966,7 +966,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   }
 
   .character-image {
-    right: -160px; /* 80% of -200px */
+    right: -55px;
   }
 
   .character-desktop {

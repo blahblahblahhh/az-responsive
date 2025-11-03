@@ -1226,6 +1226,56 @@ function hideImage(event) {
     min-height: 426.805px;
     font-size: clamp(16px, 1.2vw, 20px); /* 80% responsive equivalent of 20px */
   }
+  
+  .fine-print-content {
+    font-size: clamp(9px, 0.57vw, 11px) !important; /* Responsive equivalent to 11px */
+    line-height: clamp(11px, 0.68vw, 13px) !important;
+  }
+  
+  .option-content {
+    min-height: clamp(65px, 4.3vw, 82.131px) !important; /* Responsive equivalent to 82.131px */
+  }
+  
+  .light-indicator {
+    height: clamp(81px, 5.3vw, 102.298px) !important; /* Responsive equivalent to 102.298px */
+  }
+  
+  .check-icon, .x-icon {
+    width: clamp(81px, 5.3vw, 102.298px) !important; /* Match light indicator size */
+    height: clamp(81px, 5.3vw, 102.298px) !important;
+  }
+  
+  .check-icon img {
+    width: clamp(40px, 2.6vw, 51.149px) !important; /* Scale proportionally */
+    height: clamp(40px, 2.6vw, 51.149px) !important;
+  }
+  
+  .x-icon img {
+    width: clamp(81px, 5.3vw, 102.298px) !important; /* Full size for X */
+    height: clamp(81px, 5.3vw, 102.298px) !important;
+  }
+  
+  .light-container {
+    margin-right: -45px !important; /* Fixed value for XL screens */
+  }
+  
+  .option-text {
+    margin-left: 36px !important; /* Fixed value for XL screens */
+    font-size: 38px !important; /* Fixed value for XL screens */
+  }
+  
+  .question-proper {
+    font-size: 50px !important; /* Fixed value for XL screens */
+  }
+  
+  .question-14 .explanation-content {
+    padding-top: 120px !important;
+    padding-bottom: 125px !important;
+  }
+  
+  .character-image {
+    right: -55px !important;
+  }
 
   .additional-info {
     left: 3.2rem; /* 80% of 4rem - matches additional-info */
