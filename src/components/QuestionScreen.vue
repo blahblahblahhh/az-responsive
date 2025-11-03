@@ -112,6 +112,7 @@
                   <div class="additional-info desktop-only">
                     <button 
                       class="info-toggle-btn"
+                      :class="{ 'open': showAdditionalInfo }"
                       @click="toggleAdditionalInfo"
                     >
                       Abbreviations & References
@@ -124,7 +125,7 @@
                 </div>
                 <div class="mobile-only">
                     <transition name="fade">
-                  <div v-if="showExplanation" class="mobile-button-container text-center">
+                  <div class="mobile-button-container text-center">
                     <button 
                       class="btn btn-primary btn-lg"
                       @click="$emit('next')"
@@ -160,6 +161,7 @@
                   <div v-if="showExplanation" class="additional-info mobile-only">
                     <button 
                       class="info-toggle-btn"
+                      :class="{ 'open': showAdditionalInfo }"
                       @click="toggleAdditionalInfo"
                     >
                       Abbreviations & References
@@ -1042,8 +1044,6 @@ function hideImage(event) {
   }
 
   .info-toggle-btn::after {
-    height: 20.4px; /* 60% of 34px */
-    width: 20.4px;
     font-size: 9.6px; /* 60% of 16px */
   }
 
@@ -1236,8 +1236,6 @@ function hideImage(event) {
   }
 
   .info-toggle-btn::after {
-    height: 27.2px; /* 80% of 34px */
-    width: 27.2px;
     font-size: 12.8px; /* 80% of 16px */
   }
 
@@ -1621,11 +1619,16 @@ function hideImage(event) {
 
 .info-toggle-btn::after {
   content: "";
-  height: 34px;
-  width: 34px;
+  height: clamp(20.4px, 2.5vw, 30px);
+  width: clamp(20.4px, 2.5vw, 30px);
   background-image: url('/drawer.png');
+  background-size: 100% 100%;
   font-size: 16px;
   transition: transform 0.3s ease;
+}
+
+.info-toggle-btn.open::after {
+  transform: rotate(180deg);
 }
 
 

@@ -5,18 +5,15 @@
     
     <!-- Header Icons -->
     <div class="header-icons">
-      <img src="/leaderboard-trophy.png" alt="Leaderboard" class="header-icon" @click="$emit('viewLeaderboard')">
       <img src="/home.png" alt="Home" class="header-icon" @click="$emit('playAgain')">
-    </div>
-
-    <!-- Game Complete Header - Fixed Position -->
-    <div class="game-complete-header">
-      <img src="/level-complete-header.png" alt="Game Complete">
     </div>
 
     <!-- Main Content Panel -->
     <div class="main-panel">
-      
+      <!-- Game Complete Header - Fixed Position -->
+      <div class="game-complete-header">
+        <img src="/level-complete-header.png" alt="Game Complete">
+      </div>
       <!-- Content Grid -->
       <div class="content-grid">
         <!-- Left Side - Trophy Section -->
@@ -60,6 +57,12 @@
               to learn more
             </div>
           </div>
+
+          <!-- Mobile Play Again Button -->
+          <button class="play-again-btn-mobile" @click="$emit('playAgain')">
+            <img src="/play-again.png" alt="Play Again" class="btn-icon">
+            PLAY AGAIN
+          </button>
         </div>
       </div>
 
@@ -189,19 +192,6 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   transform: scale(1.1);
 }
 
-.game-complete-header {
-  position: absolute;
-  top: 1rem;
-  left: 2rem;
-  z-index: 10;
-}
-
-.game-complete-header img {
-  max-width: 600px;
-  width: 100%;
-  height: auto;
-}
-
 .main-panel {
   position: absolute;
   top: 50%;
@@ -216,6 +206,21 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 150px;
+  padding-top: 75px;
+}
+
+.game-complete-header {
+  position: absolute;
+  top: -100px;
+  left: 2rem;
+  z-index: 10;
+}
+
+.game-complete-header img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
 }
 
 .gradient-overlay {
@@ -359,6 +364,30 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   box-shadow: 0 4px 12px rgba(255, 193, 48, 0.3);
 }
 
+.play-again-btn-mobile {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: #FFC130;
+  border: 2px solid #FFC130;
+  border-radius: 14px;
+  color: #000;
+  font-family: 'PF Fuel Grime', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.play-again-btn-mobile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 193, 48, 0.3);
+}
+
 .btn-icon {
   width: 24px;
   height: 24px;
@@ -408,33 +437,61 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 }
 
 /* Tablet Styles */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
     text-align: center;
     padding-right: 0;
+    max-width: 100%;
+    overflow: visible;
   }
   
-  .character-image {
-    right: -150px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .character-desktop {
-    width: 400px;
-    height: auto;
-  }
-  
-  .character-mobile {
-    display: none;
+  .trophy-section {
+    gap: 1.5rem;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
   }
   
   .description-section {
-    order: -1;
-    margin-bottom: 2rem;
+    order: 2;
+    padding: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
+  
+  .divider-line {
+    display: none;
+  }
+  
+  .character-image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: unset;
+    transform: unset;
+    z-index: 7;
+    pointer-events: none;
+    text-align: right;
+  }
+  
+  .character-desktop {
+    display: none;
+  }
+  
+  .character-mobile {
+    display: block;
+    width: 160px;
+    height: 363px;
+    flex-shrink: 0;
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: 0;
+  }
+  
   
   .score-number {
     font-size: 80px;
@@ -445,7 +502,8 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   }
   
   .game-complete-header {
-    position: relative;
+    position: absolute;
+    top: -100px;
     left: 0;
     text-align: center;
     margin-bottom: 2rem;
@@ -458,6 +516,8 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     right: auto;
     transform: none;
     margin: 2rem;
+    margin-top: 150px;
+    padding-top: 75px;
     display: block;
     max-height: none;
   }
@@ -465,12 +525,25 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .divider-line {
     display: none;
   }
-}
+} */
 
 /* Mobile Styles */
 @media (max-width: 768px) {
   .results-container {
     overflow-x: hidden;
+  }
+  
+  .game-complete-header {
+    position: absolute;
+    top: -65px;
+    right: 0;
+    text-align: center;
+    margin: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .game-complete-header img {
+    max-width: 80%;
   }
   
   .main-panel {
@@ -481,7 +554,8 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     transform: none;
     padding: 1rem;
     margin: 1rem;
-    margin-top: 2rem;
+    margin-top: 125px;
+    padding-top: 100px;
     display: block;
     max-height: none;
     overflow: visible;
@@ -504,16 +578,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     width: 40px;
     height: 40px;
   }
-  
-  .game-complete-header {
-    position: relative;
-    top: 0;
-    left: 0;
-    text-align: center;
-    margin: 1rem;
-    margin-bottom: 2rem;
-  }
-  
+
   .game-complete-header img {
     max-width: 350px;
     width: 100%;
@@ -565,6 +630,10 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     width: 100%;
     max-width: 100%;
   }
+
+  .description-text {
+    max-width: 75%;
+  }
   
   .divider-line {
     display: none;
@@ -590,23 +659,39 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     align-items: center;
     gap: 1rem;
     margin-top: 1.5rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
-  
-  .qr-code img {
-    width: 60px;
-    height: 60px;
+
+  .qr-code {
+    display: none;
   }
-  
+
   .website-text {
     font-size: 12px;
     text-align: left;
   }
+
+  .play-again-btn-mobile {
+    display: flex;
+    width: 124.141px;
+    height: 39.889px;
+    padding: 6.648px 16.62px;
+    justify-content: center;
+    align-items: center;
+    gap: 4.986px;
+    flex-shrink: 0;
+    font-size: 16px;
+    margin-top: 1.5rem;
+  }
+
+  .play-again-btn-mobile .btn-icon {
+    width: 21.052px;
+    height: 14.079px;
+    flex-shrink: 0;
+  }
   
   .play-again-btn {
-    padding: 0.8rem 1.5rem;
-    font-size: 16px;
-    margin-top: 1rem;
+    display: none;
   }
   
   .description-text {
@@ -652,8 +737,14 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 
 /* Extra small mobile */
 @media (max-width: 480px) {
+  .game-complete-header {
+    position: absolute;
+    top: -65px;
+    right: 0;
+  }
+
   .game-complete-header img {
-    max-width: 250px;
+    max-width: 80%;
   }
   
   .score-number {
@@ -662,6 +753,9 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   
   .description-text {
     font-size: 14px;
+    width: 171px;
+    height: 176px;
+    flex-shrink: 0;
   }
   
   .character-image {
@@ -672,9 +766,9 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   }
   
   .character-mobile {
-    width: 100px;
+    /* width: 100px; */
     height: auto;
-    max-height: 220px;
+    /* max-height: 220px; */
     margin-left: auto;
     margin-right: 0;
   }
@@ -686,6 +780,8 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .main-panel {
     margin: 0.5rem;
     padding: 0.5rem;
+    padding-top: 100px;
+    margin-top: 125px;  
   }
   
   .total-score-label {
@@ -699,7 +795,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 }
 
 /* Small/Medium Desktop (13" MacBook) - 60% scaling */
-@media (min-width: 1025px) and (max-width: 1680px) {
+@media (min-width: 768px) and (max-width: 1680px) {
   .main-panel {
     padding: 1.2rem; /* 60% of 2rem */
     margin: 1.2rem; /* 60% of 2rem */
