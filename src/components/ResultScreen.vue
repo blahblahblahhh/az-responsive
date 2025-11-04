@@ -429,7 +429,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   position: absolute;
   bottom: 2rem;
   right: 2rem;
-  z-index: 10;
+  z-index: 20;
 }
 
 .az-logo {
@@ -728,11 +728,23 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .logo-section {
     position: relative;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    width: 100%;
+    left: 0;
+    right: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .az-logo {
     width: 80px;
+    margin: 0;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: block;
+    flex-shrink: 0;
   }
 }
 

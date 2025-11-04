@@ -15,7 +15,7 @@
   </div>
   <div class="az-footer">
     <span v-if="currentComponent === WelcomeScreen">©2025 AstraZeneca. All rights reserved. US-103694 Last Updated 10/25</span>
-    <span class="az-logo" v-if="currentComponent != LeaderboardScreen">
+    <span class="az-logo" v-if="currentComponent != LeaderboardScreen && currentComponent != ResultScreen">
       <img src="/AZLOGO.png">
     </span>
   </div>
