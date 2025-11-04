@@ -275,8 +275,9 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 .score-overlay {
   position: absolute;
   top: 50%;
-  right: 20%;
-  transform: translate(-50%, -50%);
+  right: 0;
+  width: 50%;
+  transform: translateY(-50%);
   text-align: center;
   z-index: 7;
 }
@@ -617,11 +618,11 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .score-overlay {
     position: absolute;
     top: 50%;
-    left: 72%;
-    transform: translate(-50%, -50%);
+    right: 0;
+    width: 50%;
+    transform: translateY(-50%);
     text-align: center;
     z-index: 7;
-    width: 90%;
   }
   
   .description-section {

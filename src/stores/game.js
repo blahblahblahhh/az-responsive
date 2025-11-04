@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed, onMounted, nextTick } from 'vue';
-import { initDB, saveScore, getTopScores } from './db'; // Import DB functions
+// import { initDB, saveScore, getTopScores } from './db'; // Import DB functions - commented out for this version
 
 // Questions data
 const questions = [
@@ -210,31 +210,33 @@ export const useGameStore = defineStore('game', () => {
     return question;
   });
 
-  // Initialize the database
+  // Initialize the database - commented out for this version
   async function initializeDatabase() {
-    if (!dbInitialized) {
-      try {
-        await initDB();
-        dbInitialized = true;
-        console.log('Database initialized successfully');
-        await loadLeaderboard(); // Load the leaderboard after DB init
-      } catch (error) {
-        console.error('Failed to initialize database:', error);
-      }
-    }
+    // if (!dbInitialized) {
+    //   try {
+    //     await initDB();
+    //     dbInitialized = true;
+    //     console.log('Database initialized successfully');
+    //     await loadLeaderboard(); // Load the leaderboard after DB init
+    //   } catch (error) {
+    //     console.error('Failed to initialize database:', error);
+    //   }
+    // }
+    console.log('Database functionality disabled for this version');
   }
 
   async function loadLeaderboard() {
-    try {
-      const scores = await getTopScores();
-      leaderboard.value = scores.map((entry, index) => ({
-        ...entry,
-        rank: index + 1
-      }));
-      console.log('Leaderboard loaded:', leaderboard.value);
-    } catch (error) {
-      console.error('Error loading leaderboard:', error);
-    }
+    // try {
+    //   const scores = await getTopScores();
+    //   leaderboard.value = scores.map((entry, index) => ({
+    //     ...entry,
+    //     rank: index + 1
+    //   }));
+    //   console.log('Leaderboard loaded:', leaderboard.value);
+    // } catch (error) {
+    //   console.error('Error loading leaderboard:', error);
+    // }
+    console.log('Leaderboard loading disabled for this version');
   }
 
   async function initializeQuestions() {
@@ -317,7 +319,7 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  // Updated to include correctAnswers in the leaderboard entry
+  // Updated to include correctAnswers in the leaderboard entry - IndexedDB saving disabled for this version
   async function addToLeaderboard() {
     const entry = {
       initials: state.value.playerInitials || 'AAA',
@@ -328,18 +330,19 @@ export const useGameStore = defineStore('game', () => {
       date: new Date().toISOString()
     };
     
-    try {
-      await saveScore(entry);
-      await loadLeaderboard(); // Refresh the leaderboard after adding a new score
-    } catch (error) {
-      console.error('Error saving score:', error);
-      // Fallback to in-memory leaderboard if database fails
+    // try {
+    //   await saveScore(entry);
+    //   await loadLeaderboard(); // Refresh the leaderboard after adding a new score
+    // } catch (error) {
+    //   console.error('Error saving score:', error);
+    //   // Fallback to in-memory leaderboard if database fails
       leaderboard.value.push(entry);
       leaderboard.value.sort((a, b) => b.score - a.score);
       leaderboard.value.forEach((entry, index) => {
         entry.rank = index + 1;
       });
-    }
+    // }
+    console.log('Score saved to in-memory leaderboard only (IndexedDB disabled)');
   }
 
   function toggleFinePrint() {
