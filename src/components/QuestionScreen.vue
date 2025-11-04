@@ -3,6 +3,9 @@
   <div v-if="question">
     <transition name="fade-in" appear>
       <div class="quiz-screen" :class="[timerBackgroundClass, { 'showExplanation': showExplanation }]">
+        <div class="timer-dial mobile-only">
+          <GaugeTimer :timeRemaining="timeRemaining" :maxTime="30" />
+        </div>
         <div class="question-overlay">
           <!-- Top Right Timer and Home -->
           <div class="header-section">
@@ -32,7 +35,7 @@
               <img src="/home.png" alt="Home">
             </button>
           </div>
-
+          
           <div :class="['question-content', 'question-' + question.id]">
             <div class="question-text">
               <div class="question-number">Question {{ currentQuestionIndex + 1 }}</div>
@@ -173,7 +176,7 @@
                 </transition>
               </div>
             </div>
-            <div class="timer-dial">
+            <div class="timer-dial desktop-only">
               <GaugeTimer :timeRemaining="timeRemaining" :maxTime="30" />
             </div>
             <transition v-if="showNotes" name="fade">
@@ -225,7 +228,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, onMounted, watch, computed, ref } from 'vue';
+import { defineProps, defineEmits, onMounted, onBeforeUnmount, watch, computed, ref } from 'vue';
 import { useGameStore } from '../stores/game';
 import GaugeTimer from './GaugeTimerComponent.vue';
 
@@ -270,11 +273,90 @@ const emit = defineEmits(['answer', 'next']);
 
 onMounted(() => {
   validateQuestion();
+  positionTimerDials();
+  window.addEventListener('resize', positionTimerDials);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', positionTimerDials);
 });
 
 watch(() => props.question, () => {
   validateQuestion();
 }, { deep: true });
+
+function positionTimerDials() {
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    // Position mobile timer dial (uses contain + center center)
+    const mobileTimerDial = document.querySelector('.timer-dial.mobile-only');
+    if (mobileTimerDial) {
+      positionTimerDialMobile(mobileTimerDial, 375, 812, 245, 519, 0.5);
+    }
+  } else {
+    // Position desktop timer dial (uses cover + right -150px center)
+    const desktopTimerDial = document.querySelector('.timer-dial.desktop-only');
+    if (desktopTimerDial) {
+      positionTimerDialDesktop(desktopTimerDial, 1920, 1080, 1582, 547);
+    }
+  }
+}
+
+function positionTimerDialMobile(timerDial, bgImageWidth, bgImageHeight, dialCenterX, dialCenterY, scale) {
+  // Mobile uses background-size: contain + background-position: center center
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Calculate background image scale and position (mimics background-size: contain)
+  const scaleX = viewportWidth / bgImageWidth;
+  const scaleY = viewportHeight / bgImageHeight;
+  const bgScale = Math.min(scaleX, scaleY);
+
+  // Calculate actual background image dimensions and position on screen
+  const actualWidth = bgImageWidth * bgScale;
+  const actualHeight = bgImageHeight * bgScale;
+  const offsetX = (viewportWidth - actualWidth) / 2;
+  const offsetY = (viewportHeight - actualHeight) / 2;
+
+  // Calculate final position for timer dial
+  const finalX = offsetX + (dialCenterX * bgScale);
+  const finalY = offsetY + (dialCenterY * bgScale);
+
+  // Position the timer dial
+  timerDial.style.left = `${finalX}px`;
+  timerDial.style.top = `${finalY}px`;
+  timerDial.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+
+function positionTimerDialDesktop(timerDial, bgImageWidth, bgImageHeight, dialCenterX, dialCenterY) {
+  // Desktop uses background-size: cover + background-position: right -150px center
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+
+  // Calculate background image scale (mimics background-size: cover)
+  const scaleX = viewportWidth / bgImageWidth;
+  const scaleY = viewportHeight / bgImageHeight;
+  const bgScale = Math.max(scaleX, scaleY); // cover uses max, not min
+
+  // Calculate actual background image dimensions
+  const actualWidth = bgImageWidth * bgScale;
+  const actualHeight = bgImageHeight * bgScale;
+
+  // Calculate background position: right -150px center
+  // "right -150px" means the right edge of the image is 150px LEFT of the viewport's right edge
+  const offsetX = viewportWidth - actualWidth + 150; // right -150px (150px left of right edge)
+  const offsetY = (viewportHeight - actualHeight) / 2; // center vertically
+
+  // Calculate final position for timer dial
+  const finalX = offsetX + (dialCenterX * bgScale);
+  const finalY = offsetY + (dialCenterY * bgScale);
+
+  // Position the timer dial (no scaling for desktop)
+  timerDial.style.left = `${finalX}px`;
+  timerDial.style.top = `${finalY}px`;
+  timerDial.style.transform = `translate(-50%, -50%)`;
+}
 
 function validateQuestion() {
   if (!props.question) {
@@ -431,7 +513,7 @@ function hideImage(event) {
   transition: background 0.5s ease;
 }
 
-/* Desktop/XL backgrounds (default) */
+/* Desktop/XL backgrounds */
 .quiz-screen.bg-green {
   background: url('/green-desktop.png');
   background-size: cover;
@@ -456,7 +538,6 @@ function hideImage(event) {
   background-repeat: no-repeat;
 }
 
-/* Tablet styles */
 @media (min-width: 769px) and (max-width: 1024px) {
   .quiz-screen.bg-green {
     background: url('/green-desktop.png');
@@ -482,20 +563,19 @@ function hideImage(event) {
     background-repeat: no-repeat;
   }
 
-  /* Apply 60% scaling for tablet to prevent overflow */
   .question-content {
-    max-width: clamp(420px, 45vw, 632px); /* 60% of 700px and 1054px */
+    max-width: clamp(420px, 45vw, 632px);
     padding: 20px 0px 0px 50px;
   }
 
   .options-container {
-    padding: 1.2rem; /* 60% of 2rem */
-    gap: 0.6rem; /* 60% of 1rem */
+    padding: 1.2rem; 
+    gap: 0.6rem; 
   }
 
   .option-content {
-    padding: 0 18px; /* 60% of 30px */
-    font-size: 0.9rem; /* Smaller for tablet */
+    padding: 0 18px;
+    font-size: 0.9rem;
   }
 
   .fine-print {
@@ -504,8 +584,8 @@ function hideImage(event) {
   }
 
   .fine-print-content {
-    font-size: clamp(5.4px, 0.48vw, 6.6px) !important;
-    line-height: clamp(6.6px, 0.6vw, 7.8px) !important;
+    font-size: clamp(8px, 0.7vw, 10px) !important;
+    line-height: clamp(10px, 0.9vw, 12px) !important;
   }
 
   .explanation-content {
@@ -513,7 +593,6 @@ function hideImage(event) {
   }
 }
 
-/* Mobile backgrounds */
 @media (max-width: 768px), (max-height: 612px) {
   .quiz-screen.bg-green {
     background: url('/green-mobile.png');
@@ -595,7 +674,6 @@ function hideImage(event) {
   letter-spacing: -0.35px;
 }
 
-
 .question-proper {
   padding-top: clamp(1.875rem, 5vh, 3rem);
   color: var(--Color-Brand-white, #FFF);
@@ -619,15 +697,14 @@ function hideImage(event) {
   right: clamp(40px, 5vw, 62px);
   top: clamp(180px, 25vh, 243px);
   zoom: clamp(1.5, 2.5vw, 2.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
-
-
-
-
-
-/* TIMER STYLES */
+/* =========================
+   TIMER STYLES
+   ========================= */
 .timer-section {
   width: 200px;
   margin-left: auto;
@@ -635,8 +712,6 @@ function hideImage(event) {
 
 .timer-bar-container {
   position: relative;
-  /* padding-left: 30px; */
-  /* padding-right: 30px; */
 }
 
 .progress {
@@ -681,8 +756,6 @@ function hideImage(event) {
   background-color: #F44336 !important;
 }
 
-
-
 .timer-circle {
   position: absolute;
   top: 50%;
@@ -711,19 +784,9 @@ function hideImage(event) {
   line-height: 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/* Regular fade transition */
+/* =========================
+   ANIMATIONS & TRANSITIONS
+   ========================= */
 
 .fade-in-enter-active {
   transition: opacity 0.8s ease;
@@ -742,7 +805,6 @@ function hideImage(event) {
   opacity: 0;
 }
 
-
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -755,27 +817,19 @@ function hideImage(event) {
   }
 }
 
-
-
-
-/* Tablet styles */
+/* =========================
+   TABLET ADJUSTMENTS
+   ========================= */
 @media (max-width: 1024px) {
   .timer-dial {
-    /* zoom: clamp(1.2, 1.8vw, 1.8); */
     right: 2%;
     top: 43.5%;
   }
-  
-  
-  .question-content {
-    /* max-width: 70%; */
-  }
-  
 }
 
-/* Tablet styles */
-
-/* Mobile styles */
+/* =========================
+   MOBILE STYLES
+   ========================= */
 @media (max-width: 768px), (max-height: 612px) {
   .header-section {
     top: 17px;
@@ -792,7 +846,6 @@ function hideImage(event) {
     padding-top: 100px !important;
   }
   
-  
   .timer-section {
     width: 100%;
     max-width: 300px;
@@ -806,7 +859,6 @@ function hideImage(event) {
     display: flex;
     justify-content: center;
   }
-  
   
   .question-text {
     width: 100%;
@@ -833,19 +885,15 @@ function hideImage(event) {
     width: 80px !important;
   }
   
-  
   .question-wrapper {
     margin-top: 10px;
   }
-  
-  
   
   .button-container {
     position: static;
     margin-top: 2rem;
     text-align: center;
   }
-  
   
   .question-layout {
     transform: scale(0.8);
@@ -857,10 +905,9 @@ function hideImage(event) {
   }
 }
 
-
-
-
-
+/* =========================
+   FINE PRINT STYLES
+   ========================= */
 .fine-print {
   margin-top: 20px;
   position: absolute;
@@ -878,9 +925,7 @@ function hideImage(event) {
   line-height: clamp(11px, 1vw, 13px);
 }
 
-
 @media (max-width: 768px), (max-height: 612px) {
-  
   .fine-print-content {
     padding: 15px;
     font-size: 0.85rem;
@@ -913,25 +958,14 @@ function hideImage(event) {
     margin: 0 auto;
 }
 
-
-
-
-/* General question styles */
-
-
-
-/* Fine-print styles */
-
-
-/* Desktop styles */
-@media (min-width: 1025px) and (max-width: 1680px) {
+@media (min-width: 1024px) and (max-width: 1680px) {
   h2 {
-    font-size: 1.5rem; /* 60% of 2.5rem */
+    font-size: 1.5rem;
   }
 
   .question-proper {
-    padding-top: clamp(1.125rem, 3vh, 1.8rem); /* 60% of 3rem */
-    font-size: clamp(20px, 3vw, 36px); /* Much smaller responsive sizing */
+    padding-top: clamp(1.125rem, 3vh, 1.8rem);
+    font-size: clamp(20px, 3vw, 36px);
   }
 
   .question-content {
@@ -940,27 +974,27 @@ function hideImage(event) {
   }
 
   .timer-dial {
-    right: 2.5%; /* 60% of 40px and 62px */
-    top: 43.5%; /* 60% of 180px and 243px */
-    zoom: clamp(0.9, 1.5vw, 1.26); /* 60% of 1.5 and 2.1 */
+    right: 2.5%;
+    top: 43.5%;
+    zoom: clamp(0.9, 1.5vw, 1.26);
   }
 
   .question-overlay {
-    padding: clamp(30px, 4.8vh, 48px) 132px 1.2rem 1.2rem; /* 60% scaling */
+    padding: clamp(30px, 4.8vh, 48px) 132px 1.2rem 1.2rem;
   }
 
   .header-section {
-    top: 30px; /* 60% of 50px */
+    top: 30px;
     right: 0.6rem;
     gap: 0.6rem;
   }
 
   .home-button img {
-    height: clamp(24px, 3vw, 36px); /* 60% of 40px-60px */
+    height: clamp(24px, 3vw, 36px);
   }
 
   .question-number {
-    padding: clamp(3.6px, 0.72vh, 7.2px) clamp(4.8px, 0.96vw, 7.2px); /* 60% scaling */
+    padding: clamp(3.6px, 0.72vh, 7.2px) clamp(4.8px, 0.96vw, 7.2px);
     top: clamp(-9.6px, -1.44vh, -12px);
     width: clamp(67.2px, 9.6vw, 77.4px);
     font-size: clamp(8.4px, 1.44vw, 16.8px);
@@ -968,140 +1002,140 @@ function hideImage(event) {
   }
 
   .options-container {
-    border-radius: 6.369px; /* 60% of 10.615px */
-    padding: 1.2rem; /* 60% of 2rem */
-    gap: 0.6rem; /* 60% of 1rem */
+    border-radius: 6.369px;
+    padding: 1.2rem; 
+    gap: 0.6rem;
   }
 
   .option-row {
-    gap: 0.6rem; /* 60% of 1rem */
+    gap: 0.6rem; 
   }
 
   .light-indicator {
-    height: 36px; /* 60% of 60px */
+    height: 36px;
   }
 
   .option-content {
-    min-height: 49.3px; /* 60% of 82.131px */
+    min-height: 49.3px;
     height: auto;
-    padding: 0 18px; /* 60% of 30px */
-    border: 1.5px solid rgba(255, 255, 255, 0.2); /* 60% of 2.5px */
-    border-radius: 6px; /* 60% of 10px */
+    padding: 0 18px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
     margin-left: 0;
   }
 
   .timer-section {
-    width: 120px; /* 60% of 200px */
+    width: 120px;
   }
 
   .progress {
-    height: 12px; /* 60% of 20px */
-    border-radius: 6px; /* 60% of 10px */
+    height: 12px;
+    border-radius: 6px;
   }
 
   .timer-circle {
-    width: 36px; /* 60% of 60px */
+    width: 36px;
     height: 36px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5); /* 60% of 10px */
-    border: 1.8px solid white; /* 60% of 3px */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+    border: 1.8px solid white;
   }
 
   .clock-svg {
-    margin-bottom: 1.2px; /* 60% of 2px */
+    margin-bottom: 1.2px;
   }
 
   .timer-text {
-    font-size: 0.9rem; /* 60% of 1.5rem */
+    font-size: 0.9rem;
   }
 
   .question-wrapper {
-    margin-top: 30px; /* 60% of 50px */
-    gap: 1.2rem; /* 60% of 2rem */
+    margin-top: 30px;
+    gap: 1.2rem;
   }
 
   .question-layout {
-    gap: 1.2rem; /* 60% of 2rem */
+    gap: 1.2rem;
   }
 
   .explanation-column {
-    gap: 0.9rem; /* 60% of 1.5rem */
+    gap: 0.9rem;
   }
 
   .explanation-content {
-    border-radius: 6.369px; /* 60% of 10.615px */
+    border-radius: 6.369px;
     padding: 0;
     max-width: 275px;
     font-size: 14px !important;
   }
 
   .additional-info {
-    left: 2.4rem; /* 60% of 4rem - matches additional-info */
-    max-width: 511.8px; /* 60% of 853px */
+    left: 2.4rem;
+    max-width: 511.8px;
   }
 
   .info-toggle-btn {
-    border-radius: 4.8px 4.8px 0 0; /* 60% of 8px */
-    padding: 6px 12px; /* 60% of 10px 20px */
-    width: 229.2px; /* 60% of 382px */
-    font-size: 19.55px; /* 60% of 32.583px */
+    border-radius: 4.8px 4.8px 0 0;
+    padding: 6px 12px;
+    width: 229.2px;
+    font-size: 19.55px;
   }
 
   .info-toggle-btn::after {
-    font-size: 9.6px; /* 60% of 16px */
+    font-size: 9.6px;
   }
 
   .additional-content {
-    padding: 12px; /* 60% of 20px */
-    font-size: 7.2px; /* 60% of 12px */
-    line-height: 10.2px; /* 60% of 17px */
+    padding: 12px;
+    font-size: 7.2px;
+    line-height: 10.2px;
   }
 
   .button-container {
     right: 1rem;
-    bottom: clamp(120px, 15vh, 175px); /* Original size */
+    bottom: clamp(120px, 15vh, 175px);
   }
 
   .button-container button.btn.btn-primary.btn-lg {
-    font-size: 2rem; /* Original size */
-    height: 68px; /* Original size */
-    width: 253px; /* Original size */
+    font-size: 2rem;
+    height: 68px;
+    width: 253px;
   }
 
   .question-text {
-    border-radius: 6.369px; /* 60% of 10.615px */
-    backdrop-filter: blur(1.274px); /* 60% of 2.123px */
-    padding: 6px; /* 60% of 10px */
+    border-radius: 6.369px;
+    backdrop-filter: blur(1.274px);
+    padding: 6px;
   }
 
   .fine-print {
-    margin-top: 12px; /* 60% of 20px */
-    bottom: clamp(72px, 7.2vh, 90px); /* 60% of 120px-150px */
-    max-width: clamp(240px, 42vw, 511.2px); /* 60% of 400px-852px */
+    margin-top: 12px;
+    bottom: clamp(72px, 7.2vh, 90px);
+    max-width: clamp(240px, 42vw, 511.2px);
   }
 
   .fine-print-content {
-    font-size: clamp(5.4px, 0.48vw, 6.6px); /* 60% of 9px-11px */
-    line-height: clamp(6.6px, 0.6vw, 7.8px); /* 60% of 11px-13px */
+    font-size: clamp(5.4px, 0.48vw, 6.6px);
+    line-height: clamp(6.6px, 0.6vw, 7.8px);
   }
 
   .option-text {
-    letter-spacing: -0.46px; /* 60% of -0.76px */
-    margin-left: 9px; /* 60% of 15px */
+    letter-spacing: -0.46px;
+    margin-left: 9px;
     font-size: 20px;
   }
 
   .check-icon, .x-icon {
-    width: 36px; /* 60% of 60px */
+    width: 36px;
     height: 36px;
   }
 
   .check-icon img {
-    width: 18px; /* 60% of 30px */
+    width: 18px;
     height: 18px;
   }
 
   .x-icon img {
-    width: 36px; /* 60% of 60px */
+    width: 36px;
     height: 36px;
   }
 
@@ -1120,17 +1154,17 @@ function hideImage(event) {
 @media (min-width: 1681px) and (min-height: 950px) {
   
   h2 {
-    font-size: 2rem; /* 80% of 2.5rem */
+    font-size: 2rem;
   }
 
   .question-proper {
-    padding-top: clamp(1.5rem, 4vh, 2.4rem); /* 80% of 3rem */
-    font-size: clamp(1rem, 2vw, 2.125rem); /* Scales from 80% to larger screens */
+    padding-top: clamp(1.5rem, 4vh, 2.4rem);
+    font-size: clamp(1rem, 2vw, 2.125rem); 
   }
 
   .question-content {
     max-width: 70%;
-    padding-left: 2.4rem; /* 80% of 3rem */
+    padding-left: 2.4rem;
   }
 
   .timer-dial {
@@ -1140,17 +1174,17 @@ function hideImage(event) {
   }
 
   .question-overlay {
-    padding: clamp(40px, 6.4vh, 64px) 176px 1.6rem 1.6rem; /* 80% scaling */
+    padding: clamp(40px, 6.4vh, 64px) 176px 1.6rem 1.6rem;
   }
 
   .header-section {
-    top: 40px; /* 80% of 50px */
+    top: 40px;
     right: 0.8rem;
     gap: 0.8rem;
   }
 
   .home-button img {
-    height: clamp(32px, 4vw, 48px); /* 80% of 40px-60px */
+    height: clamp(32px, 4vw, 48px);
   }
 
   .question-number {
@@ -1162,113 +1196,113 @@ function hideImage(event) {
   }
 
   .options-container {
-    border-radius: 8.492px; /* 80% of 10.615px */
-    padding: 1.6rem; /* 80% of 2rem */
-    gap: 0.8rem; /* 80% of 1rem */
+    border-radius: 8.492px;
+    padding: 1.6rem;
+    gap: 0.8rem;
   }
 
   .option-row {
-    gap: 0.8rem; /* 80% of 1rem */
+    gap: 0.8rem;
   }
 
   .light-indicator {
-    height: 48px; /* 80% of 60px */
+    height: 48px;
   }
 
   .option-content {
-    min-height: 65.7px; /* 80% of 82.131px */
+    min-height: 65.7px;
     height: auto;
-    padding: 0 24px; /* 80% of 30px */
-    border: 2px solid rgba(255, 255, 255, 0.2); /* 80% of 2.5px */
-    border-radius: 8px; /* 80% of 10px */
+    padding: 0 24px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
     margin-left: 0;
   }
 
   .timer-section {
-    width: 160px; /* 80% of 200px */
+    width: 160px;
   }
 
   .progress {
-    height: 16px; /* 80% of 20px */
-    border-radius: 8px; /* 80% of 10px */
+    height: 16px;
+    border-radius: 8px;
   }
 
   .timer-circle {
-    width: 48px; /* 80% of 60px */
+    width: 48px;
     height: 48px;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* 80% of 10px */
-    border: 2.4px solid white; /* 80% of 3px */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    border: 2.4px solid white;
   }
 
   .clock-svg {
-    margin-bottom: 1.6px; /* 80% of 2px */
+    margin-bottom: 1.6px;
   }
 
   .timer-text {
-    font-size: 1.2rem; /* 80% of 1.5rem */
+    font-size: 1.2rem;
   }
 
   .question-wrapper {
-    margin-top: 40px; /* 80% of 50px */
-    gap: 1.6rem; /* 80% of 2rem */
+    margin-top: 40px;
+    gap: 1.6rem;
   }
 
   .question-layout {
-    gap: 1.6rem; /* 80% of 2rem */
+    gap: 1.6rem;
   }
 
   .explanation-column {
-    gap: 1.2rem; /* 80% of 1.5rem */
+    gap: 1.2rem;
     padding-top: 30px !important;
   }
 
   .explanation-content {
-    border-radius: 8.492px; /* 80% of 10.615px */
-    padding: clamp(40px, 5vh, 50px) clamp(40px, 4vw, 50px); /* 80% responsive equivalent of 50px */
+    border-radius: 8.492px;
+    padding: clamp(40px, 5vh, 50px) clamp(40px, 4vw, 50px); 
     width: 389.908px;
     min-height: 426.805px;
-    font-size: clamp(16px, 1.2vw, 20px); /* 80% responsive equivalent of 20px */
+    font-size: clamp(16px, 1.2vw, 20px); 
   }
   
   .fine-print-content {
-    font-size: clamp(9px, 0.57vw, 11px) !important; /* Responsive equivalent to 11px */
+    font-size: clamp(9px, 0.57vw, 11px) !important;
     line-height: clamp(11px, 0.68vw, 13px) !important;
   }
   
   .option-content {
-    min-height: clamp(65px, 4.3vw, 82.131px) !important; /* Responsive equivalent to 82.131px */
+    min-height: clamp(65px, 4.3vw, 82.131px) !important;
   }
   
   .light-indicator {
-    height: clamp(81px, 5.3vw, 102.298px) !important; /* Responsive equivalent to 102.298px */
+    height: clamp(81px, 5.3vw, 102.298px) !important;
   }
   
   .check-icon, .x-icon {
-    width: clamp(81px, 5.3vw, 102.298px) !important; /* Match light indicator size */
+    width: clamp(81px, 5.3vw, 102.298px) !important; 
     height: clamp(81px, 5.3vw, 102.298px) !important;
   }
   
   .check-icon img {
-    width: clamp(40px, 2.6vw, 51.149px) !important; /* Scale proportionally */
+    width: clamp(40px, 2.6vw, 51.149px) !important;
     height: clamp(40px, 2.6vw, 51.149px) !important;
   }
   
   .x-icon img {
-    width: clamp(81px, 5.3vw, 102.298px) !important; /* Full size for X */
+    width: clamp(81px, 5.3vw, 102.298px) !important; 
     height: clamp(81px, 5.3vw, 102.298px) !important;
   }
   
   .light-container {
-    margin-right: -45px !important; /* Fixed value for XL screens */
+    margin-right: -45px !important;
   }
   
   .option-text {
-    margin-left: 36px !important; /* Fixed value for XL screens */
-    font-size: 38px !important; /* Fixed value for XL screens */
+    margin-left: 36px !important;
+    font-size: 38px !important;
   }
   
   .question-proper {
-    font-size: 50px !important; /* Fixed value for XL screens */
+    font-size: 50px !important;
   }
   
   .question-14 .explanation-content {
@@ -1281,81 +1315,80 @@ function hideImage(event) {
   }
 
   .additional-info {
-    left: 3.2rem; /* 80% of 4rem - matches additional-info */
-    max-width: 682.4px; /* 80% of 853px */
+    left: 3.2rem;
+    max-width: 682.4px;
   }
 
   .info-toggle-btn {
-    border-radius: 6.4px 6.4px 0 0; /* 80% of 8px */
-    padding: 8px 16px; /* 80% of 10px 20px */
-    width: 305.6px; /* 80% of 382px */
-    font-size: 26.07px; /* 80% of 32.583px */
+    border-radius: 6.4px 6.4px 0 0;
+    padding: 8px 16px;
+    width: 305.6px;
+    font-size: 26.07px;
   }
 
   .info-toggle-btn::after {
-    font-size: 12.8px; /* 80% of 16px */
+    font-size: 12.8px;
   }
 
   .additional-content {
-    padding: 16px; /* 80% of 20px */
-    font-size: 9.6px; /* 80% of 12px */
-    line-height: 13.6px; /* 80% of 17px */
+    padding: 16px;
+    font-size: 9.6px;
+    line-height: 13.6px;
   }
 
   .button-container {
     right: 1rem;
-    bottom: clamp(120px, 15vh, 175px); /* Original size */
+    bottom: clamp(120px, 15vh, 175px);
   }
 
   .button-container button.btn.btn-primary.btn-lg {
-    font-size: 2rem; /* Original size */
-    height: 68px; /* Original size */
-    width: 253px; /* Original size */
+    font-size: 2rem;
+    height: 68px;
+    width: 253px;
   }
 
   .question-text {
-    border-radius: 8.492px; /* 80% of 10.615px */
-    backdrop-filter: blur(1.698px); /* 80% of 2.123px */
-    padding: 8px; /* 80% of 10px */
+    border-radius: 8.492px;
+    backdrop-filter: blur(1.698px);
+    padding: 8px;
   }
 
   .fine-print {
-    margin-top: 16px; /* 80% of 20px */
-    bottom: clamp(96px, 9.6vh, 120px); /* 80% of 120px-150px */
-    left: 3.2rem; /* 80% of 4rem - matches additional-info */
-    max-width: clamp(320px, 56vw, 681.6px); /* 80% of 400px-852px */
+    margin-top: 16px;
+    bottom: clamp(96px, 9.6vh, 120px);
+    left: 4rem;
+    max-width: clamp(320px, 56vw, 681.6px);
   }
 
   .fine-print-content {
-    font-size: clamp(7.2px, 0.64vw, 8.8px); /* 80% of 9px-11px */
-    line-height: clamp(8.8px, 0.8vw, 10.4px); /* 80% of 11px-13px */
+    font-size: clamp(7.2px, 0.64vw, 8.8px);
+    line-height: clamp(8.8px, 0.8vw, 10.4px);
   }
 
   .option-text {
-    letter-spacing: -0.61px; /* 80% of -0.76px */
-    margin-left: 12px; /* 80% of 15px */
+    letter-spacing: -0.61px;
+    margin-left: 12px;
     font-size: 22px;
   }
 
   .check-icon, .x-icon {
-    width: 48px; /* 80% of 60px */
+    width: 48px;
     height: 48px;
   }
 
   .check-icon img {
-    width: 24px; /* 80% of 30px */
+    width: 24px;
     height: 24px;
   }
 
   .x-icon img {
-    width: 48px; /* 80% of 60px */
+    width: 48px;
     height: 48px;
   }
 }
 
 /* Large desktop styles - full size for very large screens */
 
-/* NEW CLEAN QUESTION WRAPPER STYLES */
 .question-wrapper {
   display: flex;
   flex-direction: column;
@@ -1379,8 +1412,6 @@ function hideImage(event) {
 }
 
 .options-container {
-  /* background: rgba(0, 0, 0, 0.2); */
-  /* backdrop-filter: blur(2.123px); */
   border-radius: 10.615px;
   padding: 2rem 2rem 2rem 0;
   display: flex;
@@ -1541,7 +1572,6 @@ function hideImage(event) {
   overflow-wrap: break-word;
 }
 
-
 /* Right Column - Explanation */
 .explanation-column {
   flex: 1;
@@ -1699,7 +1729,6 @@ function hideImage(event) {
   transform: rotate(180deg);
 }
 
-
 .info-toggle-btn:hover {
   background-color: #ffd966;
 }
@@ -1713,7 +1742,6 @@ function hideImage(event) {
   font-family: 'Inter';
   font-size: 12px;
   font-style: normal;
-  /* font-weight: 700; */
   line-height: 17px;
 }
 
@@ -1724,7 +1752,7 @@ function hideImage(event) {
 /* Mobile Layout - Stack Vertically */
 @media (max-width: 768px), (max-height: 612px) {
   .question-wrapper {
-    gap: 0; /* Remove gap between question-layout and mobile-only container */
+    gap: 0;
   }
 
   .question-layout {
@@ -1783,11 +1811,9 @@ function hideImage(event) {
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    margin-left: calc(50% - 160px + 12.5px); /* Account for -25px total offset */
+    margin-left: calc(50% - 160px + 12.5px);
     margin-right: calc(50% - 160px - 12.5px);
   }
-  
-  /* Timer positioning - top center */
   
   .timer-section {
     width: 200px;
@@ -1820,7 +1846,7 @@ function hideImage(event) {
   
 }
 
-  /* Mobile Layout - Stack Vertically */
+/* Mobile Layout - Stack Vertically */
 @media (max-width: 768px), (max-height: 612px) {
   .option-text {
     font-size: 18px;
@@ -1832,16 +1858,11 @@ function hideImage(event) {
   }
 }
 
-
-/* Larger desktop question specific styles */
-
-
 /* Hide mobile-only content on desktop/tablet */
 @media (min-width: 769px) {
   .mobile-only {
     display: none !important;
   }
-
 }
 
 @media (max-width: 768px), (max-height: 612px) {
@@ -1849,7 +1870,6 @@ function hideImage(event) {
     max-width: 95% !important;
     padding-left: unset !important;
     align-items: center;
-    /* justify-content: center; */
     width: 100%;
     box-sizing: border-box;
     display: flex;
@@ -1880,7 +1900,7 @@ function hideImage(event) {
   }
 
   .additional-info {
-    left: 13px !important; /* Mobile - matches additional-info */
+    left: 13px !important; 
   }
 
   .fine-print-content * {
@@ -1899,16 +1919,15 @@ function hideImage(event) {
   }
 
   .mobile-fine-print .fine-print-content {
-    left: 13px !important; /* Mobile - matches additional-info */
+    left: 13px !important; 
     color: #FFF;
     font-family: Inter;
     font-size: 7px;
     font-style: normal;
     font-weight: 400;
-    line-height: 9px; /* 128.571% */
+    line-height: 9px; 
   }
   
-
   .explanation-content {
     font-size: 13px;
   }
@@ -1927,7 +1946,6 @@ function hideImage(event) {
   }
 }
 
-
 /* Utility classes for responsive display */
 .mobile-only {
   display: none !important;
@@ -1938,6 +1956,13 @@ function hideImage(event) {
     display: block !important;
     margin: 0;
     padding: 0;
+  }
+
+  .timer-dial.mobile-only {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(.5);
   }
 
   .mobile-button-container {

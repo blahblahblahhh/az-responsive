@@ -136,14 +136,14 @@ defineEmits(['back', 'startGame']);
 /* Mobile background */
 @media (max-width: 768px) {
   .background-image {
-    background-image: url('/green-mobile.png');
+    background-image: url('/instructions.png');
   }
 }
 
 /* Tablet background */
 @media (min-width: 769px) and (max-width: 1024px) {
   .background-image {
-    background-image: url('/green-tablet.png');
+    background-image: url('/instructions.png');
   }
   
   .how-to-play-title {
@@ -164,7 +164,7 @@ defineEmits(['back', 'startGame']);
 /* Desktop background */
 @media (min-width: 1025px) {
   .background-image {
-    background-image: url('/green-desktop.png');
+    background-image: url('/instructions.png');
   }
 }
 
