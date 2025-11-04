@@ -518,19 +518,22 @@ function hideImage(event) {
   .quiz-screen.bg-green {
     background: url('/green-mobile.png');
     background-size: contain;
-    background-position: center bottom;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
   .quiz-screen.bg-yellow {
     background: url('/yellow-mobile.png');
     background-size: contain;
-    background-position: center bottom;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
   .quiz-screen.bg-red {
     background: url('/red-mobile.png');
     background-size: contain;
-    background-position: center bottom;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 }
 
@@ -1114,7 +1117,7 @@ function hideImage(event) {
 }
 
 /* Large Desktop styles */
-@media (min-width: 1681px) {
+@media (min-width: 1681px) and (min-height: 950px) {
   
   h2 {
     font-size: 2rem; /* 80% of 2.5rem */
@@ -1636,7 +1639,7 @@ function hideImage(event) {
 }
 
 /* XL specific explanation content - placed after 769px rule to override */
-@media (min-width: 1681px) {
+@media (min-width: 1681px) and (min-height: 950px) {
   .explanation-content {
     padding-left: clamp(40px, 4vw, 50px) !important;
     padding-right: clamp(40px, 4vw, 50px) !important;
@@ -1954,6 +1957,12 @@ function hideImage(event) {
   }
 }
 
+@media (min-width: 769px) and (max-width: 1080px) and (orientation: landscape) {
+  .timer-dial {
+    right: 4.5%; 
+    top: 44.5%;
+  }
+}
 </style>
 
 <style>

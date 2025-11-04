@@ -275,7 +275,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 .score-overlay {
   position: absolute;
   top: 50%;
-  right: 0;
+  right: 20%;
   transform: translate(-50%, -50%);
   text-align: center;
   z-index: 7;

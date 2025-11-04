@@ -413,7 +413,7 @@ defineEmits(['back', 'startGame']);
 }
 
 /* Large desktop styles */
-@media (min-width: 1920px) {
+@media (min-width: 1681px) {
   .instructions-content {
     width: 1054px;
   }
