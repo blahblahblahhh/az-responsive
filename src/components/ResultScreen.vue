@@ -151,7 +151,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 <style scoped>
 .results-container {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   width: 100%;
   background: #000;
   color: white;

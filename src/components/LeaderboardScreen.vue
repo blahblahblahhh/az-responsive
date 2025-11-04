@@ -477,7 +477,7 @@ defineEmits(['playAgain', 'viewLeaderboard']);
 
 <style scoped>
 .leaderboard-screen {
-  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
               url('/leaderboard-bg.png') center/cover no-repeat;
   /* background: url(/Leaderboardbg.png);               */

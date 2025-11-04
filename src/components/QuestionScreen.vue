@@ -506,7 +506,7 @@ function hideImage(event) {
 .quiz-screen {
   background-size: cover;
   background-position: center left 200px;
-  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   width: 100vw;
   position: relative;
   overflow: hidden;

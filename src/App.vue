@@ -208,8 +208,14 @@ function resetGame() {
 </script>
 
 <style>
+/* Fix for mobile viewport height issues */
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 .app {
-  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
   background-color: var(--background-color);
 }
 

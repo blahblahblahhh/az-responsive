@@ -27,7 +27,7 @@ defineEmits(['startQuiz']);
 .game-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   overflow: hidden;
 }
 
