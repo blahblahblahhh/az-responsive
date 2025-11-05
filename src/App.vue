@@ -208,15 +208,24 @@ function resetGame() {
 </script>
 
 <style>
-/* Fix for mobile viewport height issues */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html, body {
-  height: 100%;
-  overflow: hidden; /* Prevent any scrolling at the document level */
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  position: fixed;
 }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
   background-color: var(--background-color);
+  overflow: hidden;
+  position: relative;
 }
 
 .fade-enter-active,
@@ -250,8 +259,10 @@ html, body {
 }
 
 .az-footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 10;
     width: 100%;
     display: flex;
