@@ -305,8 +305,9 @@ function positionTimerDials() {
 
 function positionTimerDialMobile(timerDial, bgImageWidth, bgImageHeight, dialCenterX, dialCenterY, scale) {
   // Mobile uses background-size: contain + background-position: center center
-  const viewportWidth = window.innerWidth;
-  const viewportHeight = window.innerHeight;
+  const quizScreen = document.querySelector('.quiz-screen');
+  const viewportWidth = quizScreen ? quizScreen.offsetWidth : window.innerWidth;
+  const viewportHeight = quizScreen ? quizScreen.offsetHeight : window.innerHeight;
 
   // Calculate background image scale and position (mimics background-size: contain)
   const scaleX = viewportWidth / bgImageWidth;
