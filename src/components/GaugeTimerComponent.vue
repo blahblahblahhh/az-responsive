@@ -43,9 +43,24 @@ const dialStyle = computed(() => {
   // Calculate the left position: End at 37% when timeRemaining is 0
   const leftPosition = 45 - (1 - percentage) * (45 - 33);
 
+  // Calculate the top position: 24sec=3%, 15sec=4%, 0sec=1.1%
+  let topPosition = 0;
+  if (props.timeRemaining <= 24) {
+    if (props.timeRemaining >= 15) {
+      // From 24sec to 15sec: interpolate from 3% to 4%
+      const segment1Percentage = (props.timeRemaining - 15) / (24 - 15); // 1 at 24sec, 0 at 15sec
+      topPosition = 4 + (segment1Percentage * (3 - 4)); // Interpolate from 4% to 3%
+    } else {
+      // From 15sec to 0sec: interpolate from 4% to 1.1%
+      const segment2Percentage = props.timeRemaining / 15; // 1 at 15sec, 0 at 0sec
+      topPosition = 1.1 + (segment2Percentage * (4 - 1.1)); // Interpolate from 4% to 1.1%
+    }
+  }
+
   return {
     transform: `rotate(${angle}deg)`,
-    left: `${leftPosition}%`
+    left: `${leftPosition}%`,
+    top: topPosition > 0 ? `${topPosition}%` : '0'
   };
 });
 </script>
