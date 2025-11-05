@@ -1856,7 +1856,7 @@ function hideImage(event) {
   }
 
   .quiz-screen {
-    overflow: scroll !important;
+    overflow: hidden;
   }
 }
 
