@@ -211,11 +211,11 @@ function resetGame() {
 /* Fix for mobile viewport height issues */
 html, body {
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden; /* Prevent any scrolling at the document level */
 }
 
 .app {
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  min-height: 100vh;
   background-color: var(--background-color);
 }
 

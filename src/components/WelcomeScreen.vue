@@ -1,6 +1,6 @@
 <template>
   <div class="game-container">
-    <video class="background-video" autoplay loop muted playsinline>
+    <video ref="videoRef" class="background-video" autoplay loop muted playsinline>
       <source src="/NudgeGauge_1.mp4" type="video/mp4">
     </video>
     <div class="content-overlay">
@@ -20,14 +20,27 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
+
+const videoRef = ref(null);
+
 defineEmits(['startQuiz']);
+
+onMounted(() => {
+  // Force video to play on mobile
+  if (videoRef.value) {
+    videoRef.value.play().catch(error => {
+      console.log('Autoplay was prevented:', error);
+    });
+  }
+});
 </script>
 
 <style scoped>
 .game-container {
   position: relative;
   width: 100%;
-  height: 100dvh; /* Dynamic viewport height for mobile */
+  height: 100vh;
   overflow: hidden;
 }
 

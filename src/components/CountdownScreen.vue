@@ -66,7 +66,7 @@ defineEmits(['back', 'startGame']);
 .instructions-container {
   position: relative;
   width: 100%;
-  height: 100dvh; /* Dynamic viewport height for mobile */
+  height: 100vh;
   overflow: hidden;
 }
 

@@ -86,7 +86,7 @@ function formatInitials(event) {
 
 <style scoped>
 .game-container {
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  min-height: 100vh;
   background-image: url('/initials-final.png');
   background-size: 100% 100%;
   color: white;
@@ -96,7 +96,7 @@ function formatInitials(event) {
 
 .content-wrapper {
   position: relative;
-  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  min-height: 100vh;
   /* background: linear-gradient(90deg, #1a2632 0%, transparent 80%); */
   z-index: 1;
 }
