@@ -90,4 +90,18 @@ const dialStyle = computed(() => {
 .gauge-container.broken-glass:before {
     opacity: 1;
 }
+
+/* XL screens - make gauge timer 1x bigger */
+@media (min-width: 1681px) and (min-height: 950px) {
+  .gauge-timer {
+    width: 170px;
+    height: 170px;
+  }
+  
+  .gauge-dial {
+    width: 10px;
+    height: 85px;
+    transform: translateX(-5px);
+  }
+}
 </style>
