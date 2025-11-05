@@ -243,16 +243,16 @@ export const useGameStore = defineStore('game', () => {
     console.log('Initializing questions...');
     
     // Reverting to original code that selects first 3 + random 4:
-    //</br>const firstThree = questions.slice(0, 3);
-    //const remaining = questions.slice(3);
-    //const shuffled = remaining.sort(() => Math.random() - 0.5);
-    //const randomFour = shuffled.slice(0, 4);
-    //questionsList.value = [...firstThree, ...randomFour];
-    
-    // The temporary code that kept first 3 and added all remaining:
     const firstThree = questions.slice(0, 3);
     const remaining = questions.slice(3);
-    questionsList.value = [...firstThree, ...remaining];
+    const shuffled = remaining.sort(() => Math.random() - 0.5);
+    const randomFour = shuffled.slice(0, 4);
+    questionsList.value = [...firstThree, ...randomFour];
+    
+    // The temporary code that kept first 3 and added all remaining:
+   // const firstThree = questions.slice(0, 3);
+    //const remaining = questions.slice(3);
+    //questionsList.value = [...firstThree, ...remaining];
     
     await nextTick();
     console.log('Questions initialized:', questionsList.value);

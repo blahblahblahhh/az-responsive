@@ -298,7 +298,7 @@ function positionTimerDials() {
     // Position desktop timer dial (uses cover + right -150px center)
     const desktopTimerDial = document.querySelector('.timer-dial.desktop-only');
     if (desktopTimerDial) {
-      positionTimerDialDesktop(desktopTimerDial, 1920, 1080, 1582, 547);
+      positionTimerDialDesktop(desktopTimerDial, 1920, 1080, 1586, 545);
     }
   }
 }

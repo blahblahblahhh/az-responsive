@@ -41,7 +41,7 @@ const dialStyle = computed(() => {
   const angle = -90 + (1 - percentage) * 180;
 
   // Calculate the left position: End at 37% when timeRemaining is 0
-  const leftPosition = 45 - (1 - percentage) * (45 - 37);
+  const leftPosition = 45 - (1 - percentage) * (45 - 33);
 
   return {
     transform: `rotate(${angle}deg)`,
