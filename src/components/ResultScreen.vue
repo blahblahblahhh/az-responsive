@@ -195,7 +195,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 .main-panel {
   position: absolute;
   top: 50%;
-  left: 2rem;
+  left: 0 !important;
   right: 2rem;
   transform: translateY(-50%);
   background: #0F2D42;
@@ -341,6 +341,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 
 .website-text strong {
   font-weight: 700;
+  color: #FFC130;
 }
 
 .play-again-btn {
@@ -354,7 +355,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   border-radius: 14px;
   color: #000;
   font-family: 'PF Fuel Grime', sans-serif;
-  font-size: 18px;
+  font-size: 2rem;
   font-weight: 400;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -390,8 +391,8 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 }
 
 .btn-icon {
-  width: 24px;
-  height: 24px;
+  /* width: 24px;
+  height: 24px; */
 }
 
 .description-section {
@@ -430,6 +431,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   bottom: 2rem;
   right: 2rem;
   z-index: 20;
+  display: none;
 }
 
 .az-logo {
@@ -1009,5 +1011,17 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .divider-line {
     min-height: 320px; /* 80% of 400px */
   }
+}
+
+@media (min-width: 1681px) {
+  .main-panel {
+    top: 40% !important;
+  }
+}
+
+.main-panel {
+  padding-left: 0px;
+  margin-left: 0px;
+  border-radius: 0px;
 }
 </style>

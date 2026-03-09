@@ -6,43 +6,43 @@ import { ref, computed, onMounted, nextTick } from 'vue';
 const questions = [
   {
     id: 1,
-    text: "According to the 2025 AHA/ACC Guideline, what is the recommended blood pressure goal for most patients with hypertension?",
+    text: "According to the 2025 AHA/ACC Guideline, what is the recommended blood pressure goal for most adults with hypertension?",
     type: "multiple",
     options: ["<span class='no-wrap'><120/80 mm Hg</span>", "<span class='no-wrap'><130/80 mm Hg</span>", "<span class='no-wrap'><140/90 mm Hg</span>", "<span class='no-wrap'><160/100 mm Hg</span>"],
     correctAnswer: "<span class='no-wrap'><130/80 mm Hg</span>",
-    explanation: "The 2025 AHA/ACC Guideline recommends a blood pressure goal of <span class='no-wrap'><130/80 mm Hg</span> for most patients with hypertension to help reduce the risk of CV events and all-cause mortality. It is recommended to encourage an SBP of <span class='no-wrap'><120 mm Hg</span> in adults at increased risk for CVD events.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> ACC=American College of Cardiology; AHA=American Heart Association; COR=class of recommendation; CV=cardiovascular; CVD=cardiovascular disease; DBP=diastolic blood pressure; HTN=hypertension; LOE=level of evidence; NR=nonrandomized; PREVENT=Predicting Risk of Cardiovascular Disease EVENTs; R=randomized; RCT=randomized controlled trial; SBP=systolic blood pressure.<br><br><b>Reference:</b> <b>1.</b> Jones DW, Ferdinand KC, Taler SJ, et al; Peer Review Committee Members. 2025 AHA/ACC/AANP/AAPA/ABC/ACCP/ACPM/AGS/AMA/ASPC/NMA/PCNA/SGIM guideline for the prevention, detection, evaluation, and management of high blood pressure in adults: a report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines. <i>J Am Coll Cardiol.</i> 2025;86(18):1567-1678.",
-    finePrint: "<span class='sup-asterisk'>An SBP goal of <span class='no-wrap'><130 mm Hg</span> is a COR 1 recommendation, with LOE A, for adults with confirmed hypertension who are at increased risk for CVD. An SBP goal of <span class='no-wrap'><130 mm Hg</span> is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. For patients at increased risk, it is recommended to encourage an SBP goal of <span class='no-wrap'><120 mm Hg</span>, while for those not at increased risk, it may be reasonable to encourage a goal of <span class='no-wrap'><120 mm Hg</span>. A DBP goal of <span class='no-wrap'><80 mm Hg</span> is a COR 1 recommendation, with LOE B-R, for adults with confirmed hypertension who are at increased risk for CVD. A DBP goal of <span class='no-wrap'><80 mm Hg</span> is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. Increased risk is defined as a 10-year predicted risk for CVD events of ≥7.5% using PREVENT. COR 1 is a strong recommendation, while 2b is a weak recommendation. LOE A is derived from high-quality evidence from >1 RCT, or meta-analysis of high-quality RCTs, or ≥1 RCTs corroborated by high-quality registry studies; LOE B-R is derived from moderate quality of evidence from ≥1 RCT or meta-analysis of moderate-quality RCTs; LOE B-NR is derived from moderate quality of evidence from 1 or more well-designed, well-executed nonrandomized studies, observational studies, registry studies or meta-analysis of such studies.</span>"
+    explanation: "The 2025 AHA/ACC Guideline recommends a blood pressure goal of <span class='no-wrap'><130/80 mm Hg</span> for most patients with hypertension to help reduce the risk of CV events and all-cause mortality. It is recommended to encourage an SBP of <span class='no-wrap'><120 mm Hg</span> in adults at increased risk for CVD events.*",
+    additionalInfo: "<b>Abbreviations:</b>  ACC=American College of Cardiology; AHA=American Heart Association; COR=Class of Recommendation; CV=cardiovascular; CVD=cardiovascular disease; DBP=diastolic blood pressure; HTN=hypertension; LOE=level of evidence; NR=nonrandomized; PREVENT=Predicting Risk of Cardiovascular Disease EVENTs; R=randomized; RCT=randomized controlled trial; SBP=systolic blood pressure.<br><br><b>Reference:</b> Jones DW, Ferdinand KC, Taler SJ, et al; Peer Review Committee Members. 2025 AHA/ACC/AANP/AAPA/ABC/ACCP/ACPM/AGS/AMA/ASPC/NMA/PCNA/SGIM guideline for the prevention, detection, evaluation, and management of high blood pressure in adults: a report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines. <i>J Am Coll Cardiol</i>. 2025;86(18):1567-1678. ",
+    finePrint: "<span class='sup-asterisk'>An SBP goal of <span class='no-wrap'><130 mm Hg</span> is a COR 1 recommendation, with LOE A, for adults with confirmed hypertension who are at increased risk for CVD. An SBP goal of <span class='no-wrap'><130 mm Hg</span> is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. For patients at increased risk, it is recommended to encourage an SBP goal of <span class='no-wrap'>120 mm Hg</span>, while for those not at increased risk, it may be reasonable to encourage a goal of <span class='no-wrap'><120 mm Hg</span>. A DBP goal of <span class='no-wrap'><80 mm Hg</span> is a COR 1 recommendation, with LOE B-R, for adults with confirmed hypertension who are at increased risk for CVD. A DBP goal of <span class='no-wrap'><80 mm Hg</span> is a COR 2b recommendation, with LOE B-NR, for adults with confirmed hypertension who are not at increased risk for CVD. Increased risk is defined as a 10-year predicted risk for CVD events of ≥7.5% using PREVENT. COR 1 is a strong recommendation, while 2b is a weak recommendation. LOE A is derived from high-quality evidence from >1 RCT, or meta-analysis of high-quality RCTs, or ≥1 RCTs corroborated by high-quality registry studies; LOE B-R is derived from moderate quality of evidence from ≥1 RCT or meta-analysis of moderate-quality RCTs; LOE B-NR is derived from moderate quality of evidence from 1 or more well-designed, well-executed nonrandomized studies, observational studies, registry studies or meta-analysis of such studies.</span>"
   },
   {
     id: 2,
-    text: "How many adults in the US may have uncontrolled hypertension (BP <span class='no-wrap'>>130/80 mm Hg)</span> even with ≥2 antihypertensives?",
+    text: "How many adults in the US may have uncontrolled hypertension (<span class='no-wrap'>BP ≥130/80 mm Hg)</span> even with ≥2 antihypertensives?",
     type: "multiple", 
     options: ["~1 in 10", "~3 in 10", "~1 in 2", "~9 in 10"],
     correctAnswer: "~1 in 2",
-    explanation: "~1 in 2 adults in the US with hypertension may be uncontrolled (<span class='no-wrap'>≥130/80 mm Hg</span>) despite taking 2 or more antihypertensives of different classes.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> AHA=American Heart Association; aTRH=apparent treatment-resistant hypertension; BP=blood pressure; HTN=hypertension; US=United States.<br><br><b>Reference:</b> <b>1.</b> Carey RM, Sakhuja S, Calhoun DA, Whelton PK, Muntner P. Prevalence of apparent treatment-resistant hypertension in the United States [including online supplement]. <i>Hypertension.</i> 2019;73(2):424-431.",
+    explanation: "~1 in 2 adults in the US with hypertension may be uncontrolled (<span class='no-wrap'>≥130/80 mm Hg</span>) despite taking 2 or more antihypertensives of different classes.*",
+    additionalInfo: "<b>Abbreviations:</b> AHA=American Heart Association; aTRH=apparent treatment-resistant hypertension; BP=blood pressure; HTN=hypertension; US=United States.<br><br><b>Reference:</b> Carey RM, Sakhuja S, Calhoun DA, Whelton PK, Muntner P. Prevalence of apparent treatment-resistant hypertension in the United States [including online supplement]. <i>Hypertension</i>. 2019;73(2):424-431.",
     finePrint: "<span class='sup-asterisk'>Based on an analysis of data from the 2009-2014 US National Health and Nutrition Examination Survey (NHANES). Analysis was restricted to participants aged ≥20 years who self-reported taking antihypertensive medication, had ≥1 class of antihypertensive medication identified during a pill bottle review conducted as part of the NHANES examination, and had ≥3 BP measurements obtained during their study exam (N=4158). The primary purpose of the study was to compare the prevalence and characteristics of adults with aTRH using the definitions in the 2018 versus the 2008 AHA Scientific Statement. The data used above are based on the definition of uncontrolled HTN (defined as BP <span class='no-wrap'>≥130/80 mm Hg</span>) from the 2018 AHA Scientific Statement.</span>"
   },
   {
     id: 3,
-    text: "Having uncontrolled hypertension nearly doubles the risk of MI.",
+    text: "Having uncontrolled hypertension <span class='no-wrap'>(BP ≥130/80 mm Hg)</span> nearly doubles the risk of MI.",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Based on a recent real-world evidence study, US adults with uncontrolled hypertension had a nearly 2x increased risk of MI compared to those with controlled hypertension.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> aHR=adjusted hazard ratio; BP=blood pressure; CI=confidence interval; EMR=electronic medical record; HTN=hypertension; MI=myocardial infarction; US=United States.<br><br><b>Reference:</b> <b>1.</b> McCormack T, Suárez Fernández C, Bhalla V, et al. Risk of cardiorenal and metabolic outcomes in inadequately controlled hypertension: insights from the EnligHTN study. Poster presented at: European Society of Cardiology (ESC) Congress; August 29-September 1, 2025; Madrid, Spain.",
-    finePrint: "<span class='sup-asterisk'>EnligHTN is an observational, longitudinal, multinational, cohort study of over 240,000 patients with HTN that assessed clinical characteristics and real-world disease burden in patients with controlled or inadequately controlled HTN using secondary de-identified claims and EMR data of patients with HTN in the US from IQVIA ambulatory EMRs linked with IQVIA PharMetrics® Plus claims. Patient characteristics were summarized by country. Patients were included if they were ≥18 years of age, diagnosed with HTN between 2018 and 2023, treated with ≥2 antihypertensive medications for ≥30 days, and had ≥1 day of follow-up. Patients were excluded if they had secondary causes of HTN. In US patients (N=41,994), controlled HTN (n=12,864; 31%) was defined as BP <span class='no-wrap'><130/80 mm Hg</span>, and inadequately controlled HTN (n=29,130; 69%) was defined as BP <span class='no-wrap'>≥130/80 mm Hg</span> while concurrently treated with ≥2 antihypertensive medications for ≥30 days from index date. Hazard ratio adjusted for disease risk score for MI was: aHR 1.78; 95% CI: 1.48-2.12.</span>"
+    explanation: "Based on a recent real-world evidence study, US adults with uncontrolled hypertension despite treatment with 2 or more antihypertensives had an approximately 1.8x increased risk of MI compared to those with controlled hypertension.*",
+    additionalInfo: "<b>Abbreviations:</b> aHR=adjusted hazard ratio; BP=blood pressure; CI=confidence interval; EMR=electronic medical record; HTN=hypertension; MI=myocardial infarction; US=United States.<br><br><b>Reference:</b> McCormack T, Suárez Fernández C, Bhalla V, et al. Risk of cardiorenal and metabolic outcomes in inadequately controlled hypertension: insights from the EnligHTN study. Poster presented at: European Society of Cardiology (ESC) Congress; August 29–September 1, 2025; Madrid, Spain.",
+    finePrint: "<span class='sup-asterisk'>EnligHTN is an observational, longitudinal, multinational, cohort study of over 240,000 patients with HTN that assessed clinical characteristics and real-world disease burden in patients with controlled or inadequately controlled HTN using secondary de-identified claims and EMR data of patients with HTN in the US from IQVIA ambulatory EMRs linked with IQVIA PharMetrics® Plus claims. Patient characteristics were summarized by country. Patients were included if they were ≥18 years of age, diagnosed with HTN between 2018 and 2023, treated with ≥2 antihypertensive medications for ≥30 days, and had ≥1 day of follow-up. Patients were excluded if they had secondary causes of HTN. In US patients (N=41,994), controlled HTN (n=12,864; 31%) was defined as BP <span class='no-wrap'><130/80 mm Hg</span>, and inadequately controlled HTN (n=29,130; 69%) was defined as BP <span class='no-wrap'>≥130/80 mm Hg</span> while concurrently treated with ≥2 antihypertensive medications for ≥30 days from index date. Hazard ratio adjusted for disease risk score for MI was: aHR 1.78; 95% CI: 1.48–2.12.</span>"
   },
   {
     id: 4,
-    text: "Having uncontrolled hypertension more than doubles the risk of stroke.",
+    text: "Having uncontrolled hypertension <span class='no-wrap'>(BP ≥130/80 mm Hg)</span> more than doubles the risk of stroke.",
     type: "boolean",
     options: ["True", "False"], 
     correctAnswer: "True",
-    explanation: "Based on a recent real-world evidence study, US adults with uncontrolled hypertension despite treatment with 2 or more antihypertensives had an approximately 2.2x increased risk of stroke compared to those with controlled hypertension.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> aHR=adjusted hazard ratio; BP=blood pressure; CI=confidence interval; EMR=electronic medical record; HTN=hypertension; US=United States.<br><br><b>Reference:</b> <b>1.</b> McCormack T, Suárez Fernández C, Bhalla V, et al. Risk of cardiorenal and metabolic outcomes in inadequately controlled hypertension: insights from the EnligHTN study. Poster presented at: European Society of Cardiology (ESC) Congress; August 29-September 1, 2025; Madrid, Spain. ",
-    finePrint: "<span class='sup-asterisk'>EnligHTN is an observational, longitudinal, multinational, cohort study of over 240,000 patients with HTN that assessed clinical characteristics and real-world disease burden in patients with controlled or inadequately controlled HTN using secondary de-identified claims and EMR data of patients with HTN in the US from IQVIA ambulatory EMRs linked with IQVIA PharMetrics® Plus claims. Patient characteristics were summarized by country. Patients were included if they were ≥18 years of age, diagnosed with HTN between 2018 and 2023, treated with ≥2 antihypertensive medications for ≥30 days, and had ≥1 day of follow-up. Patients were excluded if they had secondary causes of HTN. In US patients (N=41,994), controlled HTN (n=12,864; 31%) was defined as BP <span class='no-wrap'><130/80 mm Hg</span>, and inadequately controlled HTN (n=29,130; 69%) was defined as BP <span class='no-wrap'>≥130/80 mm Hg</span> while concurrently treated with ≥2 antihypertensive medications for ≥30 days from index date. Hazard ratio adjusted for disease risk score for stroke was: aHR 2.17; 95% CI: 1.79-2.64.</span>"
+    explanation: "Based on a recent real-world evidence study, US adults with uncontrolled hypertension despite treatment with 2 or more antihypertensives had an approximately 2.2x increased risk of stroke compared to those with controlled hypertension.*",
+    additionalInfo: "<b>Abbreviations:</b> aHR=adjusted hazard ratio; BP=blood pressure; CI=confidence interval; EMR=electronic medical record; HTN=hypertension; US=United States.<br><br><b>Reference:</b> McCormack T, Suárez Fernández C, Bhalla V, et al. Risk of cardiorenal and metabolic outcomes in inadequately controlled hypertension: insights from the EnligHTN study. Poster presented at: European Society of Cardiology (ESC) Congress; August 29–September 1, 2025; Madrid, Spain.",
+    finePrint: "<span class='sup-asterisk'>EnligHTN is an observational, longitudinal, multinational, cohort study of over 240,000 patients with HTN that assessed clinical characteristics and real-world disease burden in patients with controlled or inadequately controlled HTN using secondary de-identified claims and EMR data of patients with HTN in the US from IQVIA ambulatory EMRs linked with IQVIA PharMetrics® Plus claims. Patient characteristics were summarized by country. Patients were included if they were ≥18 years of age, diagnosed with HTN between 2018 and 2023, treated with ≥2 antihypertensive medications for ≥30 days, and had ≥1 day of follow-up. Patients were excluded if they had secondary causes of HTN. In US patients (N=41,994), controlled HTN (n=12,864; 31%) was defined as BP <span class='no-wrap'><130/80 mm Hg</span>, and inadequately controlled HTN (n=29,130; 69%) was defined as BP <span class='no-wrap'>≥130/80 mm Hg</span> while concurrently treated with ≥2 antihypertensive medications for ≥30 days from index date. Hazard ratio adjusted for disease risk score for stroke was: aHR 2.17; 95% CI: 1.79–2.64.</span>"
   },
   {
     id: 5,
@@ -51,7 +51,7 @@ const questions = [
     options: ["True", "False"],
     correctAnswer: "True",
     explanation: "Per the 2025 AHA/ACC Guideline, an SBP of <span class='no-wrap'><130 mm Hg</span> is recommended in adults with hypertension to prevent mild cognitive impairment and dementia.",
-    additionalInfo: "<b>Abbreviations:</b> ACC=American College of Cardiology; AHA=American Heart Association; SBP=systolic blood pressure.<br><br><b>Reference:</b> <b>1.</b> Jones DW, Ferdinand KC, Taler SJ, et al; Peer Review Committee Members. 2025 AHA/ACC/AANP/AAPA/ABC/ACCP/ACPM/AGS/AMA/ASPC/NMA/PCNA/SGIM guideline for the prevention, detection, evaluation, and management of high blood pressure in adults: a report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines. <i>J Am Coll Cardiol.</i> 2025;86(18):1567-1678.",
+    additionalInfo: "<b>Abbreviations:</b> ACC=American College of Cardiology; AHA=American Heart Association; SBP=systolic blood pressure.<br><br><b>Reference:</b> Jones DW, Ferdinand KC, Taler SJ, et al; Peer Review Committee Members. 2025 AHA/ACC/AANP/AAPA/ABC/ACCP/ACPM/AGS/AMA/ASPC/NMA/PCNA/SGIM guideline for the prevention, detection, evaluation, and management of high blood pressure in adults: a report of the American College of Cardiology/American Heart Association Joint Committee on Clinical Practice Guidelines. <i>J Am Coll Cardiol.</i> 2025;86(18):1567-1678.",
     finePrint: ""
   },
   {
@@ -60,9 +60,9 @@ const questions = [
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in SBP significantly reduces the risk of major CV events, HF, and stroke.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; SBP=systolic blood pressure; TIA=transient ischemic attack.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risks for events were as follows: major CV events: 20% (RR=0.80; 95% CI: 0.77-0.83); stroke: 27% (RR=0.73; 95% CI: 0.68-0.77); HF: 28% (RR=0.72; 95% CI: 0.67-0.78).</span>"
+    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in SBP significantly reduces the risk of major CV events, HF, and stroke.*",
+    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; SBP=systolic blood pressure; TIA=transient ischemic attack.<br><br><b>Reference:</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risks for events were as follows: major CV events: 20% (RR=0.80; 95% CI: 0.77–0.83); stroke: 27% (RR=0.73; 95% CI: 0.68–0.77); HF: 28% (RR=0.72; 95% CI: 0.67–0.78).</span>"
   },
   {
     id: 7,
@@ -70,9 +70,9 @@ const questions = [
     type: "multiple",
     options: ["5%", "10%", "20%", "100%"],
     correctAnswer: "20%",
-    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of major CV events by 20%.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for major CV events was: 20% (RR=0.80; 95% CI: 0.77-0.83).</span>"
+    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of major CV events by 20%.*",
+    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet</i>. 2016;387(10022):957-967.",
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for major CV events was: 20% (RR=0.80; 95% CI: 0.77–0.83).</span>"
   },
   {
     id: 8,
@@ -80,9 +80,9 @@ const questions = [
     type: "multiple",
     options: ["7%", "17%", "27%", "37%"],
     correctAnswer: "27%",
-    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of stroke by 27%.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for stroke was: 27% (RR=0.73; 95% CI: 0.68-0.77).</span>"
+    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of stroke by 27%.*",
+    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for stroke was: 27% (RR=0.73; 95% CI: 0.68–0.77).</span>"
   },
   {
     id: 9,
@@ -90,9 +90,9 @@ const questions = [
     type: "multiple",
     options: ["8%", "18%", "28%", "38%"],
     correctAnswer: "28%",
-    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of heart failure by 28%.<sup>*</sup>",
-    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> <b>1.</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
-    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for HF was: 28% (RR=0.72; 95% CI: 0.67-0.78).</span>"
+    explanation: "Every <span class='no-wrap'>10 mm Hg</span> reduction in systolic blood pressure significantly reduces the risk of heart failure by 28%.*",
+    additionalInfo: "<b>Abbreviations:</b> BP=blood pressure; CI=confidence interval; CV=cardiovascular; HF=heart failure; MI=myocardial infarction; RR=relative risk; TIA=transient ischemic attack.<br><br><b>Reference:</b> Ettehad D, Emdin CA, Kiran A, et al. Blood pressure lowering for prevention of cardiovascular disease and death: a systematic review and meta-analysis. <i>Lancet.</i> 2016;387(10022):957-967.",
+    finePrint: "<span class='sup-asterisk'>Systematic review and meta-analysis of 123 randomized trials (published between 1966 and 2015) that evaluated the effects of BP lowering on CV disease and mortality across various baseline BP levels and comorbidities in 613,815 participants. Data were also extracted for major CV disease events (defined as fatal and nonfatal MI, sudden cardiac death, revascularization, fatal and nonfatal stroke, and fatal and nonfatal HF), stroke (fatal and nonfatal, excluding TIA), and HF (new diagnosis of HF, hospital admission, or death). The relative risk for HF was: 28% (RR=0.72; 95% CI: 0.67–0.78).</span>"
   },
   {
     id: 10,
@@ -101,7 +101,7 @@ const questions = [
     options: ["True", "False"],
     correctAnswer: "True",
     explanation: "Under normal physiology, aldosterone plays an important role in controlling BP by regulating the balance of sodium, potassium, and water.<sup>1-3</sup>",
-    additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>Reference:</b> <b>1.</b> Scott JH, Menouar MA, Dunn RJ. Physiology, aldosterone. In: StatPearls. StatPearls Publishing; 2023. Updated May 1, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470339/ <b>2.</b> Fountain JH, Kaur J, Lappin SL. Physiology, renin angiotensin system. StatPearls Publishing; 2023. Updated March 12, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470410/ <b>3.</b> Hargovan M, Ferro A. Aldosterone synthase inhibitors in hypertension: current status and future possibilities. <i>JRSM Cardiovasc Dis.</i> 2014;3:2048004014522440.",
+    additionalInfo: "<b>Abbreviation:</b>Abbreviation: BP=blood pressure.<br><br><b>References:</b> <b>1.</b> Scott JH, Menouar MA, Dunn RJ. Physiology, aldosterone. In: StatPearls [Internet]. Treasure Island (FL): StatPearls Publishing. Updated May 1, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470339/  <b>2.</b> Fountain JH, Kaur J, Lappin SL. Physiology, renin angiotensin system. StatPearls Publishing; 2023. Updated March 12, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470410/ <b>3.</b> Hargovan M, Ferro A. Aldosterone synthase inhibitors in hypertension: current status and future possibilities. <i>JRSM Cardiovasc Dis.</i> 2014;3:2048004014522440.",
     finePrint: ""
   },
   {
@@ -111,7 +111,7 @@ const questions = [
     options: ["True", "False"],
     correctAnswer: "True",
     explanation: "Excess circulating aldosterone contributes to inflammation and fibrosis of the heart, vasculature, and kidneys, leading to end-organ damage.<sup>1,2</sup>",
-    additionalInfo: "<b>References:</b> <b>1.</b> Lin X, Ullah MHE, Wu X, et al. Cerebro-cardiovascular risk, target organ damage, and treatment outcomes in primary aldosteronism. <i>Front Cardiovasc Med.</i> 2022;8:798364. <b>2.</b> Brown NJ. Contribution of aldosterone to cardiovascular and renal inflammation and fibrosis. <i>Nat Rev Nephrol.</i> 2013;9(8):459-469.",
+    additionalInfo: "<b>References:</b> <b>1.</b> Lin X, Ullah MHE, Wu X, et al. Cerebro-cardiovascular risk, target organ damage, and treatment outcomes in primary aldosteronism. <i>Front Cardiovasc Med.</i> 2022;8:798364. <b>2.</b> Brown NJ. Contribution of aldosterone to cardiovascular and renal inflammation and fibrosis. <i>Nat Rev Nephrol.</i> 2013;9(8):459-469.",
     finePrint: ""
   },
   {
@@ -121,47 +121,37 @@ const questions = [
     options: ["True", "False"],
     correctAnswer: "False",
     explanation: "Existing therapies do not directly target aldosterone synthesis and do not fully address the effects of excess aldosterone.",
-    additionalInfo: "<b>References:</b> <b>1.</b> Leopold JA, Ingelfinger JR. Aldosterone and treatment-resistant hypertension. <i>N Engl J Med.</i> 2023;388(5):464-467.",
+    additionalInfo: "<b>Reference:</b> Leopold JA, Ingelfinger JR. Aldosterone and treatment-resistant hypertension.<i> N Engl J Med.</i> 2023;388(5):464-467.",
     finePrint: ""
   },
   {
     id: 13,
     text: "Aldosterone production occurs in the ______________.",
     type: "multiple",
-    options: ["Adrenal glands", "Liver", "Small intestines", "Kidneys"],
+    options: ["Adrenal glands", "Liver", "Small intestine", "Kidneys"],
     correctAnswer: "Adrenal glands",
-    explanation: "Aldosterone production occurs in the adrenal glands<sup>1</sup>",
-    additionalInfo: "<b>References:</b> <b>1.</b> Crompton M, Skinner LJ, Satchell SC, et al. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004.",
+    explanation: "Aldosterone production occurs in the adrenal glands.",
+    additionalInfo: "<b>References:</b> Crompton M, Skinner LJ, Satchell SC, et al. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004.",
     finePrint: ""
   },
   {
     id: 14,
-    text: "Current treatment options can directly address aldosterone production.",
-    type: "boolean",
-    options: ["True", "False"],
-    correctAnswer: "False",
-    explanation: "Existing therapies do not directly target aldosterone synthesis and do not fully address the effects of excess aldosterone<sup>1</sup>",
-    additionalInfo: "<b>References:</b> <b>1.</b> Leopold JA, Ingelfinger JR. Aldosterone and Treatment-Resistant Hypertension. <i>N Engl J Med.</i> 2023;388(5):464-467.",
-    finePrint: ""
-  },
-  {
-    id: 15,
     text: "Existing therapies may cause a counterregulatory increase in aldosterone over time.",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "MRAs have been associated with increased levels of aldosterone and may also induce a renin-dependent, counterregulatory increase in aldosterone levels<sup>1-3</sup><br><br>ACEi/ARBs may not uniformly suppress RAAS, with some patients (10%-53%) experiencing increases in serum aldosterone over time, a phenomenon known as aldosterone breakthrough<sup>4</sup>",
-    additionalInfo: "<b>Abbreviations:</b> ACEi=angiotensin-converting enzyme inhibitor; ARB=angiotensin receptor blocker; MRA=mineralocorticoid receptor antagonist; RAAS=renin-angiotensin-aldosterone system.<br><br><b>References:</b> <b>1.</b> Kobayashi M, Stienen S, Ter Maaten JM, et al. Clinical determinants and prognostic implications of renin and aldosterone in patients with symptomatic heart failure. <i>ESC Heart Fail.</i> 2020;7(3):953-963. <b>2.</b> Azizi M. Decreasing the effects of aldosterone in resistant hypertension — a success story. <i>N Engl J Med.</i> 2023;388(5):461-463. <b>3.</b> Agarwal R, Kolkhof P, Bakris GL, et al. Steroidal and non-steroidal mineralocorticoid receptor antagonists in cardiorenal medicine. <i>Eur Heart J.</i> 2021;42(2):152-161. <b>4.</b> Bomback AS, Klemmer PJ. The incidence and implications of aldosterone breakthrough. <i>Nat Clin Pract Nephrol.</i> 2007;3(9):486-492.",
+    explanation: "MRAs have been associated with increased levels of aldosterone and may also induce a renin-dependent, counterregulatory increase in aldosterone.<sup>1-3</sup><br><br>ACEi/ARBs may not uniformly suppress RAAS, with some patients (10%-53%) experiencing increases in serum aldosterone over time, a phenomenon known as aldosterone breakthrough.<sup>4</sup>",
+    additionalInfo: "<b>Abbreviations:</b> ACEi=angiotensin-converting enzyme inhibitor; ARB=angiotensin receptor blocker; MRA=mineralocorticoid receptor antagonist; RAAS=renin-angiotensin-aldosterone system.<br><Br><b>References:</b> <b>1.</b> Kobayashi M, Stienen S, Ter Maaten JM, et al. Clinical determinants and prognostic implications of renin and aldosterone in patients with symptomatic heart failure. <i>ESC Heart Fail.</i> 2020;7(3):953-963. <b>2.</b> Azizi M. Decreasing the effects of aldosterone in resistant hypertension — a success story. <i>N Engl J Med.</i> 2023;388(5):461‑463. <b>3.</b> Agarwal R, Kolkhof P, Bakris G, et al. Steroidal and non‑steroidal mineralocorticoid receptor antagonists in cardiorenal medicine. <i>Eur Heart J.</i> 2021;42(2):152‑161. <b>4.</b> Bomback AS, Klemmer PJ. The incidence and implications of aldosterone breakthrough. <i>Nat Clin Pract Nephrol.</i> 2007;3(9):486‑492.",
     finePrint: ""
   },
   {
-    id: 16,
+    id: 15,
     text: "Aldosterone can be a driving force behind hypertension",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
     explanation: "While it does play an important role in controlling BP, aldosterone can also lead to elevated BP<sup>1</sup>",
-    additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>Reference:</b>  1. Crompton M, Skinner LJ, Satchell SC, Butler MJ. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004. ​",
+    additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>Reference:</b> Crompton M, Skinner LJ, Satchell SC, Butler MJ. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004. ​",
     finePrint: ""
   }
 ];

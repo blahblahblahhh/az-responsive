@@ -1187,7 +1187,7 @@ function hideImage(event) {
   }
 
   .home-button img {
-    height: clamp(32px, 4vw, 48px);
+    height: clamp(40px, 5vw, 60px);
   }
 
   .question-number {
@@ -1679,6 +1679,19 @@ function hideImage(event) {
     font-size: clamp(16px, 1.2vw, 20px) !important;
     width: 389.908px !important;
     min-height: 426.805px !important;
+  }
+
+  .question-1 .explanation-content {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  .question-14 .explanation-content {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+  .question-14 .explanation-content div {
+    font-size: 18px;
   }
 }
 
