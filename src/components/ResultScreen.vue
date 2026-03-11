@@ -213,7 +213,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 .game-complete-header {
   position: absolute;
   top: -100px;
-  left: 2rem;
+  left: clamp(2rem, 6vw, 5rem);
   z-index: 10;
 }
 
@@ -1059,5 +1059,9 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   padding-left: 0px;
   margin-left: 0px;
   border-radius: 0px;
+}
+
+.az-footer {
+  z-index: 1000;
 }
 </style>

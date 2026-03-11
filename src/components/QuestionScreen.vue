@@ -2047,4 +2047,8 @@ function hideImage(event) {
 .no-wrap {
   white-space: nowrap;
 }
+
+.additional-content b {
+  font-family: 'Inter-SemiBold', sans-serif;
+}
 </style>
