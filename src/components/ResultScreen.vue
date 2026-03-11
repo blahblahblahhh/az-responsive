@@ -256,7 +256,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   width: 1px;
   background-color: #FFF;
   height: 100%;
-  min-height: 400px;
+  min-height: 300px;
   opacity: 0.3;
 }
 
@@ -1016,6 +1016,38 @@ defineEmits(['viewLeaderboard', 'playAgain']);
 @media (min-width: 1681px) {
   .main-panel {
     top: 40% !important;
+    padding-top: 150px;
+    margin-top: 200px;
+    padding-bottom: 180px !important;
+  }
+
+  .game-complete-header {
+    left: 6rem;
+    z-index: 10;
+    top: -175px;
+  }
+
+  .trophy-container {
+    transform: scale(1.5);
+  }
+
+  .play-again-btn {
+    margin-top: 50px;
+    margin-right: 350px;
+    padding: 1rem 2.5rem;
+    font-size: 1.5rem;
+  }
+
+  .divider-line {
+    max-height: 300px;
+  }
+
+  .game-complete-header img {
+    min-width: 700px;
+  }
+
+  .trophy-section {
+    padding-left: 100px;
   }
 }
 
