@@ -1049,6 +1049,10 @@ defineEmits(['viewLeaderboard', 'playAgain']);
   .trophy-section {
     padding-left: 100px;
   }
+
+  .character-image {
+    top: 40%;
+  }
 }
 
 .main-panel {
