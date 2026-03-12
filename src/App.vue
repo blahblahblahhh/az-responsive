@@ -13,9 +13,9 @@
       @playAgain="resetGame"
     />
   </div>
-  <div class="az-footer">
-    <span v-if="currentComponent === WelcomeScreen">©2025 AstraZeneca. All rights reserved. US-103694 Last Updated 10/25</span>
-    <span class="az-logo" v-if="currentComponent != LeaderboardScreen && currentComponent != ResultScreen">
+  <div class="az-footer" :class="{ 'results-screen': currentComponent === ResultScreen }">
+    <span v-if="currentComponent === WelcomeScreen">©2026 AstraZeneca. All rights reserved. US-108639 Last Updated 2/26</span>
+    <span class="az-logo" v-if="currentComponent != LeaderboardScreen">
       <img src="/AZLOGO.png">
     </span>
   </div>
@@ -216,15 +216,15 @@ function resetGame() {
 
 html, body {
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
   width: 100%;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .app {
   height: 100vh;
   background-color: var(--background-color);
-  overflow: hidden;
+  /* overflow: hidden; */
   position: relative;
 }
 
@@ -269,6 +269,7 @@ html, body {
     justify-content: space-between;
     align-items: center;
     padding: clamp(1rem, 3vw, 2rem) clamp(1rem, 8vw, 6.5rem);
+    padding-right: 1rem;
     font-size: 11px;
 }
 
@@ -295,5 +296,10 @@ html, body {
   width: clamp(120px, 15vw, 206.757px);
   height: clamp(30px, 4vw, 51px);
   flex-shrink: 0;
+  z-index: 100;
+}
+
+.az-footer.results-screen {
+  z-index: 100;
 }
 </style>
