@@ -1035,7 +1035,7 @@ defineEmits(['viewLeaderboard', 'playAgain']);
     margin-top: 50px;
     margin-right: 350px;
     padding: 1rem 2.5rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .divider-line {

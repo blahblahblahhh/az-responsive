@@ -101,7 +101,7 @@ const questions = [
     options: ["True", "False"],
     correctAnswer: "True",
     explanation: "Under normal physiology, aldosterone plays an important role in controlling BP by regulating the balance of sodium, potassium, and water.<sup>1-3</sup>",
-    additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>References:</b> <b>1.</b> Scott JH, Menouar MA, Dunn RJ. Physiology, aldosterone. In: <i>StatPearls</i> [Internet]. Treasure Island (FL): StatPearls Publishing. Updated May 1, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470339/  <b>2.</b> Fountain JH, Kaur J, Lappin SL. Physiology, renin angiotensin system. StatPearls Publishing; 2023. Updated March 12, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470410/ <b>3.</b> Hargovan M, Ferro A. Aldosterone synthase inhibitors in hypertension: current status and future possibilities. <i>JRSM Cardiovasc Dis.</i> 2014;3:2048004014522440.",
+    additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>References:</b> <b>1.</b> Scott JH, Menouar MA, Dunn RJ. Physiology, aldosterone. In: <i>StatPearls</i> [Internet]. Treasure Island (FL): StatPearls Publishing. Updated May 1, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470339/  <b>2.</b> Fountain JH, Kaur J, Lappin SL. Physiology, renin angiotensin system. In: <i>StatPearls</i> [Internet].  Treasure Island (FL): StatPearls Publishing. Updated March 12, 2023. Accessed February 9, 2026. https://www.ncbi.nlm.nih.gov/books/NBK470410/ <b>3.</b> Hargovan M, Ferro A. Aldosterone synthase inhibitors in hypertension: current status and future possibilities. <i>JRSM Cardiovasc Dis.</i> 2014;3:2048004014522440.",
     finePrint: ""
   },
   {
@@ -131,7 +131,7 @@ const questions = [
     options: ["Adrenal glands", "Liver", "Small intestine", "Kidneys"],
     correctAnswer: "Adrenal glands",
     explanation: "Aldosterone production occurs in the adrenal glands.",
-    additionalInfo: "<b>References:</b> Crompton M, Skinner LJ, Satchell SC, et al. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004.",
+    additionalInfo: "<b>Reference:</b> Crompton M, Skinner LJ, Satchell SC, et al. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004.",
     finePrint: ""
   },
   {
@@ -146,11 +146,11 @@ const questions = [
   },
   {
     id: 15,
-    text: "Aldosterone can be a driving force behind hypertension",
+    text: "Aldosterone can be a driving force behind hypertension.",
     type: "boolean",
     options: ["True", "False"],
     correctAnswer: "True",
-    explanation: "While it does play an important role in controlling BP, aldosterone can also lead to elevated BP.<sup>1</sup>",
+    explanation: "While it does play an important role in controlling BP, aldosterone can also lead to elevated BP.",
     additionalInfo: "<b>Abbreviation:</b> BP=blood pressure.<br><br><b>Reference:</b> Crompton M, Skinner LJ, Satchell SC, Butler MJ. Aldosterone: essential for life but damaging to the vascular endothelium. <i>Biomolecules.</i> 2023;13(6):1004. ​",
     finePrint: ""
   }
