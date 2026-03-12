@@ -216,15 +216,14 @@ function resetGame() {
 
 html, body {
   height: 100vh;
-  overflow: scroll;
+  overflow: hidden;
   width: 100%;
-  /* position: fixed; */
 }
 
 .app {
   height: 100vh;
   background-color: var(--background-color);
-  /* overflow: hidden; */
+  overflow: hidden;
   position: relative;
 }
 
