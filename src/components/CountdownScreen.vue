@@ -204,7 +204,7 @@ defineEmits(['back', 'startGame']);
 }
 
 /* Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 900px), (max-height: 612px) {
   .content-overlay {
     padding: 2rem 1rem !important;
     align-items: center;
