@@ -35,7 +35,7 @@
           <!-- Play Again Button -->
           <button class="play-again-btn" @click="$emit('playAgain')">
             <img src="/play-again.png" alt="Play Again" class="btn-icon">
-            PLAY AGAIN
+            <span class="no-wrap">PLAY AGAIN</span>
           </button>
         </div>
 
