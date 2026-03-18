@@ -36,9 +36,10 @@ const gameStore = useGameStore();
 const { state, currentQuestion, playerType, leaderboard, questionsList } = storeToRefs(gameStore);
 const isLoading = ref(false);
 
-// Initialize questions when the app starts
-onMounted(() => {
-  console.log('App mounted - initializing questions');
+// Initialize questions and database when the app starts
+onMounted(async () => {
+  console.log('App mounted - initializing questions and database');
+  await gameStore.initializeDatabase();
   gameStore.initializeQuestions();
 });
 

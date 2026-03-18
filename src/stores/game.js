@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed, onMounted, nextTick } from 'vue';
-// import { initDB, saveScore, getTopScores } from './db'; // Import DB functions - commented out for this version
+import { initDB, saveScore, getTopScores } from './db.js'; // Import DB functions
 
 // Questions data
 const questions = [
@@ -172,7 +172,8 @@ export const useGameStore = defineStore('game', () => {
     selectedAnswer: null,
     showExplanation: false,
     showAdditionalInfo: false,
-    isFromResultsScreen: false
+    isFromResultsScreen: false,
+    questionResponses: [] // Track all question responses for CSV export
   });
 
   const timer = ref(null);
@@ -208,33 +209,37 @@ export const useGameStore = defineStore('game', () => {
     return question;
   });
 
-  // Initialize the database - commented out for this version
+  // Initialize the database
   async function initializeDatabase() {
-    // if (!dbInitialized) {
-    //   try {
-    //     await initDB();
-    //     dbInitialized = true;
-    //     console.log('Database initialized successfully');
-    //     await loadLeaderboard(); // Load the leaderboard after DB init
-    //   } catch (error) {
-    //     console.error('Failed to initialize database:', error);
-    //   }
-    // }
-    console.log('Database functionality disabled for this version');
+    console.log('=== INITIALIZING DATABASE ===');
+    console.log('Database already initialized?', dbInitialized);
+    if (!dbInitialized) {
+      try {
+        console.log('Calling initDB()...');
+        await initDB();
+        dbInitialized = true;
+        console.log('Database initialized successfully, dbInitialized =', dbInitialized);
+        await loadLeaderboard(); // Load the leaderboard after DB init
+      } catch (error) {
+        console.error('Failed to initialize database:', error);
+      }
+    } else {
+      console.log('Database already initialized, skipping...');
+    }
+    console.log('=== DATABASE INITIALIZATION COMPLETE ===');
   }
 
   async function loadLeaderboard() {
-    // try {
-    //   const scores = await getTopScores();
-    //   leaderboard.value = scores.map((entry, index) => ({
-    //     ...entry,
-    //     rank: index + 1
-    //   }));
-    //   console.log('Leaderboard loaded:', leaderboard.value);
-    // } catch (error) {
-    //   console.error('Error loading leaderboard:', error);
-    // }
-    console.log('Leaderboard loading disabled for this version');
+    try {
+      const scores = await getTopScores();
+      leaderboard.value = scores.map((entry, index) => ({
+        ...entry,
+        rank: index + 1
+      }));
+      console.log('Leaderboard loaded:', leaderboard.value);
+    } catch (error) {
+      console.error('Error loading leaderboard:', error);
+    }
   }
 
   async function initializeQuestions() {
@@ -282,7 +287,22 @@ export const useGameStore = defineStore('game', () => {
     state.value.selectedAnswer = answer;
     state.value.showExplanation = true;
     
-    if (answer === currentQuestion.value?.correctAnswer) {
+    const isCorrect = answer === currentQuestion.value?.correctAnswer;
+    
+    // Record the question response
+    const questionResponse = {
+      questionId: currentQuestion.value?.id,
+      questionText: currentQuestion.value?.text,
+      selectedAnswer: answer,
+      correctAnswer: currentQuestion.value?.correctAnswer,
+      isCorrect: isCorrect,
+      timeRemaining: state.value.timeRemaining,
+      timestamp: new Date().toISOString()
+    };
+    
+    state.value.questionResponses.push(questionResponse);
+    
+    if (isCorrect) {
       // Increment correct answers count
       state.value.correctAnswers++;
       
@@ -317,30 +337,43 @@ export const useGameStore = defineStore('game', () => {
     }
   }
 
-  // Updated to include correctAnswers in the leaderboard entry - IndexedDB saving disabled for this version
+  // Updated to include correctAnswers and questionResponses in the leaderboard entry
   async function addToLeaderboard() {
+    console.log('=== STARTING addToLeaderboard ===');
+    console.log('Current state:', state.value);
+    console.log('Player type:', playerType.value);
+    console.log('Database initialized:', dbInitialized);
+    
     const entry = {
       initials: state.value.playerInitials || 'AAA',
       score: state.value.score,
       type: playerType.value,
       bonusTimeScore: state.value.totalBonusTime, // Use the accumulated total bonus time
       correctAnswers: state.value.correctAnswers, // Add correct answers count
+      questionResponses: JSON.parse(JSON.stringify(state.value.questionResponses)), // Convert proxy to plain object
+      region: null, // Can be set later if needed
       date: new Date().toISOString()
     };
     
-    // try {
-    //   await saveScore(entry);
-    //   await loadLeaderboard(); // Refresh the leaderboard after adding a new score
-    // } catch (error) {
-    //   console.error('Error saving score:', error);
-    //   // Fallback to in-memory leaderboard if database fails
+    console.log('Entry to save:', entry);
+    
+    try {
+      console.log('Attempting to save score...');
+      await saveScore(entry);
+      console.log('Score saved successfully, refreshing leaderboard...');
+      await loadLeaderboard(); // Refresh the leaderboard after adding a new score
+      console.log('Leaderboard refreshed successfully');
+    } catch (error) {
+      console.error('Error saving score:', error);
+      console.log('Falling back to in-memory leaderboard');
+      // Fallback to in-memory leaderboard if database fails
       leaderboard.value.push(entry);
       leaderboard.value.sort((a, b) => b.score - a.score);
       leaderboard.value.forEach((entry, index) => {
         entry.rank = index + 1;
       });
-    // }
-    console.log('Score saved to in-memory leaderboard only (IndexedDB disabled)');
+    }
+    console.log('=== FINISHED addToLeaderboard ===');
   }
 
   function toggleFinePrint() {
@@ -364,13 +397,13 @@ export const useGameStore = defineStore('game', () => {
       selectedAnswer: null,
       showExplanation: false,
       showAdditionalInfo: false,
-        isFromResultsScreen: false
+      isFromResultsScreen: false,
+      questionResponses: [] // Reset question responses
     };
     initializeQuestions();
   }
 
-  // Initialize database and questions when store is created
-  initializeDatabase();
+  // Initialize questions when store is created (database initialization happens in App.vue)
   initializeQuestions();
 
   return {

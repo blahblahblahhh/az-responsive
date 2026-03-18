@@ -16,13 +16,24 @@
         </button>
       </div>
     </div>
+    
+    <!-- Admin Modal -->
+    <AdminModal
+      :showModal="showAdminModal"
+      @close="closeAdminModal"
+      @clearLeaderboard="handleClearLeaderboard"
+      @exportCSV="handleExportCSV"
+    />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
+import AdminModal from './AdminModal.vue';
+import { clearAllScores, exportToCSV } from '../stores/db.js';
 
 const videoRef = ref(null);
+const showAdminModal = ref(false);
 
 defineEmits(['startQuiz']);
 
@@ -33,7 +44,37 @@ onMounted(() => {
       console.log('Autoplay was prevented:', error);
     });
   }
+  
+  // Check for admin URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('admin')) {
+    showAdminModal.value = true;
+  }
 });
+
+function closeAdminModal() {
+  showAdminModal.value = false;
+}
+
+async function handleClearLeaderboard() {
+  try {
+    await clearAllScores();
+    alert('All data has been cleared successfully!');
+  } catch (error) {
+    console.error('Error clearing data:', error);
+    alert('Error clearing data. Please try again.');
+  }
+}
+
+async function handleExportCSV() {
+  try {
+    await exportToCSV();
+    alert('CSV export completed successfully!');
+  } catch (error) {
+    console.error('Error exporting CSV:', error);
+    alert('Error exporting CSV. Please try again.');
+  }
+}
 </script>
 
 <style scoped>
