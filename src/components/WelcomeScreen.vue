@@ -4,6 +4,9 @@
       <source src="/NudgeGauge_1.mp4" type="video/mp4">
     </video>
     <div class="content-overlay">
+      <!-- Hidden admin trigger button -->
+      <div class="admin-trigger" @click="handleAdminClick"></div>
+      
       <div class="header-section">
         <p class="question-text">
           How much do <i>you</i><br>
@@ -34,6 +37,8 @@ import { clearAllScores, exportToCSV } from '../stores/db.js';
 
 const videoRef = ref(null);
 const showAdminModal = ref(false);
+const clickCount = ref(0);
+const clickTimer = ref(null);
 
 defineEmits(['startQuiz']);
 
@@ -75,6 +80,30 @@ async function handleExportCSV() {
     alert('Error exporting CSV. Please try again.');
   }
 }
+
+function handleAdminClick() {
+  clickCount.value++;
+  
+  // Clear any existing timer
+  if (clickTimer.value) {
+    clearTimeout(clickTimer.value);
+  }
+  
+  // Set timer to reset clicks after 10 seconds
+  clickTimer.value = setTimeout(() => {
+    clickCount.value = 0;
+  }, 10000);
+  
+  // If 5 clicks reached, open admin modal
+  if (clickCount.value >= 5) {
+    showAdminModal.value = true;
+    clickCount.value = 0; // Reset counter
+    if (clickTimer.value) {
+      clearTimeout(clickTimer.value);
+      clickTimer.value = null;
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -105,6 +134,19 @@ async function handleExportCSV() {
   background: 
     linear-gradient(to bottom, transparent 50%, rgba(15, 45, 66, 0.85) 100%),
     linear-gradient(90deg, rgba(15, 45, 66, 0.85) 0%, rgba(15, 45, 66, 0.6) 40%, transparent 70%);
+}
+
+.admin-trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  cursor: pointer;
+  z-index: 10;
+  /* Uncomment for debugging - shows the clickable area */
+  /* background: rgba(255, 0, 0, 0.1); */
 }
 
 .header-section {
